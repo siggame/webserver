@@ -1,0 +1,16 @@
+# Install a default superuser named "superuser" whose password is 123
+- fields:
+    date_joined: 2013-02-01 13:31:04.227156
+    email: none@none.com
+    first_name: 'Super'
+    groups: []
+    is_active: true
+    is_staff: true
+    is_superuser: true
+    last_login: 2013-02-01 13:31:09.693682
+    last_name: 'User'
+    password: pbkdf2_sha256$10000$Vwt3m8UAkvNP$bGlqc6lWlUMGHEZJj73hyrtQffFs4182oMVnNVaDmbY=
+    user_permissions: []
+    username: superuser
+  model: auth.user
+  pk: 1

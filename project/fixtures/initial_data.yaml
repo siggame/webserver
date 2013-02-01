@@ -1,0 +1,6 @@
+- fields: {domain: 'localhost:8000', name: localhost}
+  model: sites.site
+  pk: 1
+- fields: {domain: megaminerai.com, name: MegaMinerAI}
+  model: sites.site
+  pk: 2

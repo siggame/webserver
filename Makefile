@@ -19,7 +19,7 @@ bootstrap.py:
 db:
 	rm -f var/db/*.db
 	python bin/django syncdb --noinput
-	python bin/django loaddata src/competition/fixtures/*.yaml
+	python bin/django loaddata project/fixtures/development_data.yaml
 
 test: bin/buildout
 	python bin/buildout install simple-django
