@@ -2,8 +2,8 @@
 
 These settings should **NOT** be used to deploy
 """
-import project.settings
-from project.settings import *
+import project.settings.defaults as default_settings
+from project.settings.defaults import *
 
 # Choose which site we're using. initial_data.yaml installs some
 # fixture data so that localhost:8000 has SIDE_ID == 1, and
@@ -22,10 +22,10 @@ DATABASES = {
     }
 }
 
-MIDDLEWARE_CLASSES = project.settings.MIDDLEWARE_CLASSES + (
+MIDDLEWARE_CLASSES = default_settings.MIDDLEWARE_CLASSES + (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-INSTALLED_APPS = project.settings.INSTALLED_APPS + (
+INSTALLED_APPS = default_settings.INSTALLED_APPS + (
     'debug_toolbar',
 )

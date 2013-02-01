@@ -1,7 +1,8 @@
 import os
 
 SETTINGS_DIR = os.path.dirname(__file__)
-BUILDOUT_DIR = os.path.dirname(SETTINGS_DIR)
+PROJECT_DIR = os.path.dirname(SETTINGS_DIR)
+BUILDOUT_DIR = os.path.dirname(PROJECT_DIR)
 VAR_DIR = os.path.join(BUILDOUT_DIR, "var")
 
 # If a secret_settings file isn't defined, open a new one and save a
@@ -29,7 +30,7 @@ DATABASES = None
 # Add project/fixtures to the list of places where django looks for
 # fixtures to install.
 FIXTURE_DIRS = (
-    os.path.join(SETTINGS_DIR, "fixtures"),
+    os.path.join(PROJECT_DIR, "fixtures"),
 )
 
 # Local time zone for this installation. Choices can be found here:
@@ -82,7 +83,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SETTINGS_DIR, "static"),
+    os.path.join(PROJECT_DIR, "static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -115,7 +116,7 @@ TEMPLATE_DIRS = (
     # "C:/www/django/templates".  Always use forward slashes, even on
     # Windows.  Don't forget to use absolute paths, not relative
     # paths.
-    os.path.join(SETTINGS_DIR, "templates"),
+    os.path.join(PROJECT_DIR, "templates"),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
