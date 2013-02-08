@@ -127,23 +127,35 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',  # for django-admin-tools
+
+    # for django-admin-tools and zinnia
+    'django.core.context_processors.request',
+
+    # Optional for Zinnia
+    'zinnia.context_processors.version',
 )
 
 INSTALLED_APPS = (
+    # Django Admin Tools
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
 
     'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.comments',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.staticfiles',
+
+    # Zinnia
+    'tagging',
+    'mptt',
+    'zinnia',
 
     'django_extensions',
     'django_nose',
