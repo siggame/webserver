@@ -24,6 +24,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Sets the testrunner to Nose
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 # Should be overridden by development.py or production.py
 DATABASES = None
 
