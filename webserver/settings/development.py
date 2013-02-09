@@ -22,7 +22,13 @@ DATABASES = {
     }
 }
 
+
+# Config for Django Debug Toolbar
 INTERNAL_IPS = ('127.0.0.1',)
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+}
 
 MIDDLEWARE_CLASSES = default_settings.MIDDLEWARE_CLASSES + (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
