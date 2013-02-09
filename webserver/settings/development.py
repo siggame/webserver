@@ -2,8 +2,8 @@
 
 These settings should **NOT** be used to deploy
 """
-import project.settings.defaults as default_settings
-from project.settings.defaults import *
+import webserver.settings.defaults as default_settings
+from webserver.settings.defaults import *
 
 # Choose which site we're using. initial_data.yaml installs some
 # fixture data so that localhost:8000 has SIDE_ID == 1, and

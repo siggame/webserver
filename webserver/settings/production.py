@@ -1,7 +1,7 @@
 """Settings file for project deployment
 
 """
-from project.settings.defaults import *
+from webserver.settings.defaults import *
 
 # Choose which site we're using. initial_data.yaml installs some
 # fixture data so that localhost:8000 has SIDE_ID == 1, and

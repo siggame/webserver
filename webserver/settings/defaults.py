@@ -24,6 +24,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Sets up the get_profile() method for User
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
 # Sets the testrunner to Nose
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -112,7 +115,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'webserver.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or
@@ -163,6 +166,8 @@ INSTALLED_APPS = (
     'mptt',
     'zinnia_bootstrap',
     'zinnia',
+
+    'webserver.accounts',
 
     'django_extensions',
     'django_nose',
