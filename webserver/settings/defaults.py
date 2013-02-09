@@ -1,4 +1,5 @@
 import os
+from django.contrib import messages
 
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_DIR = os.path.dirname(SETTINGS_DIR)
@@ -32,6 +33,15 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Disable the WYSIWIG editor and use a markup language instaead.
 ZINNIA_MARKUP_LANGUAGE = 'markdown'
+
+# Change the default messgae tags to play nice with Bootstrap
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-debug',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-error',
+}
 
 # Should be overridden by development.py or production.py
 DATABASES = None

@@ -1,17 +1,39 @@
 {% extends "base.html" %}
 
+{% block page-header %}
+  <div class="page-header">
+    <h1>Competitors <small>Friends and Foes</small></h1>
+  </div>
+{% endblock %}
+
 {% block content %}
 
-  <h2>Competitors</h2>
+  <table class="table">
+    <caption>
+      Your fellow competitors.
+      <br>
+      All your teammates and nemeses in the same place.
+    </caption>
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profile in userprofiles %}
+        <tr>
+          <td>
+            <a href="{{profile.get_absolute_url}}">
+              {% firstof profile.user.get_name profile.user.username %}
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-  <ul>
-    {% for profile in userprofiles %}
-      <li>
-        <a href="{{profile.get_absolute_url}}">
-          {% firstof profile.user.get_name profile.user.username %}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+{% endblock %}
 
+{% block sidebar %}
+  {% include "accounts/_profiles_sidebar.html" with active="all" %}
 {% endblock %}

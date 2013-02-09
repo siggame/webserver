@@ -24,14 +24,12 @@ class UserProfileForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Fieldset(
-                'Update Profile',
-                'first_name',
-                'last_name',
-                'email',
-                HTML('<hr>'),
-                Field('about_me', placeholder="Tell us about yourself!"),
-                ),
+            Field('first_name'),
+            Field('last_name'),
+            Field('email'),
+            HTML('<hr>'),
+            Field('about_me', placeholder="Tell us about yourself!", 
+                  css_class="input-block-level"),
             FormActions(
                 Submit('save', 'Save changes'),
                 Button('cancel', 'Cancel')

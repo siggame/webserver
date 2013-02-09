@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 
 from models import UserProfile
 from forms import UserProfileForm
@@ -51,3 +52,7 @@ class ProfileUpdateView(ProfileMixin, UpdateView):
         initial['last_name'] = self.request.user.last_name
         initial['email'] = self.request.user.email
         return initial
+
+    def form_valid(self, form):
+        messages.success(self.request, "Profile updated")
+        return super(ProfileUpdateView, self).form_valid(form)

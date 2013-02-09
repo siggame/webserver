@@ -16,7 +16,11 @@
     <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
     <style type="text/css">
       body {
-      padding-top: 40px;
+        padding-top: 40px;
+      }
+      .breadcrumb {
+        margin-bottom: 0;
+        background-color: #e5e5e5;
       }
     </style>
 
@@ -28,7 +32,7 @@
     {% block link %}{% endblock %}
   </head>
   <body>
-    <div id="wrap"> 
+    <div id="wrap">
       <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
@@ -49,19 +53,24 @@
       </div>
 
       <div class="container">
-        {% block breadcrumbs %}{% endblock %}
+        {% block breadcrumbs %}
+          <div id="no-breadcrumb"></div>
+        {% endblock %}
       </div>
 
       {% block slider %}{% endblock %}
 
       <div class="container">
+        {% include "_messages.html" %}
         <div class="row">
-          <div id="content" class="span8">
+          <div id="content" class="span9">
+            {% block page-header %}
+            {% endblock %}
             {% block content %}
             {% endblock %}
           </div>
 
-          <div id="sidebar" class="span4">
+          <div id="sidebar" class="span3">
             {% block sidebar %}
               <div id="no-sidebar"></div>
             {% endblock %}
@@ -85,7 +94,16 @@
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     <script>
       if ($("#no-sidebar").length > 0) {
-        $("#content").toggleClass('span8');
+        $("#content").toggleClass('span9');
+      }
+      if ($("#no-breadcrumb").length > 0) {
+        $("#content").parent().css('margin-top', '20px');
+      }
+      if (window.location.pathname.match(/^\/weblog\/$/) != null) {
+        $("#zinnia-tab").toggleClass("active");
+      }
+      if (window.location.pathname.match(/^\/profile/) != null) {
+        $("#profile-tab").toggleClass("active");
       }
     </script>
     {% block script %}{% endblock %}
