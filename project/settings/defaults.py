@@ -152,6 +152,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.staticfiles',
 
+    # django-crispy-forms
+    'crispy_forms',
+
     # Zinnia
     'tagging',
     'mptt',
