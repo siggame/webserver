@@ -51,4 +51,3 @@ class ProfileUpdateView(ProfileMixin, UpdateView):
         initial['last_name'] = self.request.user.last_name
         initial['email'] = self.request.user.email
         return initial
-

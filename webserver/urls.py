@@ -25,4 +25,3 @@ if settings.DEBUG:
         (r'^static/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.STATIC_ROOT}),
     )
-

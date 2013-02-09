@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 
-from webserver.accounts.views import ProfileListView, ProfileView, ProfileUpdateView
+from webserver.accounts.views import (ProfileListView, ProfileView,
+                                      ProfileUpdateView)
 
 
 urlpatterns = patterns(
@@ -17,4 +18,3 @@ urlpatterns = patterns(
         ProfileUpdateView.as_view(),
         name="update_profile"),
 )
-

@@ -22,7 +22,7 @@
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <![endif]-->
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}/static/favicon.ico" />
     {% block link %}{% endblock %}
@@ -63,7 +63,7 @@
 
           <div id="sidebar" class="span4">
             {% block sidebar %}
-              <div id="no-sidebar"></div>             
+              <div id="no-sidebar"></div>
             {% endblock %}
           </div>
         </div>
@@ -74,7 +74,7 @@
     </div>
 
     <div id="footer">
-      <div class="container">     
+      <div class="container">
         <p>Powered by <a href="http://www.djangoproject.com">Django</a> and <a href="https://github.com/Fantomas42/django-blog-zinnia">Zinnia {{ ZINNIA_VERSION }}</a>.</p>
       </div>
     </div>
@@ -87,7 +87,7 @@
       if ($("#no-sidebar").length > 0) {
         $("#content").toggleClass('span8');
       }
-    </script>               
+    </script>
     {% block script %}{% endblock %}
 
   </body>
