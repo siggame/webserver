@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>Competitors</h2>
+
+  <ul>
+	{% for profile in userprofiles %}
+	  <li>
+		<a href="{{profile.get_absolute_url}}">
+		  {% firstof profile.user.get_name profile.user.username %}
+		</a>
+	  </li>
+	{% endfor %}
+  </ul>
+
+{% endblock %}

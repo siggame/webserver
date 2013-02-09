@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="hero-unit">  
+  <h2>{% firstof userprofile.user.get_name userprofile.user.username %}</h2>
+</div>
+  
+
+{% endblock %}

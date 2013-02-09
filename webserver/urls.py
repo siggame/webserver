@@ -8,6 +8,8 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
+    url(r'^', include('webserver.accounts.urls')),
+
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),
 

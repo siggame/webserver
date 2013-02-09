@@ -3,135 +3,92 @@
 <!doctype html>
 <html lang="en">
   <head>
-	<!-- Meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	{% block meta %}{% endblock %}
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block meta %}{% endblock %}
 
-	<!-- Title -->
-	<title>{% block title %}{% endblock %}</title>
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
 
-	<!-- Links and style -->
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
-	<link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
-	<style type="text/css">
-	  body {
-	  padding-top: 40px;
-	  }
-	</style>
+    <!-- Links and style -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+      padding-top: 40px;
+      }
+    </style>
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-	<link rel="shortcut icon" href="{{ STATIC_URL }}/static/favicon.ico" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}zinnia_bootstrap/bootstrap/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}zinnia_bootstrap/bootstrap/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}zinnia_bootstrap/bootstrap/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}zinnia_bootstrap/bootstrap/ico/apple-touch-icon-57-precomposed.png">
-	{% block link %}{% endblock %}
+    <link rel="shortcut icon" href="{{ STATIC_URL }}/static/favicon.ico" />
+    {% block link %}{% endblock %}
   </head>
   <body>
-	<div id="wrap">	
-	  <div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-		  <div class="container">
-			<a href="/" title="SIG-Game" class="brand" rel="home">
-			  SIG-Game
-			</a>
-			<ul class="nav pull-left">
-			  <li class="dropdown">
-				<a href="#" class="toggle-dropdown" data-toggle="dropdown">
-				  Blog
-				</a>
-				<ul class="dropdown-menu" role="menu">
-				  <li>
-					<a href="{% url 'zinnia_entry_archive_index' %}" title="Blog">
-					  Blog
-					</a>
-				  </li>
-				  <li class="divider"></li>
-				  <li>
-					<a href="{% url 'zinnia_category_list' %}" title="Category list">
-					  Categories
-					</a>
-				  </li>
-				  <li>
-					<a href="{% url 'zinnia_author_list' %}" title="Author list">
-					  Authors
-					</a>
-				  </li>
-				  <li>
-					<a href="{% url 'zinnia_tag_list' %}" title="Tag list">
-					  Tags
-					</a>
-				  </li>
-				</ul>
-			  </li>
-			</ul>
-			<form method="get" action="{% url 'zinnia_entry_search' %}" class="navbar-search pull-left">
-			  <input type="text" class="search-query" placeholder="Search" name="pattern" value="{{ pattern }}" />
-			</form>
-			<ul class="nav pull-right">
-			  {% url 'zinnia_sitemap' as sitemap_url %}
-			  <li {% if sitemap in request.path %}class="active"{% endif %}>
-			  <li>
-				<a href="{{ sitemap_url }}" title="Sitemap" class="sitemap">
-				  Sitemap
-				</a>
-			  </li>
-			  <li class="divider-vertical"></li>
-			  <li>
-				<a href="{% url 'zinnia_entry_latest_feed' %}" title="RSS Feed of latest entries" class="feeds">
-				  RSS Feed
-				</a>
-			  </li>
-			</ul>
-		  </div>
-		</div>
-	  </div>
+    <div id="wrap"> 
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a href="/" title="SIG-Game" class="brand" rel="home">
+              SIG-Game
+            </a>
+            <ul class="nav pull-left">
+              {% include "navbar/_zinnia.html" %}
+              {% include "navbar/_profile.html" %}
+            </ul>
+            <ul class="nav pull-right">
+              <form method="get" action="{% url 'zinnia_entry_search' %}" class="navbar-search pull-left">
+                <input type="text" class="search-query" placeholder="Search" name="pattern" value="{{ pattern }}" />
+              </form>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-	  <div class="container">
-		{% block breadcrumbs %}{% endblock %}
-	  </div>
+      <div class="container">
+        {% block breadcrumbs %}{% endblock %}
+      </div>
 
-	  {% block slider %}{% endblock %}
+      {% block slider %}{% endblock %}
 
-	  <div class="container">
-		<div class="row">
-		  <div id="content" class="hfeed span8">
-			{% block content %}
-			{% endblock %}
-		  </div>
+      <div class="container">
+        <div class="row">
+          <div id="content" class="hfeed span8">
+            {% block content %}
+            {% endblock %}
+          </div>
 
-		  <div id="sidebar" class="span4">
-			<div id="widget-welcome" class="widget well">
-			  <h3>Welcome!</h3>
-			  <p>
-				This simple skin is a base theme implementing Twitter's Bootstrap CSS toolkit.
-			  </p>
-			</div>
-			{% block sidebar %}
-			{% endblock %}
-		  </div>
-		</div>
-	  </div>
+          <div id="sidebar" class="span4">
+            <div id="widget-welcome" class="widget well">
+              <h3>Welcome!</h3>
+              <p>
+                This simple skin is a base theme implementing Twitter's Bootstrap CSS toolkit.
+              </p>
+            </div>
+            {% block sidebar %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
 
-	  <div id="push"></div>
+      <div id="push"></div>
 
-	</div>
+    </div>
 
-	<div id="footer">
-	  <div class="container">	  
-		<p>Powered by <a href="http://www.djangoproject.com">Django</a> and <a href="https://github.com/Fantomas42/django-blog-zinnia">Zinnia {{ ZINNIA_VERSION }}</a>.</p>
-	  </div>
-	</div>
+    <div id="footer">
+      <div class="container">     
+        <p>Powered by <a href="http://www.djangoproject.com">Django</a> and <a href="https://github.com/Fantomas42/django-blog-zinnia">Zinnia {{ ZINNIA_VERSION }}</a>.</p>
+      </div>
+    </div>
 
-	<!-- Scripts -->
-	<!-- Put them at the end so the page loads faster -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
-	{% block script %}{% endblock %}
+    <!-- Scripts -->
+    <!-- Put them at the end so the page loads faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+    {% block script %}{% endblock %}
 
   </body>
 </html>
