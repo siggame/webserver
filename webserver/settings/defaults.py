@@ -30,6 +30,9 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 # Sets the testrunner to Nose
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+# Disable the WYSIWIG editor and use a markup language instaead.
+ZINNIA_MARKUP_LANGUAGE = 'markdown'
+
 # Should be overridden by development.py or production.py
 DATABASES = None
 
