@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block meta %}
+
+  <meta name="description" content="{% block meta-description %}Blog for Missouri S&amp;T SIG-Game{% endblock %}" />
+
+{% endblock %}
+
+
+{% block link %}
+
+    <link rel="home" href="{% url 'zinnia_entry_archive_index' %}" />
+
+{% endblock %}
+
+
+{% block content %}
+  <div class="links">
+    <h3>Useful links</h3>
+    <ul>
+      <li>
+        <a href="{% url 'zinnia_entry_archive_index' %}" title="Blog index">
+          Blog index
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'zinnia_sitemap' %}" title="Sitemap">
+          Sitemap
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="search">
+    <h3>Search</h3>
+    {% include "zinnia/tags/search_form.html" %}
+  </div>
+{% endblock %}
