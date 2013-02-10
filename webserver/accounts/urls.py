@@ -14,6 +14,9 @@ urlpatterns = patterns(
          'authentication_form': LoginForm},
         name='login'),
 
+    url(r'^accounts/logout/$',
+        'django.contrib.auth.views.logout_then_login',
+        name='logout'),
 
     # Profiles
     url(r'^profiles/$',

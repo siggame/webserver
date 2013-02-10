@@ -50,9 +50,9 @@
                 {% include "navbar/_profile.html" %}
               </ul>
               <ul class="nav pull-right">
-                <form method="get" action="{% url 'zinnia_entry_search' %}" class="navbar-search pull-left">
-                  <input type="text" class="search-query" placeholder="Search" name="pattern" value="{{ pattern }}" />
-                </form>
+                {% if user.is_authenticated %}
+                  {% include "navbar/_authenticated_users.html" %}
+                {% endif %}
               </ul>
             </div>
           </div>

@@ -52,20 +52,23 @@ class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
 
-
     def __init__(self, request=None, **kwargs):
         self.request = request
+
         super(LoginForm, self).__init__(**kwargs)
 
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Field('username'),
-            Field('password'),
+            Fieldset(
+                'Login',
+                'username',
+                'password',
+            ),
             FormActions(
                 Submit('login', 'Login'),
-                ),
-            )
+            ),
+        )
 
     def get_user(self):
         username = self.cleaned_data['username']
