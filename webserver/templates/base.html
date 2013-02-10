@@ -15,12 +15,14 @@
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 40px;
+      .navbar {
+        margin-bottom: 0;
       }
       .breadcrumb {
         margin-bottom: 0;
-        background-color: #e5e5e5;
+      }
+      .container {
+        max-width:1170px;
       }
     </style>
 
@@ -28,26 +30,38 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-    <link rel="shortcut icon" href="{{ STATIC_URL }}/static/favicon.ico" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
     {% block link %}{% endblock %}
   </head>
   <body>
     <div id="wrap">
-      <div class="navbar navbar-fixed-top">
+      <div class="navbar">
         <div class="navbar-inner">
           <div class="container">
+
+            <!-- Helps the navbar collapse when the page shrinks -->
+            <button class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
             <a href="/" title="SIG-Game" class="brand" rel="home">
-              SIG-Game
+              <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game"/>
             </a>
-            <ul class="nav pull-left">
-              {% include "navbar/_zinnia.html" %}
-              {% include "navbar/_profile.html" %}
-            </ul>
-            <ul class="nav pull-right">
-              <form method="get" action="{% url 'zinnia_entry_search' %}" class="navbar-search pull-left">
-                <input type="text" class="search-query" placeholder="Search" name="pattern" value="{{ pattern }}" />
-              </form>
-            </ul>
+
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+              <ul class="nav pull-left">
+                {% include "navbar/_zinnia.html" %}
+                {% include "navbar/_profile.html" %}
+              </ul>
+              <ul class="nav pull-right">
+                <form method="get" action="{% url 'zinnia_entry_search' %}" class="navbar-search pull-left">
+                  <input type="text" class="search-query" placeholder="Search" name="pattern" value="{{ pattern }}" />
+                </form>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

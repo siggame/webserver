@@ -180,6 +180,7 @@ INSTALLED_APPS = (
     'zinnia_bootstrap',
     'zinnia',
 
+    'webserver.home',
     'webserver.accounts',
 
     'django_extensions',
