@@ -52,6 +52,8 @@
               <ul class="nav pull-right">
                 {% if user.is_authenticated %}
                   {% include "navbar/_authenticated_users.html" %}
+                {% else %}
+                  {% include "navbar/_unauthenticated_users.html" %}
                 {% endif %}
               </ul>
             </div>
