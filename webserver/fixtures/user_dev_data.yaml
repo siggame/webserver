@@ -1,16 +1,75 @@
-# Install a default superuser named "superuser" whose password is 123
 - fields:
     date_joined: 2013-02-01 13:31:04.227156
     email: none@none.com
-    first_name: 'Super'
+    first_name: Super
     groups: []
     is_active: true
     is_staff: true
     is_superuser: true
-    last_login: 2013-02-01 13:31:09.693682
-    last_name: 'User'
+    last_login: 2013-02-09 13:38:33.435723
+    last_name: User
     password: pbkdf2_sha256$10000$Vwt3m8UAkvNP$bGlqc6lWlUMGHEZJj73hyrtQffFs4182oMVnNVaDmbY=
     user_permissions: []
     username: superuser
   model: auth.user
   pk: 1
+- fields:
+    date_joined: 2013-02-09 16:08:29.078644
+    email: ''
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: 2013-02-09 16:08:29.078632
+    last_name: ''
+    password: pbkdf2_sha256$10000$nDATDeCC3ktO$DOs/6VhI+P95iEV2rDSgKyphtcgyPrqXMIFjwRMw/7w=
+    user_permissions: []
+    username: alice
+  model: auth.user
+  pk: 2
+- fields:
+    date_joined: 2013-02-09 16:08:35.376571
+    email: ''
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: 2013-02-09 16:08:35.376560
+    last_name: ''
+    password: pbkdf2_sha256$10000$wmpnpLGyombA$KY+e1jgZbDagoPHYnPTmb6OaC1PCK2SeLpWFa6CMD1A=
+    user_permissions: []
+    username: bob
+  model: auth.user
+  pk: 3
+- fields:
+    date_joined: 2013-02-09 16:08:43.880973
+    email: ''
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: 2013-02-09 16:08:43.880961
+    last_name: ''
+    password: pbkdf2_sha256$10000$7FJuTjs3eEda$YgEK6oFxUsjLQAeYpDiYPSxAUBID0B2w4dJHlmNCYRY=
+    user_permissions: []
+    username: tim
+  model: auth.user
+  pk: 4
+- fields:
+    date_joined: 2013-02-09 16:09:28.323865
+    email: ''
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: 2013-02-09 16:09:28.323851
+    last_name: ''
+    password: pbkdf2_sha256$10000$1GVVuNox4xec$0luVp/UoBdKdsWpHUFFaJQ15GCAmCZFNDzcTpprTWVA=
+    user_permissions: []
+    username: lisa
+  model: auth.user
+  pk: 5
