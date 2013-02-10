@@ -11,7 +11,7 @@ $(function() {
   }
 
   // If the URL starts with "/weblog/", gray out the blog tab
-  if (window.location.pathname.match(/^\/weblog\/$/) != null) {
+  if (window.location.pathname.match(/^\/weblog\//) != null) {
     $("#zinnia-tab").toggleClass("active");
   }
 
