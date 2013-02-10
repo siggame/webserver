@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Button, HTML, Field
@@ -69,6 +70,24 @@ class LoginForm(forms.Form):
                 Submit('login', 'Login'),
             ),
         )
+
+    def clean(self):
+        cleaned_data = super(LoginForm, self).clean()
+        username = cleaned_data['username']
+        password = cleaned_data['password']
+
+        error_message = "Username/password combination does not match"
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise forms.ValidationError(error_message)
+
+        # Check the password
+        if not user.check_password(password):
+            raise forms.ValidationError(error_message)
+
+        return cleaned_data
 
     def get_user(self):
         username = self.cleaned_data['username']
