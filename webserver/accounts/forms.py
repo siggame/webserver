@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import authenticate, login
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Button, HTML, Field
@@ -28,7 +29,7 @@ class UserProfileForm(forms.ModelForm):
             Field('last_name'),
             Field('email'),
             HTML('<hr>'),
-            Field('about_me', placeholder="Tell us about yourself!", 
+            Field('about_me', placeholder="Tell us about yourself!",
                   css_class="input-block-level"),
             FormActions(
                 Submit('save', 'Save changes'),
@@ -45,3 +46,28 @@ class UserProfileForm(forms.ModelForm):
         profile.user.save(*args, **kwargs)
         print "Saved"
         return profile
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())
+
+
+    def __init__(self, request=None, **kwargs):
+        self.request = request
+        super(LoginForm, self).__init__(**kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            Field('username'),
+            Field('password'),
+            FormActions(
+                Submit('login', 'Login'),
+                ),
+            )
+
+    def get_user(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        return authenticate(username=username, password=password)

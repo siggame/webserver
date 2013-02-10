@@ -18,33 +18,54 @@ class ProfileListView(ListView):
     model = UserProfile
     context_object_name = "userprofiles"
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        """Ensures that only authenticated users can access the view."""
+        return super(ProfileListView, self).dispatch(request, *args, **kwargs)
 
-class ProfileMixin(SingleObjectMixin):
-    """Provides views with the current user's profile
+    def get_queryset(self):
+        return UserProfile.objects.order_by('user__username')
+
+
+class ProfileView(DetailView):
+    """ A view that displays a user's profile.
     """
-    model = UserProfile
+    template_name = "accounts/view_profile.html"
     context_object_name = "userprofile"
-
-    def get_object(self):
-        return self.request.user.get_profile()
+    model = UserProfile
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         """Ensures that only authenticated users can access the view."""
-        return super(ProfileMixin, self).dispatch(request, *args, **kwargs)
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+        return queryset.get(user__username=self.kwargs['username'])
 
 
-class ProfileView(ProfileMixin, DetailView):
-    """ A view that displays a user's profile.
+class MyProfileView(ProfileView):
+    """ A view that displays a user's own profile.
     """
-    template_name = "accounts/view_profile.html"
+    def get_object(self, queryset=None):
+        return self.request.user.get_profile()
 
 
-class ProfileUpdateView(ProfileMixin, UpdateView):
+class ProfileUpdateView(UpdateView):
     """ A view that displays a form for editing a user's profile.
     """
     template_name = "accounts/update_profile.html"
     form_class = UserProfileForm
+    context_object_name = "userprofile"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        """Ensures that only authenticated users can access the view."""
+        return super(ProfileUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        return self.request.user.get_profile()
 
     def get_initial(self):
         initial = super(ProfileUpdateView, self).get_initial()

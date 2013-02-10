@@ -43,6 +43,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-error',
 }
 
+LOGIN_REDIRECT_URL = '/profile/'
+
 # Should be overridden by development.py or production.py
 DATABASES = None
 

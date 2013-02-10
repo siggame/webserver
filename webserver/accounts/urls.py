@@ -1,14 +1,28 @@
 from django.conf.urls.defaults import patterns, url
 
 from webserver.accounts.views import (ProfileListView, ProfileView,
-                                      ProfileUpdateView)
+                                      MyProfileView, ProfileUpdateView)
+from webserver.accounts.forms import LoginForm
 
 
 urlpatterns = patterns(
     '',
+    # Authentication
+    url(r'^accounts/login/$',
+        'django.contrib.auth.views.login',
+        {'template_name': 'accounts/login.html',
+         'authentication_form': LoginForm},
+        name='login'),
+
+
+    # Profiles
     url(r'^profiles/$',
         ProfileListView.as_view(),
         name="list_profile"),
+
+    url(r'^profile/$',
+        MyProfileView.as_view(),
+        name="view_profile"),
 
     url(r'^profile/(?P<username>[a-zA-Z0-9]+)/$',
         ProfileView.as_view(),
