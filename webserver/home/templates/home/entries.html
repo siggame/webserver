@@ -1,0 +1,17 @@
+<div class="row">
+  {% for entry in entries %}
+    <div class="span4">
+      <h2>{{ entry.title }}</h2>
+      <p>
+        {{ entry.excerpt }}
+      </p>
+      <p>
+        <a class="btn"
+           href="{{ entry.get_absolute_url }}"
+           title="{{ entry.title }}">
+           Continue reading
+        </a>
+      </p>
+    </div>
+  {% endfor %}
+</div>
