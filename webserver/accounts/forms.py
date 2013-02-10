@@ -72,6 +72,7 @@ class LoginForm(forms.Form):
         )
 
     def clean(self):
+        """Make sure the username/password combos match"""
         cleaned_data = super(LoginForm, self).clean()
         username = cleaned_data['username']
         password = cleaned_data['password']
