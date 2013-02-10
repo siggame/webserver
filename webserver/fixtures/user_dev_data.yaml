@@ -1,3 +1,4 @@
+# User accounts (password for evryone is "123")
 - fields:
     date_joined: 2013-02-01 13:31:04.227156
     email: none@none.com
@@ -72,4 +73,24 @@
     user_permissions: []
     username: lisa
   model: auth.user
+  pk: 5
+
+# User profiles.
+- fields: {about_me: I'm a pretty interesting person., user: 1}
+  model: accounts.userprofile
+  pk: 1
+- fields: {about_me: "My name is Alice, and I like to program.\r\n\r\nBob and I do\
+      \ a lot with public/private key cryptography.", user: 2}
+  model: accounts.userprofile
+  pk: 2
+- fields: {about_me: "My name is Bob, and I guess I like to program.\r\n\r\nAlice\
+      \ and I do a lot with public/private key cryptography.", user: 3}
+  model: accounts.userprofile
+  pk: 3
+- fields: {about_me: "I am Tim.\r\n\r\nI am a freshman, and I need a teammate.", user: 4}
+  model: accounts.userprofile
+  pk: 4
+- fields: {about_me: "My name is Lisa, and I win these things every semester.\r\n\r\
+      \nC++ is my favorite", user: 5}
+  model: accounts.userprofile
   pk: 5
