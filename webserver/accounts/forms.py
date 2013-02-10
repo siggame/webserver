@@ -34,9 +34,10 @@ class UserProfileForm(forms.ModelForm):
                   css_class="input-block-level"),
             FormActions(
                 Submit('save', 'Save changes'),
-                Button('cancel', 'Cancel')
-                ),
-            )
+                Button('cancel', 'Cancel',
+                       onclick="window.location='/profile/'")
+            ),
+        )
 
 
     def save(self, *args, **kwargs):
