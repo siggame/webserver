@@ -3,11 +3,21 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit, Button, HTML, Field
+from crispy_forms.layout import Layout, Fieldset, Submit, Button, HTML, Field, Hidden
 from crispy_forms.bootstrap import FormActions
 
 from models import UserProfile
 
+
+epiceditor = """
+<div class="control-group">
+  <label for="epiceditor" class="control-label ">About me</label>
+    <div class="controls">
+      <div id="epiceditor">
+      </div>
+    </div>
+</div>
+"""
 
 # Create the form class.
 class UserProfileForm(forms.ModelForm):
@@ -30,15 +40,14 @@ class UserProfileForm(forms.ModelForm):
             Field('last_name'),
             Field('email'),
             HTML('<hr>'),
-            Field('about_me', placeholder="Tell us about yourself!",
-                  css_class="input-block-level"),
+            HTML(epiceditor),
+            Hidden('about_me', '', id="id_about_me"),
             FormActions(
                 Submit('save', 'Save changes'),
                 Button('cancel', 'Cancel',
                        onclick="window.location='/profile/'")
             ),
         )
-
 
     def save(self, *args, **kwargs):
         profile = super(UserProfileForm, self).save(*args, **kwargs)
