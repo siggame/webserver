@@ -6,40 +6,7 @@
 {% block script %}
   <script src="{{ STATIC_URL }}epiceditor/js/epiceditor.min.js"></script>
   <script>
-    $(function() {
-      var opts = {
-        container: 'epiceditor',
-        basePath: '{{ STATIC_URL }}epiceditor',
-        clientSideStorage: false,
-        localStorageName: 'epiceditor',
-        useNativeFullsreen: true,
-        parser: marked,
-        file: {
-          name: 'epiceditor',
-          defaultContent: '',
-          autoSave: 100
-        },
-        theme: {
-          base:'/themes/base/epiceditor.css',
-          preview:'/themes/preview/preview-dark.css',
-          editor:'/themes/editor/epic-dark.css'
-        },
-        focusOnLoad: false,
-        shortcut: {
-          modifier: 18,
-          fullscreen: 70,
-          preview: 80
-        }
-      };
-
-      var editor = new EpicEditor(opts);
-      editor.load();
-      editor.importFile("about_me", "{{ userprofile.about_me|safe }}");
-      $("#submit-id-save").click(function () {
-        var theContent = editor.exportFile();
-        $("#id_about_me").val(theContent);
-      });
-    });
+    {% include "_epiceditor.js" %}
   </script>
 {% endblock %}
 

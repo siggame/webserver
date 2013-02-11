@@ -12,10 +12,9 @@ from models import UserProfile
 epiceditor = """
 <div class="control-group">
   <label for="epiceditor" class="control-label ">About me</label>
-    <div class="controls">
-      <div id="epiceditor">
-      </div>
-    </div>
+  <div class="controls">
+    <div id="epiceditor"></div>
+  </div>
 </div>
 """
 
@@ -28,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     email = forms.EmailField()
-
+    about_me = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -41,9 +40,10 @@ class UserProfileForm(forms.ModelForm):
             Field('email'),
             HTML('<hr>'),
             HTML(epiceditor),
-            Hidden('about_me', '', id="id_about_me"),
+            Field('about_me', content_for="epiceditor"),
             FormActions(
-                Submit('save', 'Save changes'),
+                Submit('save', 'Save changes', 
+                       epiceditor_save_button="true"),
                 Button('cancel', 'Cancel',
                        onclick="window.location='/profile/'")
             ),
