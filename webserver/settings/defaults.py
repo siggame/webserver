@@ -196,7 +196,7 @@ INSTALLED_APPS = (
     'zinnia',
 
     'webserver.home',
-    'webserver.accounts',
+    'webserver.profiles',
 
     'django_extensions',
     'django_nose',
