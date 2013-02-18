@@ -8,14 +8,18 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
+    # Webserver urls
     url(r'^', include('webserver.home.urls')),
-    url(r'^', include('webserver.accounts.urls')),
+    url(r'^', include('webserver.profiles.urls')),
 
+    # Django AllAuth
     url(r'^accounts/', include('allauth.urls')),
 
+    # Zinnia Blog
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),
 
+    # Django Admin
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin_tools/', include('admin_tools.urls')),
