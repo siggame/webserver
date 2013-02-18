@@ -55,8 +55,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Require that users who are signing up provide an email address
-# TODO set to true once email is setup
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 
 # Require that users verify their account before they can login.
 # TODO set to "mandatory" once email is setup
