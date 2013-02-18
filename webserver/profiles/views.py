@@ -1,4 +1,3 @@
-from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
@@ -7,14 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 
-from models import UserProfile
-from forms import UserProfileForm
+from .models import UserProfile
+from .forms import UserProfileForm
 
 
 class ProfileListView(ListView):
     """ A view that displays a user's profile.
     """
-    template_name = "accounts/list_profile.html"
+    template_name = "profiles/list_profile.html"
     model = UserProfile
     context_object_name = "userprofiles"
 
@@ -30,7 +29,7 @@ class ProfileListView(ListView):
 class ProfileView(DetailView):
     """ A view that displays a user's profile.
     """
-    template_name = "accounts/view_profile.html"
+    template_name = "profiles/view_profile.html"
     context_object_name = "userprofile"
     model = UserProfile
 
@@ -55,7 +54,7 @@ class MyProfileView(ProfileView):
 class ProfileUpdateView(UpdateView):
     """ A view that displays a form for editing a user's profile.
     """
-    template_name = "accounts/update_profile.html"
+    template_name = "profiles/update_profile.html"
     form_class = UserProfileForm
     context_object_name = "userprofile"
 
