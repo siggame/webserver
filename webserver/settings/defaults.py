@@ -28,6 +28,11 @@ MANAGERS = ADMINS
 # Sets up the get_profile() method for User
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 # Sets the testrunner to Nose
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -154,9 +159,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # Optional for Zinnia
     'zinnia.context_processors.version',
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 INSTALLED_APPS = (
+    # Django AllAuth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid',
+
     # Django Admin Tools
     'admin_tools',
     'admin_tools.theming',
