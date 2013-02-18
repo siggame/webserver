@@ -55,14 +55,27 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Require that users who are signing up provide an email address
-ACCOUNT_EMAIL_REQUIRED = True
+# TODO set to true once email is setup
+ACCOUNT_EMAIL_REQUIRED = False
 
 # Require that users verify their account before they can login.
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# TODO set to "mandatory" once email is setup
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SIG-Game]"
-SOCIALACCOUNT_PROVIDERS = {}
 
+SOCIALACCOUNT_PROVIDERS = {
+    'openid': {
+        'SERVERS': [
+            {'id': 'yahoo',
+             'name': 'Yahoo',
+             'openid_url': 'http://me.yahoo.com'},
+            {'id': 'google',
+             'name': 'Google',
+             'openid_url': 'https://www.google.com/accounts/o8/id'},
+        ]
+    }
+}
 
 ##########################################################################
 #
