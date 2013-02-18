@@ -44,7 +44,7 @@ MANAGERS = ADMINS
 ##########################################################################
 
 # Sets up the get_profile() method for User
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+AUTH_PROFILE_MODULE = 'profiles.UserProfile'
 
 # When a user successfully logs in, redirect here by default
 LOGIN_REDIRECT_URL = '/profile/'
