@@ -1,23 +1,11 @@
 from django.conf.urls.defaults import patterns, url
 
-from webserver.accounts.views import (ProfileListView, ProfileView,
-                                      MyProfileView, ProfileUpdateView)
-from webserver.accounts.forms import LoginForm
+from .views import (ProfileListView, ProfileView,
+                    MyProfileView, ProfileUpdateView)
 
 
 urlpatterns = patterns(
     '',
-    # Authentication
-    url(r'^accounts/login/$',
-        'django.contrib.auth.views.login',
-        {'template_name': 'accounts/login.html',
-         'authentication_form': LoginForm},
-        name='login'),
-
-    url(r'^accounts/logout/$',
-        'django.contrib.auth.views.logout_then_login',
-        name='logout'),
-
     # Profiles
     url(r'^profiles/$',
         ProfileListView.as_view(),
