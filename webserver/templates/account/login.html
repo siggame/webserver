@@ -1,0 +1,69 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+
+{% block content %}
+
+  <h1>{% trans "Sign In" %}</h1>
+
+  {% if not user.is_authenticated %}
+
+    <div class="row">
+      <div class="span6">
+        {% blocktrans with site.name as site_name %}
+          
+          <h4 class="text-center">Sign in with your <strong>{{ site_name }}</strong> account</h4>
+          
+        {% endblocktrans %}
+        <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+          {{ form|crispy }}
+
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <div class="control-group">
+            <div class="controls">
+              <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+              <a class="btn" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {% if socialaccount.providers %}
+        <div class="span6">
+          <p>
+            {% blocktrans with site.name as site_name %}
+
+              <h4 class="text-center">Sign in with OpenID</h4>
+
+            {% endblocktrans %}
+          </p>
+
+          <div class="socialaccount_ballot row">
+            <div class="span4 offset1">
+              <ul class="nav nav-tabs nav-stacked socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" %}
+              </ul>
+            </div>
+          </div>
+          {% include "socialaccount/snippets/login_extra.html" %}
+        </div>
+      {% endif %}
+    </div>
+
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    {% include "account/snippets/already_logged_in.html" %}
+  {% endif %}
+
+{% endblock %}

@@ -6,6 +6,11 @@ PROJECT_DIR = os.path.dirname(SETTINGS_DIR)
 BUILDOUT_DIR = os.path.dirname(PROJECT_DIR)
 VAR_DIR = os.path.join(BUILDOUT_DIR, "var")
 
+##########################################################################
+#
+# Secret settings
+#
+##########################################################################
 # If a secret_settings file isn't defined, open a new one and save a
 # SECRET_KEY in it. Then import it. All passwords and other secret
 # settings should be stored in secret_settings.py. NOT in settings.py
@@ -19,20 +24,83 @@ except ImportError:
         secret_settings.write("SECRET_KEY = '''%s'''\n" % secret_key)
     from secret_settings import *
 
+##########################################################################
+#
+# Administrative settings
+#
+##########################################################################
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
+
+##########################################################################
+#
+#  Authentication settings
+#
+##########################################################################
+
 # Sets up the get_profile() method for User
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+AUTH_PROFILE_MODULE = 'profiles.UserProfile'
+
+# When a user successfully logs in, redirect here by default
+LOGIN_REDIRECT_URL = '/profile/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# Require that users who are signing up provide an email address
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Require that users verify their account before they can login.
+# TODO set to "mandatory" once email is setup
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SIG-Game]"
+
+SOCIALACCOUNT_PROVIDERS = {
+    'openid': {
+        'SERVERS': [
+            {'id': 'yahoo',
+             'name': 'Yahoo',
+             'openid_url': 'http://me.yahoo.com'},
+            {'id': 'google',
+             'name': 'Google',
+             'openid_url': 'https://www.google.com/accounts/o8/id'},
+        ]
+    }
+}
+
+##########################################################################
+#
+# Testing settings
+#
+##########################################################################
 
 # Sets the testrunner to Nose
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+
+##########################################################################
+#
+# Blog settings
+#
+##########################################################################
+
 # Disable the WYSIWIG editor and use a markup language instaead.
 ZINNIA_MARKUP_LANGUAGE = 'markdown'
+
+
+##########################################################################
+#
+# Messages settings
+#
+##########################################################################
 
 # Change the default messgae tags to play nice with Bootstrap
 MESSAGE_TAGS = {
@@ -43,7 +111,12 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-error',
 }
 
-LOGIN_REDIRECT_URL = '/profile/'
+
+##########################################################################
+#
+# Database settings
+#
+##########################################################################
 
 # Should be overridden by development.py or production.py
 DATABASES = None
@@ -54,66 +127,48 @@ FIXTURE_DIRS = (
     os.path.join(PROJECT_DIR, "fixtures"),
 )
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
+
+##########################################################################
+#
+# Location settings
+#
+##########################################################################
+
 TIME_ZONE = 'America/Chicago'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = False
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
 USE_L10N = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(VAR_DIR, "uploads")
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+##########################################################################
+#
+# Static files settings
+#
+##########################################################################
+MEDIA_ROOT = os.path.join(VAR_DIR, "uploads")
 MEDIA_URL = '/media/'
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = os.path.join(VAR_DIR, "static")
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
-# Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR, "static"),
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+
+##########################################################################
+#
+# Template settings
+#
+##########################################################################
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -122,21 +177,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
-
-ROOT_URLCONF = 'webserver.urls'
-
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or
-    # "C:/www/django/templates".  Always use forward slashes, even on
-    # Windows.  Don't forget to use absolute paths, not relative
-    # paths.
     os.path.join(PROJECT_DIR, "templates"),
 )
 
@@ -154,9 +195,48 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # Optional for Zinnia
     'zinnia.context_processors.version',
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
+
+##########################################################################
+#
+# Middleware settings
+#
+##########################################################################
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+
+##########################################################################
+#
+# URL settings
+#
+##########################################################################
+
+ROOT_URLCONF = 'webserver.urls'
+
+
+##########################################################################
+#
+# Installed apps settings
+#
+##########################################################################
+
 INSTALLED_APPS = (
+    # Django AllAuth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid',
+
     # Django Admin Tools
     'admin_tools',
     'admin_tools.theming',
@@ -183,17 +263,19 @@ INSTALLED_APPS = (
     'zinnia',
 
     'webserver.home',
-    'webserver.accounts',
+    'webserver.profiles',
 
     'django_extensions',
     'django_nose',
 )
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+
+##########################################################################
+#
+# Logging settings
+#
+##########################################################################
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

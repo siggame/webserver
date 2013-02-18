@@ -1,12 +1,13 @@
 from django import forms
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit, Button, HTML, Field, Hidden
+from crispy_forms.layout import (Layout, Fieldset, Submit, Button,
+                                 HTML, Field)
 from crispy_forms.bootstrap import FormActions
 
-from models import UserProfile
+from .models import UserProfile
 
 
 epiceditor = """
@@ -17,6 +18,7 @@ epiceditor = """
   </div>
 </div>
 """
+
 
 # Create the form class.
 class UserProfileForm(forms.ModelForm):
