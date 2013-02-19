@@ -265,6 +265,7 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
 
+    'raven.contrib.django.raven_compat',
     'django_extensions',
     'django_nose',
 )
