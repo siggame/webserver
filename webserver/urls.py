@@ -12,6 +12,9 @@ urlpatterns = patterns(
     url(r'^', include('webserver.home.urls')),
     url(r'^', include('webserver.profiles.urls')),
 
+    # Competition
+    url(r'^', include('competition.urls')),
+
     # Django AllAuth
     url(r'^accounts/', include('allauth.urls')),
 

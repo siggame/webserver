@@ -19,6 +19,7 @@ bootstrap.py:
 db:
 	rm -f var/db/*.db
 	python bin/django syncdb --noinput
+	python bin/django migrate
 	python bin/django loaddata webserver/fixtures/*_dev_data.yaml
 
 test: bin/buildout

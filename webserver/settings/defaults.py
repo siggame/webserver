@@ -76,6 +76,13 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# Django Guardian settings
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # this is default
+    'guardian.backends.ObjectPermissionBackend',
+)
+ANONYMOUS_USER_ID = -1
+
 ##########################################################################
 #
 # Testing settings
@@ -262,12 +269,16 @@ INSTALLED_APPS = (
     'zinnia_bootstrap',
     'zinnia',
 
+    # Competition app
+    'competition',
+
     'webserver.home',
     'webserver.profiles',
 
     'raven.contrib.django.raven_compat',
     'django_extensions',
     'django_nose',
+    'south'
 )
 
 
