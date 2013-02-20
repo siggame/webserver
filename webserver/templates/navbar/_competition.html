@@ -1,0 +1,24 @@
+{% load url from future %}
+
+<li id="zinnia-tab" class="dropdown">
+
+  <a href="#" class="toggle-dropdown" data-toggle="dropdown">
+  Competition
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="{% url 'competition_list' %}" title="Blog">
+      Competitions
+      </a>
+    </li>
+
+    <li class="divider"></li>
+
+    <li>
+      <a href="#" title="Category list">
+        Competition 1
+      </a>
+    </li>
+  </ul>
+</li>
