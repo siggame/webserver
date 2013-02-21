@@ -83,6 +83,16 @@ AUTHENTICATION_BACKENDS = (
 )
 ANONYMOUS_USER_ID = -1
 
+
+##########################################################################
+#
+# Celery settings
+#
+##########################################################################
+import djcelery
+djcelery.setup_loader()
+
+
 ##########################################################################
 #
 # Testing settings
@@ -275,7 +285,8 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
 
-    'raven.contrib.django.raven_compat',
+    'djcelery',                 # Django celery
+    'raven.contrib.django.raven_compat',  # Sentry client
     'django_extensions',
     'django_nose',
     'south'
