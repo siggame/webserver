@@ -44,7 +44,15 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(VAR_DIR, "logs", "log.txt"),
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'raven': {
@@ -57,5 +65,17 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
+
+        # Log all debug information for our apps to stdout and to a file
+        'webserver': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'logfile'],
+            'propagate': True,
+        },
+        'competition': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'logfile'],
+            'propagate': True,
+        }
     }
 }

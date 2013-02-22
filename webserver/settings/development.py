@@ -60,6 +60,14 @@ LOGGING = {
             'class':'logging.StreamHandler',
             'formatter': 'simple'
         },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(VAR_DIR, "logs", "log.txt"),
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'django.request': {
@@ -68,7 +76,7 @@ LOGGING = {
             'propagate': True,
         },
         'webserver': {
-            'handlers': ['console'],
+            'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
         }
     }
