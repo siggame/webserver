@@ -5,6 +5,11 @@
     <strong>{{ user.username }}</strong>
   </a>
 </li>
+{% if user.is_staff %}
+  <li>
+    <a href="/admin/">Admin</a>
+  </li>
+{% endif %}
 <li>
   <a href="{% url 'account_logout' %}">Logout</a>
 </li>
