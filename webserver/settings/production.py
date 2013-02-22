@@ -10,6 +10,9 @@ from webserver.settings.defaults import *
 # Since we're deploying on megaminerai.com, SITE_ID should be 2.
 SITE_ID = 2
 
+# Since we're behind a proxy
+USE_X_FORWARDED_HOST = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
