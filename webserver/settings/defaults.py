@@ -63,6 +63,9 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SIG-Game]"
 
+# Try to pull username/email from provider.
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
 SOCIALACCOUNT_PROVIDERS = {
     'openid': {
         'SERVERS': [
