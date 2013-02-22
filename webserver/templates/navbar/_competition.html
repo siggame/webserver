@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load competition_tags %}
 
 <li class="dropdown">
 
@@ -15,10 +16,8 @@
 
     <li class="divider"></li>
 
-    <li>
-      <a href="#" title="Category list">
-        Competition 1
-      </a>
-    </li>
+    {# List competitions that the user is registered for #}
+    {% competitions_registered %}
+
   </ul>
 </li>
