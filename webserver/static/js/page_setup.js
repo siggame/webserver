@@ -19,4 +19,14 @@ $(function() {
   if (window.location.pathname.match(/^\/profile/) != null) {
     $("#profile-tab").toggleClass("active");
   }
+
+  // If the URL starts with "/competition", gray out the profile tab
+  if (window.location.pathname.match(/^\/competition/) != null) {
+    $("#competition-tab").toggleClass("active");
+  }
+
+  // If the URL starts with "/invitation", gray out the profile tab
+  if (window.location.pathname.match(/^\/invitation/) != null) {
+    $("#invitation-tab").toggleClass("active");
+  }
 });
