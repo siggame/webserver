@@ -48,8 +48,10 @@
               <ul class="nav pull-left">
                 {% include "navbar/_zinnia.html" %}
                 {% include "navbar/_competition.html" %}
-                {% include "navbar/_invitation.html" %}
-                {% include "navbar/_profile.html" %}
+                {% if user.is_authenticated %}
+                  {% include "navbar/_invitation.html" %}
+                  {% include "navbar/_profile.html" %}
+                {% endif %}
               </ul>
               <ul class="nav pull-right">
                 {% if user.is_authenticated %}
