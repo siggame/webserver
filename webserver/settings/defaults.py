@@ -285,6 +285,7 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
 
+    'guardian',
     'djcelery',                 # Django celery
     'raven.contrib.django.raven_compat',  # Sentry client
     'django_extensions',
