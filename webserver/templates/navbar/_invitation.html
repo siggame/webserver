@@ -1,7 +1,16 @@
 {% load url from future %}
+{% load competition_tags %}
 
 <li id="invitation-tab">
   <a href="{% url 'invitation_list' %}">
-    View Invitations
+    Invitations
+    {% if user|has_unread_invitations %}
+      <span class="badge badge-success">
+    {% else %}
+      <span class="badge">
+    {% endif %}
+
+    {% unread_invitation_count %}
+      </span>
   </a>
 </li>
