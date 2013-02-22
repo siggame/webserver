@@ -10,6 +10,15 @@ from webserver.settings.defaults import *
 # Since we're deploying on megaminerai.com, SITE_ID should be 2.
 SITE_ID = 2
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': POSTGRES_DB,
+        'USER': POSTGRES_USER,
+        'PASSWORD': POSTGRES_PASSWORD,
+        'HOST': 'localhost'
+    }
+}
 
 LOGGING = {
     'version': 1,
