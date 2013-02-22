@@ -2,6 +2,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
@@ -41,7 +42,11 @@ class ProfileView(DetailView):
     def get_object(self, queryset=None):
         if queryset is None:
             queryset = self.get_queryset()
-        return queryset.get(user__username=self.kwargs['username'])
+        try:
+            username = self.kwargs['username']
+            return queryset.get(user__username=username)
+        except UserProfile.DoesNotExist:
+            raise Http404("User profile doesn't exist for user %s" % username)
 
 
 class MyProfileView(ProfileView):
