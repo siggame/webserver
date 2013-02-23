@@ -22,6 +22,8 @@ DATABASES = {
     }
 }
 
+# Users don't need to verify email when developing.
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Config for Django Debug Toolbar
 INTERNAL_IPS = ('127.0.0.1',)

@@ -57,9 +57,7 @@ AUTHENTICATION_BACKENDS = (
 # Require that users who are signing up provide an email address
 ACCOUNT_EMAIL_REQUIRED = True
 
-# Require that users verify their account before they can login.
-# TODO set to "mandatory" once email is setup
-ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_EMAIL_VERIFICATION  is set in development.py and production.py
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SIG-Game]"
 

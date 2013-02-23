@@ -13,6 +13,9 @@ SITE_ID = 2
 # Since we're behind a proxy
 USE_X_FORWARDED_HOST = True
 
+# Require that users verify their account before they can login.
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
