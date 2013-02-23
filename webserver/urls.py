@@ -11,6 +11,7 @@ urlpatterns = patterns(
     # Webserver urls
     url(r'^', include('webserver.home.urls')),
     url(r'^', include('webserver.profiles.urls')),
+    url(r'^', include('webserver.codemanagement.urls')),
 
     # Competition
     url(r'^', include('competition.urls')),

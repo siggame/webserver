@@ -1,0 +1,17 @@
+{% load url from future %}
+
+<h2 class="text-right">Code</h2>
+<ul class="nav nav-tabs nav-stacked" style="margin-top:20px;">
+  <li>
+    {# Only show if team doesn't have a repository #}
+    <a href="{% url 'create_repo' comp_slug=competition.slug %}">
+      Create Repository
+    </a>
+  </li>
+  <li>
+    {# Only show if team has a repository #}
+    <a href="#">
+      My Team's Repository
+    </a>
+  </li>
+</ul>
