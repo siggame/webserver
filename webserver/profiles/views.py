@@ -10,6 +10,10 @@ from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ProfileListView(ListView):
     """ A view that displays a user's profile.
@@ -44,7 +48,10 @@ class ProfileView(DetailView):
             queryset = self.get_queryset()
         try:
             username = self.kwargs['username']
-            return queryset.get(user__username=username)
+            profile, created = queryset.get_or_create(user__username=username)
+            if created:
+                logger.info("Created profile for %s" % username)
+            return profile
         except UserProfile.DoesNotExist:
             raise Http404("User profile doesn't exist for user %s" % username)
 
