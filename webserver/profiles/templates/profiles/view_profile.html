@@ -14,13 +14,22 @@
       </div>
     </div>
     <div class="span3">
-      <ul class="thumbnails">
-        <li class="span3">
-          <a href="#" class="thumbnail">
-            <img src="{% gravatar_url userprofile.user.email %}" />
-          </a>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="span3">
+          <ul class="thumbnails">
+            <li class="span3">
+              <a href="#" class="thumbnail">
+                <img src="{% gravatar_url userprofile.user.email %}" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3">
+          <!-- Badges go here -->
+        </div>
+      </div>
     </div>
   </div>
 
