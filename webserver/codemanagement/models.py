@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_save, post_delete
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
@@ -84,6 +84,22 @@ def create_team_repo(sender, instance, raw, **kwargs):
     # Give the team access to their repo
     assign('can_view_repository', instance.team.get_group(),
            instance.repository)
+
+
+@receiver(post_save, sender=BaseClient)
+def set_base_repo_owner(sender, instance, created, raw, **kwargs):
+    """Sets the BaseClient's repository owner to the BaseClient"""
+    if instance.repository.owner is None:
+        instance.repository.owner = instance
+        instance.repository.save()
+
+
+@receiver(post_save, sender=TeamClient)
+def set_team_repo_owner(sender, instance, created, raw, **kwargs):
+    """Sets the TeamClient's repository owner to the TeamClient"""
+    if instance.repository.owner is None:
+        instance.repository.owner = instance
+        instance.repository.save()
 
 
 @receiver(post_delete, sender=BaseClient)
