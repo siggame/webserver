@@ -3,6 +3,8 @@ from django.db.models.signals import pre_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
+from guardian.shortcuts import assign, remove_perm
+
 from competition.models import Competition, Team
 from greta.models import Repository
 
@@ -20,12 +22,20 @@ class BaseClient(models.Model):
     def __unicode__(self):
         return "{0} client".format(self.language)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('repo_detail', (), {'pk': self.repository.pk})
+
 
 class TeamClient(models.Model):
     """Represents a team's repository"""
     team = models.OneToOneField(Team)
     base = models.ForeignKey(BaseClient)
     repository = models.OneToOneField(Repository)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('repo_detail', (), {'pk': self.repository.pk})
 
 
 @receiver(pre_save, sender=BaseClient)
@@ -45,7 +55,7 @@ def create_base_repo(sender, instance, raw, **kwargs):
 
 
 @receiver(pre_save, sender=TeamClient)
-def create_repo(sender, instance, raw, **kwargs):
+def create_team_repo(sender, instance, raw, **kwargs):
     """Forks a BaseClient repository and saves it on disk"""
     # If the TeamClient is brand new, pk will be none.
     if instance.pk is None and not raw:
@@ -63,6 +73,10 @@ def create_repo(sender, instance, raw, **kwargs):
                                          owner=instance)
         instance.repository = repo
 
+    # Give the team access to their repo
+    assign('can_view_repository', instance.team.get_group(),
+           instance.repository)
+
 
 @receiver(post_delete, sender=BaseClient)
 def delete_base_repo(sender, instance, **kwargs):
@@ -77,4 +91,6 @@ def delete_team_repo(sender, instance, **kwargs):
     """Deletes a base repo when the TeamClient is deleted"""
     # When a TeamClient gets deleted, delete its corresponding
     # repository, too.
+    remove_perm('can_view_repository', instance.team.get_group(),
+                instance.repository)
     instance.repository.delete()

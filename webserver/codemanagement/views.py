@@ -1,5 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from competition.views.mixins import RequireRunningMixin, CompetitionViewMixin
 
@@ -13,6 +15,10 @@ class CreateRepoView(CompetitionViewMixin,
     model = TeamClient
     form_class = TeamRepoForm
     template_name = "codemanagement/create_team_repo.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CreateRepoView, self).dispatch(*args, **kwargs)
 
     def get_team(self):
         c = self.get_competition()
