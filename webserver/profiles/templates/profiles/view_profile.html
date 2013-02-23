@@ -29,3 +29,11 @@
 {% block sidebar %}
   {% include "profiles/_profiles_sidebar.html" with active="me" %}
 {% endblock %}
+
+{% block script %}
+  <script>
+    $(function(){
+      $(".invitation-tooltip").tooltip();
+    });
+  </script>
+{% endblock %}

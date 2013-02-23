@@ -24,7 +24,12 @@
     {% endif %}
     <li>
       <a href="{% url 'invitation_create' %}?invitee={{ userprofile.user.pk }}&team={{ team.id }}">
-        <i class="icon-plus"></i> Invite to {{ team.name }}
+        <i class="icon-plus"></i>
+        Invite to {{ team.name }}
+        <span class="pull-right badge badge-info invitation-tooltip" data-toggle="tooltip"
+              title="This team has {{team.num_invites_left}} invites left to send">
+              {{ team.num_invites_left }}
+        </span>
       </a>
     </li>
 
