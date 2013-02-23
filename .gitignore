@@ -36,3 +36,8 @@ secret_settings.py
 
 # Don't commit django log files
 var/logs
+
+# Ignore repositories
+var/repos
+var/test_repos
+var/archives

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load greta_tags %}
+{% load code_tags %}
+
+{% block page-header%}
+  <div class="page-header">
+    <h1>{{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small></h1>
+  </div>
+{% endblock %}

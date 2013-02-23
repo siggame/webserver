@@ -1,0 +1,18 @@
+{% load url from future %}
+
+<h2 class="text-right">Code</h2>
+<ul class="nav nav-tabs nav-stacked" style="margin-top:20px;">
+  {% if not user_team.teamclient %}
+    <li>
+      <a href="{% url 'create_repo' comp_slug=competition.slug %}">
+        Create Repository
+      </a>
+    </li>
+  {% else %}
+    <li>
+      <a href="{{ user_team.teamclient.get_absolute_url }}">
+        My Team's Repository
+      </a>
+    </li>
+  {% endif %}
+</ul>

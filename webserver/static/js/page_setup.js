@@ -21,7 +21,8 @@ $(function() {
   }
 
   // If the URL starts with "/competition", gray out the profile tab
-  if (window.location.pathname.match(/^\/competition/) != null) {
+  if ((window.location.pathname.match(/^\/competition/) != null) ||
+      (window.location.pathname.match(/^\/repo/) != null)) {
     $("#competition-tab").toggleClass("active");
   }
 
