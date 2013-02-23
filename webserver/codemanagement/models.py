@@ -8,6 +8,10 @@ from guardian.shortcuts import assign, remove_perm
 from competition.models import Competition, Team
 from greta.models import Repository
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class BaseClient(models.Model):
     """Represents a shell repository, which the SIG-Game devs will set
@@ -45,6 +49,7 @@ def create_base_repo(sender, instance, raw, **kwargs):
 
     # If the BaseClient is brand new, pk will be none.
     if instance.pk is None and not raw:
+        logger.info("Creating BaseClient repository")
         name = "{0}/{1}.git".format(instance.competition.slug,
                                     instance.language_slug)
         description = "{0} client for {1}".format(instance.competition.name,
@@ -52,6 +57,7 @@ def create_base_repo(sender, instance, raw, **kwargs):
         repo = Repository.objects.create(name=name, description=description,
                                          owner=instance)
         instance.repository = repo
+        logger.info("Created BaseClient repository")
 
 
 @receiver(pre_save, sender=TeamClient)
@@ -59,6 +65,7 @@ def create_team_repo(sender, instance, raw, **kwargs):
     """Forks a BaseClient repository and saves it on disk"""
     # If the TeamClient is brand new, pk will be none.
     if instance.pk is None and not raw:
+        logger.info("Creating TeamClient repository")
         name = "{0}/{1}__{2}.git".format(instance.team.competition.slug,
                                          instance.team.slug,
                                          instance.team.pk)
@@ -72,6 +79,7 @@ def create_team_repo(sender, instance, raw, **kwargs):
                                          forked_from=instance.base.repository,
                                          owner=instance)
         instance.repository = repo
+        logger.info("TeamClient repository created")
 
     # Give the team access to their repo
     assign('can_view_repository', instance.team.get_group(),
@@ -83,7 +91,11 @@ def delete_base_repo(sender, instance, **kwargs):
     """Deletes a base repo when the BaseClient is deleted"""
     # When a BaseClient gets deleted, delete its corresponding
     # repository, too.
-    instance.repository.delete()
+    try:
+        logger.info("Deleting BaseClient repository")
+        instance.repository.delete()
+    except Repository.DoesNotExist:
+        logger.info("Repository was already deleted")
 
 
 @receiver(post_delete, sender=TeamClient)
@@ -91,6 +103,10 @@ def delete_team_repo(sender, instance, **kwargs):
     """Deletes a base repo when the TeamClient is deleted"""
     # When a TeamClient gets deleted, delete its corresponding
     # repository, too.
-    remove_perm('can_view_repository', instance.team.get_group(),
-                instance.repository)
-    instance.repository.delete()
+    try:
+        logger.info("Deleting TeamClient repository")
+        remove_perm('can_view_repository', instance.team.get_group(),
+                    instance.repository)
+        instance.repository.delete()
+    except Repository.DoesNotExist:
+        logger.info("Repository was already deleted")
