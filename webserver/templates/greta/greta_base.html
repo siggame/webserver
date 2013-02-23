@@ -5,6 +5,13 @@
 
 {% block page-header%}
   <div class="page-header">
-    <h1>{{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small></h1>
+    <h1 style="display:inline">
+      {{ repo.name|clean_repo_name }}
+      <small>{{ ref|pretty_ref|truncatechars:15 }}</small>
+    </h1>
+    <a href="{{ repo.owner.team.get_absolute_url }}" class="btn btn-primary pull-right">
+      <i class="icon-arrow-left icon-white"></i>
+      Back to team
+    </a>
   </div>
 {% endblock %}
