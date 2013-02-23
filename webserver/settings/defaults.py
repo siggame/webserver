@@ -95,6 +95,10 @@ ANONYMOUS_USER_ID = -1
 import djcelery
 djcelery.setup_loader()
 
+try:
+    BROKER_URL
+except NameError:
+    BROKER_URL = 'django://'
 
 ##########################################################################
 #
@@ -290,6 +294,7 @@ INSTALLED_APPS = (
 
     'guardian',
     'djcelery',                 # Django celery
+    'kombu.transport.django',
     'raven.contrib.django.raven_compat',  # Sentry client
     'django_extensions',
     'django_nose',
