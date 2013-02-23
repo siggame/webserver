@@ -2,6 +2,7 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import Http404
 
 from competition.views.mixins import RequireRunningMixin, CompetitionViewMixin
 
@@ -22,9 +23,17 @@ class CreateRepoView(CompetitionViewMixin,
 
     def get_team(self):
         c = self.get_competition()
-        queryset = self.request.user.team_set
         # If the team doesn't exist, throw a 404
-        return get_object_or_404(queryset, competition=c)
+        team = get_object_or_404(self.request.user.team_set,
+                                 competition=c)
+        try:
+            team.teamclient     # This should raise an exception
+        except TeamClient.DoesNotExist:
+            return team
+
+        # If an exception wasn't raised, it means that the user
+        # already has a TeamClient and repository
+        raise Http404("User's team already has a repository")
 
     def get_base_choices(self):
         # Only let the user choose from BaseClients for this
