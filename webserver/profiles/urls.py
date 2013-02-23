@@ -15,7 +15,7 @@ urlpatterns = patterns(
         MyProfileView.as_view(),
         name="view_profile"),
 
-    url(r'^profile/(?P<username>[a-zA-Z0-9]+)/$',
+    url(r'^profile/(?P<username>.+)/$',
         ProfileView.as_view(),
         name="view_profile"),
 
