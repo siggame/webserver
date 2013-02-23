@@ -10,6 +10,10 @@ from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ProfileListView(ListView):
     """ A view that displays a user's profile.
@@ -53,8 +57,12 @@ class MyProfileView(ProfileView):
     """ A view that displays a user's own profile.
     """
     def get_object(self, queryset=None):
-        return self.request.user.get_profile()
-
+        try:
+            return self.request.user.get_profile()
+        except UserProfile.DoesNotExist:
+            user = self.request.user
+            logger.info("Creating user profile for %s" % user.username)
+            return UserProfile.objects.create(user=user)
 
 class ProfileUpdateView(UpdateView):
     """ A view that displays a form for editing a user's profile.
