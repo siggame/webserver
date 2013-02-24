@@ -3,25 +3,41 @@
 {% load greta_tags %}
 {% load code_tags %}
 
-{% block page-header%}
+{% block page-header %}
   <div class="page-header">
     <h1> {{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small> </h1>
   </div>
 {% endblock %}
 
 {% block sidebar %}
+  <!-- Clone Command Modal -->
+  <div id="cloneCommandModal" class="modal hide fade" tabindex="-1"
+       role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Clone Command</h3>
+    </div>
+    <div class="modal-body">
+      <p>Use this command to clone your repository</p>
+      <pre>{{ repo.owner.git_clone_command|default:'Under construction...' }}</pre>
+      <p>If you need assistance, check out <a href="http://git-scm.com/book">Pro Git</a>.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+  </div>
+
   <h2 class="text-right">Repository</h2>
   <ul class="nav nav-tabs nav-stacked">
     <li>
-      <a id="clone-command" href="#"
-         data-content="{{ repo.owner.git_clone_command|default:'Under construction...' }}">
+      <a href="#cloneCommandModal" role="button" data-toggle="modal">
         View Clone Command
       </a>
     </li>
     <li>
       <a id="view-password" href="#"
          data-content="{{ repo.owner.git_password }}">
-        View Team Password
+         View Team Password
       </a>
     </li>
     <li>
