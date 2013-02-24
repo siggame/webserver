@@ -74,9 +74,11 @@ class UpdatePasswordView(CompetitionViewMixin,
         return super(UpdatePasswordView, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-
-        competition = self.get_competition()
-        team = self.request.user.team_set.get(competition=competition)
-        return team.teamclient
+        try:
+            competition = self.get_competition()
+            team = self.request.user.team_set.get(competition=competition)
+            return team.teamclient
+        except Team.DoesNotExist:
+            raise Http404("No such team for competition. (User not on a team)")
+        except TeamClient.DoesNotExist:
+            raise Http404("Team does not have a TeamClient")
