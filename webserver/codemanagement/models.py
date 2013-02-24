@@ -56,7 +56,7 @@ class TeamClient(models.Model):
             'protocol': settings.GIT_PROTOCOL,
             'host': settings.GIT_HOST,
             'port': settings.GIT_PORT,
-            'user': self.team.slug,
+            'user': '{slug}-{id}'.format(slug=self.team.slug, id=self.team.pk),
             'repo_name': re.sub(r'__\d+\.git$', '.git', self.repository.name)
         }
         return "git clone {protocol}://{user}@{host}:{port}/{repo_name}".format(**data)
