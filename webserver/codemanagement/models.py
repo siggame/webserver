@@ -45,7 +45,8 @@ class TeamClient(models.Model):
 @receiver(pre_save, sender=BaseClient)
 def create_base_repo(sender, instance, raw, **kwargs):
     """Creates a new, blank shell repo on disk"""
-    instance.language_slug = slugify(instance.language)
+    if instance.language_slug == "":
+        instance.language_slug = slugify(instance.language)
 
     # If the BaseClient is brand new, pk will be none.
     if instance.pk is None and not raw:
