@@ -21,6 +21,7 @@ class CreateRepoView(CompetitionViewMixin,
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.request = request
         self.kwargs = kwargs    # Needed by get_competition()
 
         try:
