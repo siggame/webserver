@@ -29,7 +29,8 @@ class UserProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     email = forms.EmailField()
-    about_me = forms.CharField(widget=forms.HiddenInput())
+    about_me = forms.CharField(required=False,
+                               widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -44,7 +45,7 @@ class UserProfileForm(forms.ModelForm):
             HTML(epiceditor),
             Field('about_me', content_for="epiceditor"),
             FormActions(
-                Submit('save', 'Save changes', 
+                Submit('save', 'Save changes',
                        epiceditor_save_button="true"),
                 Button('cancel', 'Cancel',
                        onclick="window.location='/profile/'")
