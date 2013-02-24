@@ -1,10 +1,12 @@
 from django.views.generic.edit import CreateView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 from django.http import Http404
 
 from competition.views.mixins import RequireRunningMixin, CompetitionViewMixin
+from competition.models import Team
 
 from .models import BaseClient, TeamClient
 from .forms import TeamRepoForm
@@ -18,8 +20,18 @@ class CreateRepoView(CompetitionViewMixin,
     template_name = "codemanagement/create_team_repo.html"
 
     @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(CreateRepoView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        self.kwargs = kwargs    # Needed by get_competition()
+
+        try:
+            competition = self.get_competition()
+            self.request.user.team_set.get(competition=competition)
+        except Team.DoesNotExist:
+            msg = "Please join a team before creating a repository"
+            messages.info(request, msg)
+            return redirect('team_create', comp_slug=competition.slug)
+
+        return super(CreateRepoView, self).dispatch(request, *args, **kwargs)
 
     def get_team(self):
         c = self.get_competition()
