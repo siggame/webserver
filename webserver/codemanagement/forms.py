@@ -84,3 +84,9 @@ class TeamPasswordForm(forms.ModelForm):
             msg = "Password should be at least 6 characters"
             raise forms.ValidationError(msg)
         return password
+
+
+class AuthForm(forms.Form):
+    """Used by the RepoAuthHandler to check data from API clients"""
+    teamid = forms.IntegerField()
+    password = forms.CharField()

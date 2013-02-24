@@ -1,10 +1,14 @@
 from django.conf.urls.defaults import patterns, url, include
+from piston.resource import Resource
 
 from .views import CreateRepoView, UpdatePasswordView
+from .api_handlers import RepoAuthHandler
 
 
 urlpatterns = patterns(
     "",
+
+    url(r'^api/repo/auth/', Resource(handler=RepoAuthHandler)),
 
     url(r'^competition/(?P<comp_slug>[\w-]+)/create-repo/$',
         CreateRepoView.as_view(),
