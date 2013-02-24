@@ -8,9 +8,15 @@ from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
 from competition.models import Competition, Team
 from greta.models import Repository
 
+from hashlib import sha1
+from os import urandom
+
 import logging
 
 logger = logging.getLogger(__name__)
+
+def generate_unusable_password():
+    return sha1(urandom(100)).hexdigest()[:15]
 
 
 class BaseClient(models.Model):
@@ -36,6 +42,8 @@ class TeamClient(models.Model):
     team = models.OneToOneField(Team)
     base = models.ForeignKey(BaseClient)
     repository = models.OneToOneField(Repository)
+    git_password = models.CharField(max_length=100,
+                                    default=generate_unusable_password)
 
     @models.permalink
     def get_absolute_url(self):

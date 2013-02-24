@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -9,7 +9,7 @@ from competition.views.mixins import RequireRunningMixin, CompetitionViewMixin
 from competition.models import Team
 
 from .models import BaseClient, TeamClient
-from .forms import TeamRepoForm
+from .forms import TeamRepoForm, TeamPasswordForm
 
 
 class CreateRepoView(CompetitionViewMixin,
@@ -58,3 +58,25 @@ class CreateRepoView(CompetitionViewMixin,
         kwargs['instance'] = TeamClient(team=self.get_team())
         kwargs['base_clients'] = self.get_base_choices()
         return kwargs
+
+
+class UpdatePasswordView(CompetitionViewMixin,
+                         RequireRunningMixin,
+                         UpdateView):
+    model = TeamClient
+    form_class = TeamPasswordForm
+    template_name = "codemanagement/update_password.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        self.request = args[0]
+        self.kwargs = kwargs    # Needed by get_competition()
+        return super(UpdatePasswordView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        competition = self.get_competition()
+        team = self.request.user.team_set.get(competition=competition)
+        return team.teamclient

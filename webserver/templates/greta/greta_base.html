@@ -5,13 +5,43 @@
 
 {% block page-header%}
   <div class="page-header">
-    <h1 style="display:inline">
-      {{ repo.name|clean_repo_name }}
-      <small>{{ ref|pretty_ref|truncatechars:15 }}</small>
-    </h1>
-    <a href="{{ repo.owner.team.get_absolute_url }}" class="btn btn-primary pull-right">
-      <i class="icon-arrow-left icon-white"></i>
-      Back to team
-    </a>
+    <h1> {{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small> </h1>
   </div>
+{% endblock %}
+
+{% block sidebar %}
+  <h2 class="text-right">Repository</h2>
+  <ul class="nav nav-tabs nav-stacked">
+    <li>
+      <a id="clone-command" href="#"
+         title="Clone command"
+         data-content="{{ repo.owner.git_clone_command|default:'Under construction...' }}">
+        View Clone Command
+      </a>
+    </li>
+    <li>
+      <a id="view-password" href="#"
+         title="Your team's git password"
+         data-content="{{ repo.owner.git_password }}">
+        View Team Password
+      </a>
+    </li>
+  </ul>
+  <h2 class="text-right">Team</h2>
+  <ul class="nav nav-tabs nav-stacked">
+    <li>
+      <a href="{{ repo.owner.team.get_absolute_url }}">
+        Back to team
+      </a>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(function(){
+      $('#clone-command').popover({placement: 'left'});
+      $('#view-password').popover({placement: 'left'});
+    });
+  </script>
 {% endblock %}

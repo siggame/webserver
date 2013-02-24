@@ -17,6 +17,11 @@
           My Team's Repository
         </a>
       </li>
+      <li>
+        <a href="{% url 'update_repo_password' comp_slug=competition.slug %}">
+          Update Repository Password
+        </a>
+      </li>
     {% endif %}
   </ul>
 {% endif %}
