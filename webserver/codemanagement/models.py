@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from django.conf import settings
 
 from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
 
@@ -11,6 +12,7 @@ from greta.models import Repository
 from hashlib import sha1
 from os import urandom
 
+import re
 import logging
 
 logger = logging.getLogger(__name__)
@@ -48,6 +50,16 @@ class TeamClient(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('repo_detail', (), {'pk': self.repository.pk})
+
+    def git_clone_command(self):
+        data = {
+            'protocol': settings.GIT_PROTOCOL,
+            'host': settings.GIT_HOST,
+            'port': settings.GIT_PORT,
+            'user': self.team.slug,
+            'repo_name': re.sub(r'__\d+\.git$', '.git', self.repository.name)
+        }
+        return "git clone {protocol}://{user}@{host}:{port}/{repo_name}".format(**data)
 
 
 @receiver(pre_save, sender=BaseClient)

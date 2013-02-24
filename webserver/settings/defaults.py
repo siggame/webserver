@@ -113,6 +113,18 @@ GRETA_ROOT_TEST_DIR = os.path.join(VAR_DIR, "test_repos")
 GRETA_ARCHIVE_DIR = os.path.join(VAR_DIR, "archives")
 GRETA_PAGE_COMMITS_BY = 10
 
+##########################################################################
+#
+# Git settings
+#
+##########################################################################
+
+# These settings should be included in secret_settings.py
+
+# GIT_HOST = None
+# GIT_PORT = None
+GIT_PROTOCOL = 'ssh'
+
 
 ##########################################################################
 #
