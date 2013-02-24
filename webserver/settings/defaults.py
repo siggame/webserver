@@ -84,6 +84,10 @@ AUTHENTICATION_BACKENDS = (
 )
 ANONYMOUS_USER_ID = -1
 
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/profile/%s/" % u.username,
+}
+
 
 ##########################################################################
 #
