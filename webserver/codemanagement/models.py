@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
-from guardian.shortcuts import assign, remove_perm
+from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
 
 from competition.models import Competition, Team
 from greta.models import Repository
@@ -122,8 +122,11 @@ def delete_team_repo(sender, instance, **kwargs):
     # repository, too.
     try:
         logger.info("Deleting TeamClient repository")
-        remove_perm('can_view_repository', instance.team.get_group(),
-                    instance.repository)
+        # For each group that has permissions to access this
+        # repository, remove its permissons.
+        for group in get_groups_with_perms(instance.repository):
+            logger.info("Removing repo view permissions from %s" % group.name)
+            remove_perm('can_view_repository', group, instance.repository)
         instance.repository.delete()
     except Repository.DoesNotExist:
         logger.info("Repository was already deleted")
