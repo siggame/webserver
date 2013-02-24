@@ -88,5 +88,10 @@ class TeamPasswordForm(forms.ModelForm):
 
 class AuthForm(forms.Form):
     """Used by the RepoAuthHandler to check data from API clients"""
-    teamid = forms.IntegerField()
-    password = forms.CharField()
+    teamid = forms.IntegerField(required=True)
+    password = forms.CharField(required=True)
+
+
+class PathForm(forms.Form):
+    """Used by the RepoPathHandler to check data from API clients"""
+    teamid = forms.IntegerField(required=True)

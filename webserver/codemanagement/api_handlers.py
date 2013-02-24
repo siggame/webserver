@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
 from piston.handler import BaseHandler
 from piston.utils import rc
 
 from competition.models import Team
 from .models import TeamClient
-from .forms import AuthForm
+from .forms import AuthForm, PathForm
 
 
 class RepoAuthHandler(BaseHandler):
@@ -35,6 +34,32 @@ class RepoAuthHandler(BaseHandler):
                 # Bad password
                 return rc.FORBIDDEN
 
+        except Team.DoesNotExist:
+            return rc.NOT_FOUND
+        except TeamClient.DoesNotExist:
+            return rc.NOT_FOUND
+
+        return rc.NOT_FOUND
+
+
+class RepoPathHandler(BaseHandler):
+    methods_allowed = ('GET',)
+
+    def read(self, request):
+        form = PathForm(request.GET)
+        if not form.is_valid():
+            return rc.BAD_REQUEST
+
+        try:
+            team = Team.objects.get(pk=form.cleaned_data['teamid'])
+            return {
+                'repository': {
+                    'name': team.teamclient.repository.name,
+                    'path': team.teamclient.repository.path,
+                    'description': team.teamclient.repository.description,
+                    'base': team.teamclient.base.repository.name,
+                }
+            }
         except Team.DoesNotExist:
             return rc.NOT_FOUND
         except TeamClient.DoesNotExist:
