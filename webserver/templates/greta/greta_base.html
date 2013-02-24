@@ -14,16 +14,19 @@
   <ul class="nav nav-tabs nav-stacked">
     <li>
       <a id="clone-command" href="#"
-         title="Clone command"
          data-content="{{ repo.owner.git_clone_command|default:'Under construction...' }}">
         View Clone Command
       </a>
     </li>
     <li>
       <a id="view-password" href="#"
-         title="Your team's git password"
          data-content="{{ repo.owner.git_password }}">
         View Team Password
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'update_repo_password' repo.owner.team.competition.slug %}">
+        Change Team Password
       </a>
     </li>
   </ul>
