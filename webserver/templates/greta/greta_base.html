@@ -30,6 +30,12 @@
          View Team Password
       </a>
     </li>
+    <li>
+      <a href="/repo/ssh-fingerprint/">
+        <i class="icon-lock"></i>
+        Verify SSH Fingerprint
+      </a>
+    </li>
     {% if repo.owner.team %}
       <li>
         <a href="{% url 'update_repo_password' repo.owner.team.competition.slug %}">
