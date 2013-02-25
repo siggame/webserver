@@ -32,4 +32,14 @@ $(function() {
   if (window.location.pathname.match(/^\/invitation/) != null) {
     $("#invitation-tab").toggleClass("active");
   }
+
+  // If the URL starts with "/docs" gray out the documentation tab
+  if (window.location.pathname.match(/^\/docs/) != null) {
+    $("#documentation-tab").toggleClass("active");
+  }
+
+  // If the URL starts with "/about" gray out the about_us tab
+  if (window.location.pathname.match(/^\/about/) != null) {
+    $("#about-us-tab").toggleClass("active");
+  }
 });

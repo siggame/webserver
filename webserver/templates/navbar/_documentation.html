@@ -1,0 +1,21 @@
+{% load url from future %}
+{% load flatpages %}
+
+<li id="documentation-tab" class="dropdown">
+  <a href="#" class="toggle-dropdown" data-toggle="dropdown">
+    Documentation
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    {% get_flatpages '/docs/' for user as flatpages %}
+    {% for page in flatpages %}
+      <li>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+      </li>
+    {% empty %}
+      <li class="disabled">
+        <a href="#">No documentation sets available</a>
+      </li>
+    {% endfor %}
+  </ul>
+</li>
