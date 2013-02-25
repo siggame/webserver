@@ -4,17 +4,23 @@
 <li id="competition-tab" class="dropdown">
 
   <a href="#" class="toggle-dropdown" data-toggle="dropdown">
-  Competition
+    Competition
   </a>
 
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="{% url 'competition_list' %}" title="Blog">
-      Competitions
+      <a href="{% url 'competition_list' %}">
+        Competitions
       </a>
     </li>
 
     <li class="divider"></li>
+    <li id="your-competitions" class="disabled"
+        title="These are the competitions that you've registered for!">
+      <a href="#" data-toggle="tooltip">
+        Your Competitions
+      </a>
+    </li>
 
     {# List competitions that the user is registered for #}
     {% competitions_registered %}

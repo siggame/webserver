@@ -26,6 +26,8 @@ $(function() {
     $("#competition-tab").toggleClass("active");
   }
 
+  $('#your-competitions').tooltip({placement: "left", delay: 500});
+
   // If the URL starts with "/invitation", gray out the profile tab
   if (window.location.pathname.match(/^\/invitation/) != null) {
     $("#invitation-tab").toggleClass("active");
