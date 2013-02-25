@@ -15,27 +15,25 @@
 {% endblock %}
 
 {% block sidebar %}
-    <a href="#helpModal" role="button" data-toggle="modal" style="margin-bottom:20px"
-       class="btn btn-danger btn-large pull-right">
-      Repository Help
-    </a>
-
   <h2 class="text-right">Repository</h2>
   <ul class="nav nav-tabs nav-stacked">
     <li>
       <a href="#cloneCommandModal" role="button" data-toggle="modal">
+        <i class="icon-share"></i>
         View Clone Command
       </a>
     </li>
     <li>
       <a id="view-password" href="#"
          data-content="{{ repo.owner.git_password }}">
+         <i class="icon-eye-open"></i>
          View Team Password
       </a>
     </li>
     {% if repo.owner.team %}
       <li>
         <a href="{% url 'update_repo_password' repo.owner.team.competition.slug %}">
+          <i class="icon-pencil"></i>
           Change Team Password
         </a>
       </li>
@@ -46,11 +44,18 @@
         </a>
       </li>
     {% endif %}
+    <li>
+      <a href="#helpModal" role="button" data-toggle="modal">
+        <i class="icon-question-sign"></i>
+        Help!
+      </a>
+    </li>
   </ul>
   <h2 class="text-right">Team</h2>
   <ul class="nav nav-tabs nav-stacked">
     <li>
       <a href="{{ repo.owner.team.get_absolute_url }}">
+        <i class="icon-arrow-left"></i>
         Back to team
       </a>
     </li>

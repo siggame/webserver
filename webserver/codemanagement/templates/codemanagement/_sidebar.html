@@ -7,6 +7,7 @@
       {% if competition.is_running %}
         <li>
           <a href="{% url 'create_repo' comp_slug=competition.slug %}">
+            <i class="icon-plus"></i>
             Create Repository
           </a>
         </li>
@@ -14,11 +15,13 @@
     {% else %}
       <li>
         <a href="{{ user_team.teamclient.get_absolute_url }}">
+          <i class="icon-hdd"></i>
           My Team's Repository
         </a>
       </li>
       <li>
         <a href="{% url 'update_repo_password' comp_slug=competition.slug %}">
+          <i class="icon-pencil"></i>
           Update Repository Password
         </a>
       </li>
