@@ -302,6 +302,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',  # For serving docs and other flat pages
 
     # django-crispy-forms
     'crispy_forms',

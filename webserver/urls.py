@@ -29,6 +29,12 @@ urlpatterns = patterns(
     url(r'^admin_tools/', include('admin_tools.urls')),
 )
 
+# Flat pages
+urlpatterns += patterns(
+    'django.contrib.flatpages.views',
+    url(r'^(?P<url>.*)$', 'flatpage'),
+)
+
 if settings.DEBUG:
     urlpatterns += patterns(
         '',
