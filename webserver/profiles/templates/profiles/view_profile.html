@@ -7,11 +7,12 @@
     <div class="span9">
       <div class="well">
         <h2>{% firstof userprofile.user.get_full_name userprofile.user.username %}</h2>
-        {% if userprofile.has_badges%}<div class="row-fluid">
-            <div class="span12">
+          {% if userprofile.has_badges%}<div class="row-fluid">
+              <div class="span12">
                 <!-- Badges go here -->
+              </div>
             </div>
-        {% endif %}
+          {% endif %}
         <h4 class="muted"><i>{{ userprofile.user.username }}</i></h4>
         <p>
           {{ userprofile.rendered_about_me|safe }}
