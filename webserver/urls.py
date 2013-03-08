@@ -29,17 +29,18 @@ urlpatterns = patterns(
     url(r'^admin_tools/', include('admin_tools.urls')),
 )
 
+if settings.DEBUG:
+    urlpatterns += patterns(
+        '',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT,'show_indexes':True}),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.STATIC_ROOT}),
+    )
+
 # Flat pages
 urlpatterns += patterns(
     'django.contrib.flatpages.views',
     url(r'^(?P<url>.*)$', 'flatpage'),
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns(
-        '',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT}),
-        url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_ROOT}),
-    )
