@@ -29,67 +29,70 @@ class Command(BaseCommand):
             ####################
             # Clone
             ####################
+            self.stdout.write("\tCloning...\n")
             clone = subprocess.Popen(["git", "clone", client.repository.path],
                                      cwd=directory,
                                      stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)
-            clone.wait()
+            out, err = clone.communicate()
 
             if clone.returncode != 0:
                 errors.append(
                     ("Failed to clone {0}'s repo".format(client.team.name),
                      repo_directory,
-                     clone.stdout.read() + clone.stderr.read())
+                     out + err)
                 )
                 continue
 
             ####################
             # Pull
             ####################
+            self.stdout.write("\tPulling...\n")
             # Use default merge-recursive strategy
             pull = subprocess.Popen(["git", "pull",
                                      client.base.repository.path],
                                     cwd=repo_directory,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
-            pull.wait()
+            out, err = pull.communicate()
 
             if pull.returncode != 0:
                 errors.append(
                     ("Failed to pull into {0}'s repo".format(client.team.name),
                      repo_directory,
-                     pull.stdout.read() + pull.stderr.read())
+                     out + err)
                 )
                 continue
 
             ####################
             # Push
             ####################
+            self.stdout.write("\tPushing...\n")
             push = subprocess.Popen(["git", "push"],
                                     cwd=repo_directory,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
-            push.wait()
+            out, err = push.communicate()
 
             if push.returncode != 0:
                 errors.append(
                     ("Failed to push to {0}'s repo".format(client.team.name),
                      repo_directory,
-                     push.stdout.read() + push.stderr.read())
+                     out + err)
                 )
                 continue
 
             ####################
             # Show
             ####################
+            self.stdout.write("\tGetting show...\n")
             show = subprocess.Popen(["git", "show"],
                                     cwd=repo_directory,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
-            show.wait()
+            out, err = show.communicate()
 
-            successes.append((client.team.name,
-                              show.stdout.read() + show.stderr.read()))
+            successes.append((client.team.name, out + err))
 
         if successes:
             self.stdout.write("\n\nSuccessfully updated some team repos\n")
