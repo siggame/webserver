@@ -86,7 +86,7 @@ class Command(BaseCommand):
             # Show
             ####################
             self.stdout.write("\tGetting show...\n")
-            show = subprocess.Popen(["git", "show"],
+            show = subprocess.Popen(["git", "show", "--stat"],
                                     cwd=repo_directory,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
@@ -100,6 +100,7 @@ class Command(BaseCommand):
             self.stdout.write("\t - {0}\n".format(name))
             for line in show.splitlines():
                 self.stdout.write("\t\t" + line + "\n")
+            self.stdout.write("\n\n")
 
         if errors:
             self.stdout.write("\n\nUnable to update some team repos\n")
@@ -107,6 +108,7 @@ class Command(BaseCommand):
             self.stdout.write("\t - {0} ({1})\n".format(name, directory))
             for line in stderr.splitlines():
                 self.stdout.write("\t\t" + line + "\n")
+            self.stdout.write("\n\n")
 
         if not errors and not successes:
             self.stdout.write("No team repos to update\n")
