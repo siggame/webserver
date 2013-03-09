@@ -10,9 +10,11 @@ $(function() {
     $("#content").parent().css('margin-top', '20px');
   }
 
-  // If the URL starts with "/weblog/", gray out the blog tab
-  if (window.location.pathname.match(/^\/weblog\//) != null) {
-    $("#zinnia-tab").toggleClass("active");
+  // If the URL starts with "/weblog/" or "/about", gray out the
+  // siggame tab
+  if (window.location.pathname.match(/^\/weblog\//) != null ||
+      window.location.pathname.match(/^\/about/) != null) {
+    $("#siggame-tab").toggleClass("active");
   }
 
   // If the URL starts with "/profile/", gray out the profile tab
@@ -36,10 +38,5 @@ $(function() {
   // If the URL starts with "/docs" gray out the documentation tab
   if (window.location.pathname.match(/^\/docs/) != null) {
     $("#documentation-tab").toggleClass("active");
-  }
-
-  // If the URL starts with "/about" gray out the about_us tab
-  if (window.location.pathname.match(/^\/about/) != null) {
-    $("#about-us-tab").toggleClass("active");
   }
 });

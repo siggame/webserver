@@ -47,13 +47,12 @@
             <!-- Everything you want hidden at 940px or less, place within here -->
             <div class="nav-collapse collapse">
               <ul class="nav pull-left">
-                {% include "navbar/_zinnia.html" %}
+                {% include "navbar/_siggame.html" %}
                 {% include "navbar/_competition.html" %}
                 {% if user.is_authenticated %}
                   {% include "navbar/_documentation.html" %}
                   {% include "navbar/_invitation.html" %}
                   {% include "navbar/_profile.html" %}
-                  {% include "navbar/_about_us.html" %}
                 {% endif %}
               </ul>
               <ul class="nav pull-right">

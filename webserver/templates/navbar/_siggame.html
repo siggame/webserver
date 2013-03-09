@@ -1,0 +1,27 @@
+{% load url from future %}
+{% load flatpages %}
+
+{% get_flatpages '/about-us/' for user as flatpages %}
+
+<li id="siggame-tab" class="dropdown">
+  <a href="#" class="toggle-dropdown" data-toggle="dropdown">
+    SIG-Game
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="{% url 'zinnia_entry_archive_index' %}" title="Blog">
+        Blog
+      </a>
+    </li>
+
+    {% for page in flatpages %}
+      {% if forloop.first %}
+        <li class="divider"></li>
+      {% endif %}
+      <li>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</li>
