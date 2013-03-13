@@ -27,4 +27,5 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=UserProfile)
 def user_profile_pre_save(sender, instance, **kwargs):
     # Render the about_me field as HTML instead of markdown
-    instance.rendered_about_me = markdown.markdown(instance.about_me)
+    instance.rendered_about_me = markdown.markdown(instance.about_me,
+                                                   safe_mode='escape')
