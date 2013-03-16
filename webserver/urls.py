@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^', include('webserver.home.urls')),
     url(r'^', include('webserver.profiles.urls')),
     url(r'^', include('webserver.codemanagement.urls')),
+    url(r'^', include('webserver.hermes.urls')),
 
     # Competition
     url(r'^', include('competition.urls')),
@@ -43,4 +44,3 @@ urlpatterns += patterns(
     'django.contrib.flatpages.views',
     url(r'^(?P<url>.*)$', 'flatpage'),
 )
-

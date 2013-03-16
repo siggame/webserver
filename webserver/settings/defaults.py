@@ -343,6 +343,7 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
     'webserver.codemanagement',
+    'webserver.hermes',
 
     'guardian',
     'djcelery',                 # Django celery
