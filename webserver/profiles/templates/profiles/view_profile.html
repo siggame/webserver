@@ -20,8 +20,9 @@
       </div>
     </div>
     <div class="span3">
-      <a href="#" class="thumbnail">
-        <img src="{% gravatar_url userprofile.user.email %}" />
+      <a id="profilepic" class="thumbnail" href="https://en.gravatar.com/site/login"
+         data-toggle="tooltip" title="Set your gravatar at gravatar.com!" >
+         <img src="{% gravatar_url userprofile.user.email %}" />
       </a>
     </div>
   </div>
@@ -36,6 +37,7 @@
   <script>
     $(function(){
       $(".invitation-tooltip").tooltip();
+      $("#profilepic").tooltip();
     });
   </script>
 {% endblock %}
