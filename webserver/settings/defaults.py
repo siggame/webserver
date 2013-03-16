@@ -203,7 +203,7 @@ USE_L10N = True
 #
 ##########################################################################
 MEDIA_ROOT = os.path.join(VAR_DIR, "uploads")
-MEDIA_URL = '/media/'
+MEDIA_URL = '/uploads/'
 
 STATIC_ROOT = os.path.join(VAR_DIR, "static")
 STATIC_URL = '/static/'
