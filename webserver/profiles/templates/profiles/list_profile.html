@@ -16,18 +16,20 @@
     </caption>
     <thead>
       <tr>
-        <th>Name</th>
+	<th>Name</th>
       </tr>
     </thead>
     <tbody>
       {% for profile in userprofiles %}
-        <tr>
-          <td>
-            <a href="{{profile.get_absolute_url}}">
-              {% firstof profile.user.get_name profile.user.username %}
-            </a>
-          </td>
-        </tr>
+	<tr>
+	  <td>
+	    <a href="{{profile.get_absolute_url}}">
+	      {% filter force_escape %}
+		{% firstof profile.user.get_name profile.user.username %}
+	      {% endfilter %}
+	    </a>
+	  </td>
+	</tr>
       {% endfor %}
     </tbody>
   </table>
