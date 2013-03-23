@@ -6,7 +6,11 @@
   <div class="row-fluid">
     <div class="span9">
       <div class="well">
-        <h2>{% firstof userprofile.user.get_full_name userprofile.user.username %}</h2>
+	<h2>
+          {% filter force_escape %}
+            {% firstof userprofile.user.get_full_name userprofile.user.username %}
+          {% endfilter %}
+	</h2>
           {% if userprofile.has_badges%}<div class="row-fluid">
               <div class="span12">
                 <!-- Badges go here -->
