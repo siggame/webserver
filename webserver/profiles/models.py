@@ -2,8 +2,10 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.conf import settings
 
 import markdown
+import bleach
 
 
 class UserProfile(models.Model):
@@ -27,5 +29,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=UserProfile)
 def user_profile_pre_save(sender, instance, **kwargs):
     # Render the about_me field as HTML instead of markdown
-    instance.rendered_about_me = markdown.markdown(instance.about_me,
-                                                   safe_mode='escape')
+    rendered = markdown.markdown(instance.about_me, safe_mode='escape')
+    clean_rendered = bleach.clean(rendered,
+                                  tags=settings.ALLOWED_HTML_TAGS,
+                                  attributes=settings.ALLOWED_HTML_ATTRS)
+    instance.rendered_about_me = clean_rendered

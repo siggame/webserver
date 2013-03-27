@@ -91,6 +91,20 @@ ABSOLUTE_URL_OVERRIDES = {
 
 ##########################################################################
 #
+# Bleach settings
+#
+##########################################################################
+import bleach
+
+ALLOWED_HTML_TAGS = bleach.ALLOWED_TAGS + ['h1', 'h2', 'h3', 'p', 'img']
+
+ALLOWED_HTML_ATTRS = bleach.ALLOWED_ATTRIBUTES
+ALLOWED_HTML_ATTRS.update({
+        'img': ['src', 'alt'],
+        })
+
+##########################################################################
+#
 # Celery settings
 #
 ##########################################################################
