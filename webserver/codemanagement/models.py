@@ -3,19 +3,30 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.conf import settings
+from django.core.validators import RegexValidator
+from django.contrib.auth.models import User
 
 from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
 
 from competition.models import Competition, Team
 from greta.models import Repository
 
+from dulwich.objects import Tag, parse_timezone
+
 from hashlib import sha1
 from os import urandom
 
 import re
 import logging
+import time
 
 logger = logging.getLogger(__name__)
+sha1_validator = RegexValidator(regex="^[a-f0-9]{40}$",
+                                message="Must be valid sha1 sum")
+tag_validator = RegexValidator(regex="^[\w\-\.]+$",
+                               message="Must be letters and numbers" +
+                               " separated by dashes, dots, or underscores")
+
 
 def generate_unusable_password():
     return sha1(urandom(100)).hexdigest()[:15]
@@ -59,7 +70,18 @@ class TeamClient(models.Model):
             'user': '{slug}-{id}'.format(slug=self.team.slug, id=self.team.pk),
             'repo_name': re.sub(r'__\d+\.git$', '.git', self.repository.name)
         }
-        return "git clone {protocol}://{user}@{host}:{port}/{repo_name}".format(**data)
+        cmd = "git clone {protocol}://{user}@{host}:{port}/{repo_name}"
+        return cmd.format(**data)
+
+
+class TeamSubmission(models.Model):
+    team = models.ForeignKey(Team)
+    commit = models.CharField(max_length=40,
+                              validators=[sha1_validator])
+    name = models.CharField(max_length=50,
+                            validators=[tag_validator])
+    submitter = models.ForeignKey(User)
+    tag_time = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(pre_save, sender=BaseClient)
@@ -150,3 +172,20 @@ def delete_team_repo(sender, instance, **kwargs):
         instance.repository.delete()
     except Repository.DoesNotExist:
         logger.info("Repository was already deleted")
+
+
+@receiver(pre_save, sender=TeamSubmission)
+def tag_commit(sender, instance, raw, **kwargs):
+    repo = instance.repository.repo
+    commit = repo[instance.commit]
+    message = "Tagged by {} via the SIG-Game website"
+
+    tag = Tag()
+    tag.tagger = "SIG-Game <siggame@mst.edu>"
+    tag.message = message.format(instance.submitter)
+    tag.name = instance.name
+    tag.object = (commit, commit.id)
+    tag.tag_time = time.mktime(instance.tag_time.timetuple())
+    tag.tag_timezone = parse_timezone('-0600')
+    repo.object_store.add_object(tag)
+    repo['refs/tags/' + tag.name] = tag.id
