@@ -18,8 +18,9 @@ from hashlib import sha1
 from os import urandom
 
 import re
-import logging
 import time
+import logging
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -172,8 +173,13 @@ def delete_team_repo(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=TeamSubmission)
 def tag_commit(sender, instance, raw, **kwargs):
-    repo = instance.repository.repo
-    commit = repo[instance.commit]
+    repo = instance.team.teamclient.repository.repo
+    try:
+        commit = repo[instance.commit]
+    except KeyError:
+        raise Exception("No such commit with sha {}".format(instance.commit))
+
+    instance.tag_time = datetime.datetime.now()
     message = "Tagged by {} via the SIG-Game website"
 
     # Create an annotated tag
@@ -183,7 +189,7 @@ def tag_commit(sender, instance, raw, **kwargs):
     tag.name = instance.name
     tag.object = (commit, commit.id)
     tag.tag_time = time.mktime(instance.tag_time.timetuple())
-    tag.tag_timezone = parse_timezone('-0600')
+    tag.tag_timezone, _ = parse_timezone('-0600')
 
     # Save it in the repo
     repo.object_store.add_object(tag)
