@@ -3,7 +3,6 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.conf import settings
-from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
 from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
@@ -13,6 +12,8 @@ from greta.models import Repository
 
 from dulwich.objects import Tag, parse_timezone
 
+from .validators import sha1_validator, tag_validator
+
 from hashlib import sha1
 from os import urandom
 
@@ -21,11 +22,6 @@ import logging
 import time
 
 logger = logging.getLogger(__name__)
-sha1_validator = RegexValidator(regex="^[a-f0-9]{40}$",
-                                message="Must be valid sha1 sum")
-tag_validator = RegexValidator(regex="^[\w\-\.]+$",
-                               message="Must be letters and numbers" +
-                               " separated by dashes, dots, or underscores")
 
 
 def generate_unusable_password():
