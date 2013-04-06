@@ -3,11 +3,15 @@ from django.contrib import admin
 from competition.models import Competition, Team
 from competition.admin import CompetitionAdmin, TeamAdmin
 
-from .models import BaseClient, TeamClient
+from .models import BaseClient, TeamClient, TeamSubmission
 
 
 class TeamClientInlineAdmin(admin.TabularInline):
     model = TeamClient
+
+
+class TeamSubmissionInlineAdmin(admin.TabularInline):
+    model = TeamSubmission
 
 
 class BaseClientInlineAdmin(admin.TabularInline):
@@ -27,7 +31,8 @@ class ProgrammingCompetitionAdmin(CompetitionAdmin):
 
 
 class ProgrammingTeamAdmin(TeamAdmin):
-    inlines = TeamAdmin.inlines + [TeamClientInlineAdmin,]
+    inlines = TeamAdmin.inlines + [TeamClientInlineAdmin,
+                                   TeamSubmissionInlineAdmin]
 
 
 admin.site.unregister(Team)
