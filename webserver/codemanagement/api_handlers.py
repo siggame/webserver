@@ -3,7 +3,9 @@ from piston.utils import rc
 
 from competition.models import Team
 from .models import TeamClient
-from .forms import AuthForm, PathForm
+from .forms import AuthForm, PathForm, TagListForm
+
+import json
 
 
 class RepoAuthHandler(BaseHandler):
@@ -63,6 +65,37 @@ class RepoPathHandler(BaseHandler):
         except Team.DoesNotExist:
             return rc.NOT_FOUND
         except TeamClient.DoesNotExist:
+            return rc.NOT_FOUND
+
+        return rc.NOT_FOUND
+
+
+class RepoTagListHandler(BaseHandler):
+    methods_allowed = ('GET',)
+
+    def read(self, request):
+        form = TagListForm(request.GET)
+        if not form.is_valid():
+            return rc.BAD_REQUEST
+
+        try:
+            slug = form.cleaned_data['competition']
+            teams = Team.objects.filter(competition__slug=slug)
+
+            def make_dict(t):
+                try:
+                    return {
+                        'id': t.pk,
+                        'name': t.name,
+                        'path': t.teamclient.repository.repo.path,
+                        'tag': 'master'   # TODO use a real tag
+                    }
+                except TeamClient.DoesNotExist:
+                    return None
+
+            return [x for x in [make_dict(t) for t in teams] if x is not None]
+
+        except Team.DoesNotExist:
             return rc.NOT_FOUND
 
         return rc.NOT_FOUND
