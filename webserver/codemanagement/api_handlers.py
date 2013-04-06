@@ -88,7 +88,7 @@ class RepoTagListHandler(BaseHandler):
                         'id': t.pk,
                         'name': t.name,
                         'path': t.teamclient.repository.repo.path,
-                        'tag': None
+                        'tag': 'master'   # TODO use a real tag
                     }
                 except TeamClient.DoesNotExist:
                     return None
