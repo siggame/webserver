@@ -176,6 +176,7 @@ def tag_commit(sender, instance, raw, **kwargs):
     commit = repo[instance.commit]
     message = "Tagged by {} via the SIG-Game website"
 
+    # Create an annotated tag
     tag = Tag()
     tag.tagger = "SIG-Game <siggame@mst.edu>"
     tag.message = message.format(instance.submitter)
@@ -183,5 +184,7 @@ def tag_commit(sender, instance, raw, **kwargs):
     tag.object = (commit, commit.id)
     tag.tag_time = time.mktime(instance.tag_time.timetuple())
     tag.tag_timezone = parse_timezone('-0600')
+
+    # Save it in the repo
     repo.object_store.add_object(tag)
     repo['refs/tags/' + tag.name] = tag.id
