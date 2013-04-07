@@ -72,6 +72,11 @@ class TeamClient(models.Model):
 
 
 class TeamSubmission(models.Model):
+    class Meta:
+        unique_together = (
+            ('team', 'name'),
+        )
+
     team = models.ForeignKey(Team)
     commit = models.CharField(max_length=40,
                               validators=[sha1_validator])
