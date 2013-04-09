@@ -9,9 +9,10 @@
 
 {% block content %}
   {% if submissions %}
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
+          <th> <!-- Status --></th>
           <th>Name</th>
           <th>Submit Time</th>
         </tr>
@@ -19,7 +20,14 @@
       <tbody>
         {% with repo=user_team.teamclient.repository %}
         {% for submission in submissions %}
-          <tr>
+          <tr class="submission-row {% if forloop.first %}success{% endif %}"
+              href="{% url 'commit_detail' repo.pk submission.commit %}"
+              style="cursor:pointer;">
+            <td>
+              {% if forloop.first %}
+                <i class="icon-ok"></i>
+              {% endif %}
+            </td>
             <td>
               <a href="{% url 'commit_detail' repo.pk submission.commit %}">
                 {{ submission.name }}
@@ -37,4 +45,18 @@
     <h3 class="text-center">No submissions yet</h3>
   {% endif %}
 
+{% endblock %}
+
+{% block script %}
+  {{ block.super }}
+  <script>
+    $(function(){
+      $(".submission-row").each(function(i, e){
+        var next = $(this).attr("href");
+        $(this).click(function(){
+          document.location.href = next;
+        });
+      });
+    });
+  </script>
 {% endblock %}
