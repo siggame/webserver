@@ -1,0 +1,2 @@
+class CodeManagementException(Exception):
+    pass
