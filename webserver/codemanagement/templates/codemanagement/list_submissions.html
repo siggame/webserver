@@ -14,7 +14,8 @@
         <tr>
           <th> <!-- Status --></th>
           <th>Name</th>
-          <th>Submit Time</th>
+          <th>Created</th>
+          <th>Last Submitted</th>
         </tr>
       </thead>
       <tbody>
@@ -34,7 +35,14 @@
               </a>
             </td>
             <td>
-              {{ submission.tag_time }}
+              <a href="#" class="time" data-toggle="tooltip" title="{{ submission.tag_time }}">
+                 {{ submission.tag_time|timesince }} ago
+              </a>
+            </td>
+            <td>
+              <a href="#" class="time" data-toggle="tooltip" title="{{ submission.submission_time }}">
+                 {{ submission.submission_time|timesince }} ago
+              </a>
             </td>
           </tr>
         {% endfor %}
@@ -51,6 +59,7 @@
   {{ block.super }}
   <script>
     $(function(){
+      $(".time").tooltip();
       $(".submission-row").each(function(i, e){
         var next = $(this).attr("href");
         $(this).click(function(){
