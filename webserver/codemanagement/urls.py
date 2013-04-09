@@ -27,7 +27,7 @@ urlpatterns = patterns(
 
     url(r'^competition/(?P<comp_slug>[\w-]+)/submit/(?P<sha>[a-f0-9]{40})/$',
         SubmitView.as_view(),
-        name='list_submissions'),
+        name='submit'),
 
     url(r'^repo/', include('greta.repo_view_urls')),
 )
