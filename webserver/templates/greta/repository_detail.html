@@ -58,7 +58,9 @@
               {{ commit.message|truncatechars:50 }}
             </td>
             <td>
-              <a href="{% url 'submit' competition.slug commit.id %}" class="btn btn-mini">Submit</a>
+              {% if competition %}
+                <a href="{% url 'submit' competition.slug commit.id %}" class="btn btn-mini">Submit</a>
+              {% endif %}
             </td>
         </tr>
 
