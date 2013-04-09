@@ -76,6 +76,7 @@ class TeamSubmission(models.Model):
         unique_together = (
             ('team', 'name'),
         )
+        ordering = ['-tag_time']
 
     team = models.ForeignKey(Team)
     commit = models.CharField(max_length=40,
