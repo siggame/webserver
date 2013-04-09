@@ -35,8 +35,7 @@ class ProgrammingCompetitionAdmin(CompetitionAdmin):
 
 
 class ProgrammingTeamAdmin(TeamAdmin):
-    inlines = TeamAdmin.inlines + [TeamClientInlineAdmin,
-                                   TeamSubmissionInlineAdmin]
+    inlines = TeamAdmin.inlines + [TeamClientInlineAdmin]
 
 
 admin.site.unregister(Team)

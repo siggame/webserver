@@ -11,16 +11,23 @@ class Migration(SchemaMigration):
         # Adding model 'TeamSubmission'
         db.create_table('codemanagement_teamsubmission', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('team', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['competition.Team'])),
+            ('teamclient', self.gf('django.db.models.fields.related.ForeignKey')(related_name='submissions', to=orm['codemanagement.TeamClient'])),
             ('commit', self.gf('django.db.models.fields.CharField')(max_length=40)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
             ('tag_time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('submission_time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal('codemanagement', ['TeamSubmission'])
 
+        # Adding unique constraint on 'TeamSubmission', fields ['teamclient', 'name']
+        db.create_unique('codemanagement_teamsubmission', ['teamclient_id', 'name'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'TeamSubmission', fields ['teamclient', 'name']
+        db.delete_unique('codemanagement_teamsubmission', ['teamclient_id', 'name'])
+
         # Deleting model 'TeamSubmission'
         db.delete_table('codemanagement_teamsubmission')
 
@@ -66,19 +73,20 @@ class Migration(SchemaMigration):
         'codemanagement.teamclient': {
             'Meta': {'object_name': 'TeamClient'},
             'base': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['codemanagement.BaseClient']"}),
-            'git_password': ('django.db.models.fields.CharField', [], {'default': "'4e619afae9f0ec5'", 'max_length': '100'}),
+            'git_password': ('django.db.models.fields.CharField', [], {'default': "'d7ffc65288d57df'", 'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'repository': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['greta.Repository']", 'unique': 'True'}),
             'team': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['competition.Team']", 'unique': 'True'})
         },
         'codemanagement.teamsubmission': {
-            'Meta': {'object_name': 'TeamSubmission'},
+            'Meta': {'ordering': "['-tag_time']", 'unique_together': "(('teamclient', 'name'),)", 'object_name': 'TeamSubmission'},
             'commit': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
+            'submission_time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True', 'blank': 'True'}),
             'tag_time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'team': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['competition.Team']"})
+            'teamclient': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'submissions'", 'to': "orm['codemanagement.TeamClient']"})
         },
         'competition.avatar': {
             'Meta': {'object_name': 'Avatar'},

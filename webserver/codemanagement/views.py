@@ -102,8 +102,7 @@ class ListSubmissionView(CompetitionViewMixin, ListView):
         try:
             competition = self.get_competition()
             team = self.request.user.team_set.get(competition=competition)
-            team.teamclient     # Try to cause a DNE exception
-            return team.teamsubmission_set.all()
+            return team.teamclient.submissions.all()
         except Team.DoesNotExist:
             raise Http404("No such team for competition. (User not on a team)")
         except TeamClient.DoesNotExist:
@@ -137,7 +136,7 @@ class SubmitView(CompetitionViewMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(SubmitView, self).get_form_kwargs()
-        kwargs['instance'] = TeamSubmission(team=self.team,
+        kwargs['instance'] = TeamSubmission(teamclient=self.teamclient,
                                             commit=self.kwargs['sha'],
                                             submitter=self.request.user)
         return kwargs
@@ -149,10 +148,10 @@ class SubmitView(CompetitionViewMixin, CreateView):
             msg = "Object {} does not apprear to be a valid commit."
             msg += " Cannot tag it."
             messages.info(self.request, msg.format(self.kwargs['sha']))
-            repo = self.team.teamclient.repository
+            repo = self.teamclient.repository
             return redirect('repo_detail', pk=repo.pk, ref=repo.default_branch)
 
     def get_success_url(self):
-        kwds = {'pk': self.object.team.teamclient.repository.pk,
+        kwds = {'pk': self.object.teamclient.repository.pk,
                 'ref': self.object.commit}
         return reverse('commit_detail', kwargs=kwds)
