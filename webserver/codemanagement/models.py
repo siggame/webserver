@@ -78,7 +78,7 @@ class TeamSubmission(models.Model):
             ('team', 'name'),
         )
         ordering = ['-tag_time']
-        get_latest_by = 'tag_time'
+        get_latest_by = 'submission_time'
 
     team = models.ForeignKey(Team)
     commit = models.CharField(max_length=40,
@@ -88,6 +88,7 @@ class TeamSubmission(models.Model):
                             help_text="Choose a name for this submission")
     submitter = models.ForeignKey(User)
     tag_time = models.DateTimeField(auto_now_add=True)
+    submission_time = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(pre_save, sender=BaseClient)
