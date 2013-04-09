@@ -2,7 +2,7 @@ from piston.handler import BaseHandler
 from piston.utils import rc
 
 from competition.models import Team
-from .models import TeamClient
+from .models import TeamClient, TeamSubmission
 from .forms import AuthForm, PathForm, TagListForm
 
 import json
@@ -82,13 +82,17 @@ class RepoTagListHandler(BaseHandler):
             slug = form.cleaned_data['competition']
             teams = Team.objects.filter(competition__slug=slug)
 
-            def make_dict(t):
+            def make_dict(team):
                 try:
+                    try:
+                        tag = team.teamsubmission_set.latest().name
+                    except TeamSubmission.DoesNotExist, e:
+                        tag = None
                     return {
-                        'id': t.pk,
-                        'name': t.name,
-                        'path': t.teamclient.repository.repo.path,
-                        'tag': 'master'   # TODO use a real tag
+                        'id': team.pk,
+                        'name': team.name,
+                        'path': team.teamclient.repository.repo.path,
+                        'tag': tag
                     }
                 except TeamClient.DoesNotExist:
                     return None
