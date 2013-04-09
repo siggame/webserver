@@ -109,11 +109,13 @@ class SubmitForm(forms.ModelForm):
 
     def validate_unique(self):
         exclude = self._get_validation_exclusions()
-        exclude.remove('team')
+        exclude.remove('teamclient')
 
         try:
             self.instance.validate_unique(exclude=exclude)
         except forms.ValidationError, e:
+            msg = 'Your team already has a submission with this name.'
+            e.message_dict['__all__'] = [msg]
             self._update_errors(e.message_dict)
 
 
