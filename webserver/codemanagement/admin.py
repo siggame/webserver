@@ -12,6 +12,10 @@ class TeamClientInlineAdmin(admin.TabularInline):
 
 class TeamSubmissionInlineAdmin(admin.TabularInline):
     model = TeamSubmission
+    fields = ('name', 'commit', 'submitter', 'tag_time', 'submission_time')
+    readonly_fields = fields
+    extra = 0
+    can_delete = False
 
 
 class BaseClientInlineAdmin(admin.TabularInline):
