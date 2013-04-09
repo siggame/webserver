@@ -102,6 +102,7 @@ class ListSubmissionView(CompetitionViewMixin, ListView):
         try:
             competition = self.get_competition()
             team = self.request.user.team_set.get(competition=competition)
+            team.teamclient     # Try to cause a DNE exception
             return team.teamsubmission_set.all()
         except Team.DoesNotExist:
             raise Http404("No such team for competition. (User not on a team)")
