@@ -12,6 +12,7 @@ from greta.models import Repository
 
 from dulwich.objects import Tag, parse_timezone
 
+from .exceptions import CodeManagementException
 from .validators import sha1_validator, tag_validator
 
 from hashlib import sha1
@@ -185,7 +186,8 @@ def tag_commit(sender, instance, raw, **kwargs):
     try:
         commit = repo[instance.commit]
     except KeyError:
-        raise Exception("No such commit with sha {}".format(instance.commit))
+        msg = "No such commit with sha {}".format(instance.commit)
+        raise CodeManagementException(msg)
 
     instance.tag_time = datetime.datetime.now()
     message = "Tagged by {} via the SIG-Game website"
