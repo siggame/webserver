@@ -86,7 +86,7 @@ class TeamSubmission(models.Model):
     name = models.CharField(max_length=50,
                             validators=[tag_validator],
                             help_text="Choose a name for this submission")
-    submitter = models.ForeignKey(User)
+    submitter = models.ForeignKey(User, null=True)
     tag_time = models.DateTimeField(auto_now_add=True)
     submission_time = models.DateTimeField(auto_now_add=True)
 
