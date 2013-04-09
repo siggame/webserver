@@ -1,0 +1,38 @@
+{% extends "competition/competition_base.html" %}
+{% load url from future %}
+
+{% block page-header %}
+  <div class="page-header">
+    <h1>Code Submissions</h1>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% if submissions %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Submit Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for submission in submissions.select_related %}
+          <tr>
+            <td>
+              <a href="{% url 'commit_detail' submission.team.teamclient.repository.pk submission.commit %}">
+                {{ submission.name }}
+              </a>
+            </td>
+            <td>
+              {{ submission.tag_time }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="text-center">No submissions yet</h3>
+  {% endif %}
+
+{% endblock %}

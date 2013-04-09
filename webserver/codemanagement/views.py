@@ -1,4 +1,5 @@
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -8,7 +9,7 @@ from django.http import Http404
 from competition.views.mixins import RequireRunningMixin, CompetitionViewMixin
 from competition.models import Team
 
-from .models import BaseClient, TeamClient
+from .models import BaseClient, TeamClient, TeamSubmission
 from .forms import TeamRepoForm, TeamPasswordForm
 
 
@@ -78,6 +79,28 @@ class UpdatePasswordView(CompetitionViewMixin,
             competition = self.get_competition()
             team = self.request.user.team_set.get(competition=competition)
             return team.teamclient
+        except Team.DoesNotExist:
+            raise Http404("No such team for competition. (User not on a team)")
+        except TeamClient.DoesNotExist:
+            raise Http404("Team does not have a TeamClient")
+
+
+class ListSubmissionView(CompetitionViewMixin, ListView):
+    model = TeamSubmission
+    template_name = "codemanagement/list_submissions.html"
+    context_object_name = "submissions"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        self.request = args[0]
+        self.kwargs = kwargs    # Needed by get_competition()
+        return super(ListSubmissionView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        try:
+            competition = self.get_competition()
+            team = self.request.user.team_set.get(competition=competition)
+            return team.teamsubmission_set.all()
         except Team.DoesNotExist:
             raise Http404("No such team for competition. (User not on a team)")
         except TeamClient.DoesNotExist:

@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, url, include
 from piston.resource import Resource
 
-from .views import CreateRepoView, UpdatePasswordView
+from .views import CreateRepoView, UpdatePasswordView, ListSubmissionView
 from .api_handlers import RepoAuthHandler, RepoPathHandler, RepoTagListHandler
 
 
@@ -19,6 +19,10 @@ urlpatterns = patterns(
     url(r'^competition/(?P<comp_slug>[\w-]+)/update-password/$',
         UpdatePasswordView.as_view(),
         name='update_repo_password'),
+
+    url(r'^competition/(?P<comp_slug>[\w-]+)/submissions/$',
+        ListSubmissionView.as_view(),
+        name='list_submissions'),
 
     url(r'^repo/', include('greta.repo_view_urls')),
 )
