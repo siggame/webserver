@@ -83,7 +83,8 @@ class TeamSubmission(models.Model):
     commit = models.CharField(max_length=40,
                               validators=[sha1_validator])
     name = models.CharField(max_length=50,
-                            validators=[tag_validator])
+                            validators=[tag_validator],
+                            help_text="Choose a name for this submission")
     submitter = models.ForeignKey(User)
     tag_time = models.DateTimeField(auto_now_add=True)
 
