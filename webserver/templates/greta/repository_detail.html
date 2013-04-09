@@ -70,6 +70,7 @@
 {% endblock %}
 
 {% block script %}
+{{block.super}}
 <script>
   $(".commit-row").each(function(i, e){
     var next = $(this).attr("href");
