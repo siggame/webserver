@@ -48,7 +48,11 @@
               {{ commit.committer|committer }}
             </td>
             <td>
-              {{ commit.commit_time|to_datetime|timesince }} ago
+              <a href="#" class="time" data-toggle="tooltip"
+                 title="{{ commit.commit_time|to_datetime }}">
+                {{ commit.commit_time|to_datetime|timesince }} ago
+              </a>
+
             </td>
             <td>
               {{ commit.message|truncatechars:50 }}
@@ -74,10 +78,13 @@
 {% block script %}
 {{block.super}}
 <script>
-  $(".commit-row").each(function(i, e){
-    var next = $(this).attr("href");
-    $(this).click(function(){
-      document.location.href = next;
+  $(function(){
+    $(".time").tooltip();
+    $(".commit-row").each(function(i, e){
+      var next = $(this).attr("href");
+      $(this).click(function(){
+        document.location.href = next;
+      });
     });
   });
 </script>
