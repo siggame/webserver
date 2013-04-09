@@ -23,6 +23,7 @@ class TeamRepoForm(forms.ModelForm):
     base = forms.ModelChoiceField(queryset=BaseClient.objects.all(),
                                   label="Client Language")
     git_password = forms.CharField(help_text=password_help)
+
     class Meta:
         model = TeamClient
         fields = ('base', 'git_password')
