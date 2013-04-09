@@ -75,12 +75,12 @@ class TeamClient(models.Model):
 class TeamSubmission(models.Model):
     class Meta:
         unique_together = (
-            ('team', 'name'),
+            ('teamclient', 'name'),
         )
         ordering = ['-tag_time']
         get_latest_by = 'submission_time'
 
-    team = models.ForeignKey(Team)
+    teamclient = models.ForeignKey(TeamClient, related_name="submissions")
     commit = models.CharField(max_length=40,
                               validators=[sha1_validator])
     name = models.CharField(max_length=50,
