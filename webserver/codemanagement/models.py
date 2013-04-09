@@ -145,11 +145,15 @@ def set_base_repo_owner(sender, instance, created, raw, **kwargs):
 
 
 @receiver(post_save, sender=TeamClient)
-def set_team_repo_owner(sender, instance, created, raw, **kwargs):
-    """Sets the TeamClient's repository owner to the TeamClient"""
+def teamclient_post_save(sender, instance, created, raw, **kwargs):
+    """Sets the TeamClient's repository owner to the TeamClient and
+    creates a TeamSubmission for ShellAI"""
     if instance.repository.owner is None:
         instance.repository.owner = instance
         instance.repository.save()
+    if created and not raw:
+        from .tasks import create_shellai_tag
+        create_shellai_tag.delay(instance)
 
 
 @receiver(post_delete, sender=BaseClient)
