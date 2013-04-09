@@ -6,65 +6,65 @@
   {% include "greta/_tabs.html" %}
 
   {% with competition=repo.owner.team.competition %}
-  {% for commit, refs in log %}
-    {% if forloop.first %}
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>
-              Commit
-            </th>
-            <th>
-              Committer
-            </th>
-            <th>
-              Committed
-            </th>
-            <th>
-              Message
-            </th>
-            <th>
-              <!-- Submit to Arena -->
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+    {% for commit, refs in log %}
+      {% if forloop.first %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>
+                Commit
+              </th>
+              <th>
+                Committer
+              </th>
+              <th>
+                Committed
+              </th>
+              <th>
+                Message
+              </th>
+              <th>
+                <!-- Submit to Arena -->
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+        {% endif %}
+
+        <tr class="commit-row"
+            href="{% url 'commit_detail' pk=repo.pk ref=commit.id %}"
+            style="cursor: pointer;">
+            <td>
+              <a href="{% url 'commit_detail' pk=repo.pk ref=commit.id %}">
+                {{ commit.id|truncatechars:10 }}
+              </a>
+              {% if refs %}
+                {% for ref in refs %}
+                  <span class="label label-info">{{ ref|pretty_ref }}</span>
+                {% endfor %}
+              {% endif %}
+            </td>
+            <td>
+              {{ commit.committer|committer }}
+            </td>
+            <td>
+              {{ commit.commit_time|to_datetime|timesince }} ago
+            </td>
+            <td>
+              {{ commit.message|truncatechars:50 }}
+            </td>
+            <td>
+              <a href="{% url 'submit' competition.slug commit.id %}" class="btn btn-mini">Submit</a>
+            </td>
+        </tr>
+
+        {% if forloop.last %}
+          </tbody>
+        </table>
       {% endif %}
-
-      <tr class="commit-row"
-          href="{% url 'commit_detail' pk=repo.pk ref=commit.id %}"
-          style="cursor: pointer;">
-        <td>
-          <a href="{% url 'commit_detail' pk=repo.pk ref=commit.id %}">
-            {{ commit.id|truncatechars:10 }}
-          </a>
-          {% if refs %}
-            {% for ref in refs %}
-              <span class="label label-info">{{ ref|pretty_ref }}</span>
-            {% endfor %}
-          {% endif %}
-        </td>
-        <td>
-          {{ commit.committer|committer }}
-        </td>
-        <td>
-          {{ commit.commit_time|to_datetime|timesince }} ago
-        </td>
-        <td>
-          {{ commit.message|truncatechars:50 }}
-        </td>
-        <td>
-          <a href="{% url 'submit' competition.slug commit.id %}" class="btn btn-mini">Submit</a>
-        </td>
-      </tr>
-
-      {% if forloop.last %}
-        </tbody>
-      </table>
-    {% endif %}
-  {% empty %}
-    <h2>No commits, yet.</h2>
-  {% endfor %}
+    {% empty %}
+      <h2>No commits, yet.</h2>
+    {% endfor %}
   {% endwith %}
 
   {% include "greta/_paginator.html" with page=log %}
