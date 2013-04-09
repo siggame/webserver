@@ -188,7 +188,8 @@ def delete_team_repo(sender, instance, **kwargs):
 @receiver(pre_save, sender=TeamSubmission)
 def tag_commit(sender, instance, raw, **kwargs):
     """Adds a git tag to a repository"""
-    repository = instance.team.teamclient.repository
+    team = instance.teamclient.team
+    repository = instance.teamclient.repository
     repo = repository.repo
 
     try:
@@ -218,6 +219,4 @@ def tag_commit(sender, instance, raw, **kwargs):
 
     # Create a log message
     log_msg = 'Tag added to {}\'s repo ({}) on commit {} with message "{}"'
-    logger.info(log_msg.format(instance.team.name, repository.pk,
-                               commit.id, msg)
-                )
+    logger.info(log_msg.format(team.name, repository.pk, commit.id, msg))
