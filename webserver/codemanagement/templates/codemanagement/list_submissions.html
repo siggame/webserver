@@ -17,10 +17,11 @@
         </tr>
       </thead>
       <tbody>
-        {% for submission in submissions.select_related %}
+        {% with repo=user_team.teamclient.repository %}
+        {% for submission in submissions %}
           <tr>
             <td>
-              <a href="{% url 'commit_detail' submission.team.teamclient.repository.pk submission.commit %}">
+              <a href="{% url 'commit_detail' repo.pk submission.commit %}">
                 {{ submission.name }}
               </a>
             </td>
@@ -29,6 +30,7 @@
             </td>
           </tr>
         {% endfor %}
+        {% endwith %}
       </tbody>
     </table>
   {% else %}
