@@ -22,9 +22,16 @@ def create_shellai_tag(instance):
 
     logger.info("{}'s repository is ready".format(team_name))
 
-    # Create a submission for the HEAD commit
-    TeamSubmission.objects.create(team=instance.team,
-                                  commit=instance.repository.repo['HEAD'].id,
-                                  name="ShellAI",
-                                  submitter=None)
-    logger.info("Tagged {}'s repo".format(team_name))
+    try:
+        commit = instance.repository.repo['HEAD']
+    except KeyError:
+        # Log an error if we can't get a commit
+        msg = "Unable to tag {}'s repo. Bad ref 'HEAD'. Is the repo empty?"
+        logger.error(msg.format(team_name))
+    else:
+        # Create a submission for the HEAD commit
+        TeamSubmission.objects.create(teamclient=instance,
+                                      commit=commit.id,
+                                      name="ShellAI",
+                                      submitter=None)
+        logger.info("Tagged {}'s repo".format(team_name))
