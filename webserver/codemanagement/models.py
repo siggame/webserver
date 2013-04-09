@@ -77,6 +77,7 @@ class TeamSubmission(models.Model):
             ('team', 'name'),
         )
         ordering = ['-tag_time']
+        get_latest_by = 'tag_time'
 
     team = models.ForeignKey(Team)
     commit = models.CharField(max_length=40,
