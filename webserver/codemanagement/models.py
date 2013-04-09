@@ -183,7 +183,10 @@ def delete_team_repo(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=TeamSubmission)
 def tag_commit(sender, instance, raw, **kwargs):
-    repo = instance.team.teamclient.repository.repo
+    """Adds a git tag to a repository"""
+    repository = instance.team.teamclient.repository
+    repo = repository.repo
+
     try:
         commit = repo[instance.commit]
     except KeyError:
@@ -191,12 +194,15 @@ def tag_commit(sender, instance, raw, **kwargs):
         raise CodeManagementException(msg)
 
     instance.tag_time = datetime.datetime.now()
-    message = "Tagged by {} via the SIG-Game website"
+
+    msg = "Tagged via the SIG-Game website"
+    if instance.submitter:
+        msg = "Tagged by {} via the SIG-Game website".format(instance.submitter)
 
     # Create an annotated tag
     tag = Tag()
     tag.tagger = "SIG-Game <siggame@mst.edu>"
-    tag.message = message.format(instance.submitter)
+    tag.message = msg
     tag.name = instance.name
     tag.object = (commit, commit.id)
     tag.tag_time = time.mktime(instance.tag_time.timetuple())
@@ -205,3 +211,9 @@ def tag_commit(sender, instance, raw, **kwargs):
     # Save it in the repo
     repo.object_store.add_object(tag)
     repo['refs/tags/' + tag.name] = tag.id
+
+    # Create a log message
+    log_msg = 'Tag added to {}\'s repo ({}) on commit {} with message "{}"'
+    logger.info(log_msg.format(instance.team.name, repository.pk,
+                               commit.id, msg)
+                )
