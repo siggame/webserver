@@ -16,19 +16,26 @@
 
 {% block script %}
   <script>
-    $(function(){
-      setInterval(function(){
-        $.ajax({ url: document.URL,
-                 success: function(data){
-                   if(data.match(/Creating repository/g)){
-                     console.log("Not ready yet");
-                   } else {
-                     console.log("Ready!");
-                     document.location.href = document.URL;
-                   }
-                 }
-               });
-      }, 5000);
+    // Called on success
+    function onSuccess(data){
+      if(data.match(/Creating repository/g)){
+        console.log("Not ready yet");
+      } else {
+        console.log("Ready!");
+        document.location.href = document.URL;
+      }
+    }
+
+    // A function to poll the server
+    function poll(){
+      $.ajax({ url: document.URL,
+               success: onSuccess,
+               complete: poll,
+               timeout: 50000 });
+    }
+
+    $(function() {
+      poll()
     });
   </script>
 {% endblock %}
