@@ -1,36 +1,7 @@
 {% load url from future %}
 
 {% include "competition/competition/_sidebar.html" %}
-
-<h2 class="text-right">Code</h2>
-<ul class="nav nav-tabs nav-stacked">
-  <li>
-    <a href="{% url 'list_submissions' competition.slug %}">
-      <i class="icon-tags"></i>
-      Code Submissions
-    </a>
-  </li>
-  <li class="disabled">
-    <a href="#">
-      <i class="icon-hdd"></i>
-      My Team's Repository
-    </a>
-  </li>
-  {% if repo.owner.team %}
-    <li>
-      <a href="{% url 'update_repo_password' repo.owner.team.competition.slug %}">
-        <i class="icon-pencil"></i>
-        Change Team Password
-      </a>
-    </li>
-  {% else %}
-    <li>
-      <a href="#">
-        <span class="label label-important">Yo</span> No one owns this repository.
-      </a>
-    </li>
-  {% endif %}
-</ul>
+{% include "codemanagement/_sidebar.html" %}
 
 <h2 class="text-right">Repository</h2>
 <ul class="nav nav-tabs nav-stacked">
