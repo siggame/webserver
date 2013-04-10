@@ -2,7 +2,7 @@
 
 {% if competition.is_running or user_team.teamclient %}
   <h2 class="text-right">Code</h2>
-  <ul class="nav nav-tabs nav-stacked" style="margin-top:20px;">
+  <ul id="code-nav" class="nav nav-tabs nav-stacked" style="margin-top:20px;">
     {% if not user_team.teamclient %}
       {% if competition.is_running %}
         <li>
