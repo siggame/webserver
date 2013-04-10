@@ -25,6 +25,28 @@ class BaseClientInlineAdmin(admin.TabularInline):
     prepopulated_fields = {"language_slug": ("language",)}
 
 
+def team_name(teamclient):
+    return teamclient.team.name
+team_name.short_description = "Team"
+
+
+def competition_name(teamclient):
+    return teamclient.team.competition.name
+competition_name.short_description = "Competition"
+
+
+class TeamClientAdmin(admin.ModelAdmin):
+    model = TeamClient
+    fields = ('team', 'base', 'repository', 'git_password')
+    readonly_fields = ('team', 'base', 'repository')
+    inlines = (TeamSubmissionInlineAdmin,)
+    list_display = (
+        team_name,
+        competition_name,
+        'base',
+    )
+
+
 #######################################################################
 # Override the Competition and Team admins to show repository
 # information as well
@@ -43,3 +65,5 @@ admin.site.unregister(Competition)
 
 admin.site.register(Team, ProgrammingTeamAdmin)
 admin.site.register(Competition, ProgrammingCompetitionAdmin)
+
+admin.site.register(TeamClient, TeamClientAdmin)
