@@ -103,7 +103,7 @@ def fetch_games(competition,offset=0,at_a_time=60,max_to_fetch=100000,max_time=N
                     score.save()
                 
 
-def update_games(offset=0, at_a_time=20, max_updates=10000, max_time=None):
+def update_games(competition, offset=0, at_a_time=20, max_updates=10000, max_time=None):
     # Start an empty object
     q_filter = None
     # For every status type that indicates the game ended
@@ -120,7 +120,7 @@ def update_games(offset=0, at_a_time=20, max_updates=10000, max_time=None):
         if max_time != None and datetime.today()-start_time > timedelta(seconds=max_time):
             break
         # Load all the games that haven't marked as finished (using the filter)
-        unfinished_games = Game.objects.filter(q_filter).order_by('-pk')[load:load+at_a_time]
+        unfinished_games = Game.objects.filter(q_filter).filter(competition=competition).order_by('-pk')[load:load+at_a_time]
         api = slumber.API(ARENA_API_URL)
         
         for game in unfinished_games:
