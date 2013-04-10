@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
 from crispy_forms.bootstrap import FormActions
 
-from .models import BaseClient, TeamClient
+from .models import BaseClient, TeamClient, TeamSubmission
 
 
 password_help = """
@@ -23,6 +23,7 @@ class TeamRepoForm(forms.ModelForm):
     base = forms.ModelChoiceField(queryset=BaseClient.objects.all(),
                                   label="Client Language")
     git_password = forms.CharField(help_text=password_help)
+
     class Meta:
         model = TeamClient
         fields = ('base', 'git_password')
@@ -84,6 +85,38 @@ class TeamPasswordForm(forms.ModelForm):
             msg = "Password should be at least 6 characters"
             raise forms.ValidationError(msg)
         return password
+
+
+class SubmitForm(forms.ModelForm):
+    class Meta:
+        model = TeamSubmission
+        fields = ('name',)
+
+    def __init__(self, *args, **kwargs):
+        # Crispy form styling stuff
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            Fieldset(
+                'Submit to the arena',
+                'name',
+            ),
+            FormActions(
+                Submit('submit', 'Submit', css_class='button white')
+            )
+        )
+        super(SubmitForm, self).__init__(*args, **kwargs)
+
+    def validate_unique(self):
+        exclude = self._get_validation_exclusions()
+        exclude.remove('teamclient')
+
+        try:
+            self.instance.validate_unique(exclude=exclude)
+        except forms.ValidationError, e:
+            msg = 'Your team already has a submission with this name.'
+            e.message_dict['__all__'] = [msg]
+            self._update_errors(e.message_dict)
 
 
 class AuthForm(forms.Form):

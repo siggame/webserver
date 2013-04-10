@@ -3,19 +3,28 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
 
 from competition.models import Competition, Team
 from greta.models import Repository
 
+from dulwich.objects import Tag, parse_timezone
+
+from .exceptions import CodeManagementException
+from .validators import sha1_validator, tag_validator
+
 from hashlib import sha1
 from os import urandom
 
 import re
+import time
 import logging
+import datetime
 
 logger = logging.getLogger(__name__)
+
 
 def generate_unusable_password():
     return sha1(urandom(100)).hexdigest()[:15]
@@ -59,7 +68,27 @@ class TeamClient(models.Model):
             'user': '{slug}-{id}'.format(slug=self.team.slug, id=self.team.pk),
             'repo_name': re.sub(r'__\d+\.git$', '.git', self.repository.name)
         }
-        return "git clone {protocol}://{user}@{host}:{port}/{repo_name}".format(**data)
+        cmd = "git clone {protocol}://{user}@{host}:{port}/{repo_name}"
+        return cmd.format(**data)
+
+
+class TeamSubmission(models.Model):
+    class Meta:
+        unique_together = (
+            ('teamclient', 'name'),
+        )
+        ordering = ['-tag_time']
+        get_latest_by = 'submission_time'
+
+    teamclient = models.ForeignKey(TeamClient, related_name="submissions")
+    commit = models.CharField(max_length=40,
+                              validators=[sha1_validator])
+    name = models.CharField(max_length=50,
+                            validators=[tag_validator],
+                            help_text="Choose a name for this submission")
+    submitter = models.ForeignKey(User, null=True, blank=True)
+    tag_time = models.DateTimeField(auto_now_add=True)
+    submission_time = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(pre_save, sender=BaseClient)
@@ -116,11 +145,15 @@ def set_base_repo_owner(sender, instance, created, raw, **kwargs):
 
 
 @receiver(post_save, sender=TeamClient)
-def set_team_repo_owner(sender, instance, created, raw, **kwargs):
-    """Sets the TeamClient's repository owner to the TeamClient"""
+def teamclient_post_save(sender, instance, created, raw, **kwargs):
+    """Sets the TeamClient's repository owner to the TeamClient and
+    creates a TeamSubmission for ShellAI"""
     if instance.repository.owner is None:
         instance.repository.owner = instance
         instance.repository.save()
+    if created and not raw:
+        from .tasks import create_shellai_tag
+        create_shellai_tag.delay(instance)
 
 
 @receiver(post_delete, sender=BaseClient)
@@ -150,3 +183,40 @@ def delete_team_repo(sender, instance, **kwargs):
         instance.repository.delete()
     except Repository.DoesNotExist:
         logger.info("Repository was already deleted")
+
+
+@receiver(pre_save, sender=TeamSubmission)
+def tag_commit(sender, instance, raw, **kwargs):
+    """Adds a git tag to a repository"""
+    team = instance.teamclient.team
+    repository = instance.teamclient.repository
+    repo = repository.repo
+
+    try:
+        commit = repo[instance.commit]
+    except KeyError:
+        msg = "No such commit with sha {}".format(instance.commit)
+        raise CodeManagementException(msg)
+
+    instance.tag_time = datetime.datetime.now()
+
+    msg = "Tagged via the SIG-Game website"
+    if instance.submitter:
+        msg = "Tagged by {} via the SIG-Game website".format(instance.submitter)
+
+    # Create an annotated tag
+    tag = Tag()
+    tag.tagger = "SIG-Game <siggame@mst.edu>"
+    tag.message = msg
+    tag.name = instance.name
+    tag.object = (commit, commit.id)
+    tag.tag_time = time.mktime(instance.tag_time.timetuple())
+    tag.tag_timezone, _ = parse_timezone('-0600')
+
+    # Save it in the repo
+    repo.object_store.add_object(tag)
+    repo['refs/tags/' + tag.name] = tag.id
+
+    # Create a log message
+    log_msg = 'Tag added to {}\'s repo ({}) on commit {} with message "{}"'
+    logger.info(log_msg.format(team.name, repository.pk, commit.id, msg))

@@ -1,0 +1,71 @@
+{% extends "competition/competition_base.html" %}
+{% load url from future %}
+
+{% block page-header %}
+  <div class="page-header">
+    <h1>Code Submissions</h1>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% if submissions %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th> <!-- Status --></th>
+          <th>Name</th>
+          <th>Created</th>
+          <th>Last Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% with repo=user_team.teamclient.repository %}
+        {% for submission in submissions %}
+          <tr class="submission-row {% if forloop.first %}success{% endif %}"
+              href="{% url 'commit_detail' repo.pk submission.commit %}"
+              style="cursor:pointer;">
+            <td>
+              {% if forloop.first %}
+                <i class="icon-ok"></i>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'commit_detail' repo.pk submission.commit %}">
+                {{ submission.name }}
+              </a>
+            </td>
+            <td>
+              <a href="#" class="time" data-toggle="tooltip" title="{{ submission.tag_time }}">
+                 {{ submission.tag_time|timesince }} ago
+              </a>
+            </td>
+            <td>
+              <a href="#" class="time" data-toggle="tooltip" title="{{ submission.submission_time }}">
+                 {{ submission.submission_time|timesince }} ago
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        {% endwith %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="text-center">No submissions yet</h3>
+  {% endif %}
+
+{% endblock %}
+
+{% block script %}
+  {{ block.super }}
+  <script>
+    $(function(){
+      $(".time").tooltip();
+      $(".submission-row").each(function(i, e){
+        var next = $(this).attr("href");
+        $(this).click(function(){
+          document.location.href = next;
+        });
+      });
+    });
+  </script>
+{% endblock %}

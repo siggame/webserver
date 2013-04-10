@@ -8,5 +8,34 @@
 {% endblock %}
 
 {% block content %}
-  <p>Please check back in a few seconds. We're still setting up your repository!</p>
+  <p class="text-center lead">
+    Just a moment... </br>
+    <i class="icon-spinner icon-spin icon-4x"></i>
+  </p>
+{% endblock %}
+
+{% block script %}
+  <script>
+    // Called on success
+    function onSuccess(data){
+      if(data.match(/Creating repository/g)){
+        console.log("Not ready yet");
+      } else {
+        console.log("Ready!");
+        document.location.href = document.URL;
+      }
+    }
+
+    // A function to poll the server
+    function poll(){
+      $.ajax({ url: document.URL,
+               success: onSuccess,
+               complete: poll,
+               timeout: 50000 });
+    }
+
+    $(function() {
+      poll()
+    });
+  </script>
 {% endblock %}
