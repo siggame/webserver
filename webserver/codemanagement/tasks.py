@@ -16,9 +16,9 @@ def create_shellai_tag(instance):
 
     if instance.repository.task_id is not None:
         # Wait for the repo to be created
-        AsyncResult(instance.repository.task_id).wait()
         msg = "Waiting for {}'s repository to be created..."
         logger.info(msg.format(team_name))
+        AsyncResult(instance.repository.task_id).wait()
 
     logger.info("{}'s repository is ready".format(team_name))
 
