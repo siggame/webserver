@@ -116,6 +116,8 @@ try:
 except NameError:
     BROKER_URL = 'django://'
 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
 ##########################################################################
 #
 # Greta settings
