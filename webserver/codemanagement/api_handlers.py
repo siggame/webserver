@@ -85,7 +85,7 @@ class RepoTagListHandler(BaseHandler):
             def make_dict(team):
                 try:
                     try:
-                        tag = team.teamsubmission_set.latest().name
+                        tag = team.teamclient.submissions.latest().name
                     except TeamSubmission.DoesNotExist, e:
                         tag = None
                     return {
