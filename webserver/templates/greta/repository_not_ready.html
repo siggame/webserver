@@ -26,12 +26,12 @@
       }
     }
 
-    // A function to poll the server
+    // A function to poll the server every 2 seconds (2000 ms)
     function poll(){
       $.ajax({ url: document.URL,
                success: onSuccess,
-               complete: poll,
-               timeout: 50000 });
+               complete: function(){ setTimeout(poll, 2000); },
+               timeout: 30000 });
     }
 
     $(function() {
