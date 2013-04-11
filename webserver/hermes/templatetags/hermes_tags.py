@@ -36,8 +36,9 @@ class CheckEmbargoedNode(template.Node):
                 result = "unembargoed"
         except Game.DoesNotExist:
             result = "not ready"
-        except KeyError:
+        except (TypeError, KeyError), e:
             result = "error"
+            logger.error("Error grabbing game data: {}".format(str(e)))
         except AssertionError:
             result = "error"
             msg = "Found more than one team with name {} in arena"
