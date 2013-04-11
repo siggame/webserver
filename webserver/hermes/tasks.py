@@ -17,11 +17,11 @@ HAS_FINISHED = [COMPLETED_STRING, FAILED_STRING]
 HAS_NOT_FINISHED = [NEW_STRING, SCHEDULED_STRING, RUNNING_STRING]
 
 
-def populate_score(slumber, game=None):
+def populate_score(api, game=None):
     # Fetch the team object based on the slug of the team name
 
     # XXX: I could have sworn this was slug, but now it seems to be the actual name
-    team = Team.objects.get(name=slumber["name"]["name"])
+    team = Team.objects.get(name=api["name"]["name"])
 
     # There is no game object provided, create a new gamescore
     if game == None:
@@ -34,18 +34,18 @@ def populate_score(slumber, game=None):
         score, _ = GameScore.objects.get_or_create(game=game, team=team)
 
     # If the team won the game give them a point
-    if slumber["won"] == True:
+    if api["won"] == True:
         score.score = 1
     #: Not set to false if a team loses, as it turns out.
-    elif slumber["output_url"]:
+    elif api["output_url"]:
         score.score = 0
     else:
         score.score = None
 
     # Set extra data for the glog.
     extra = score.data
-    up = {'output_url': slumber['output_url'],
-                  'version': slumber['version']}
+    up = {'output_url': api['output_url'],
+                  'version': api['version']}
     try:
         extra.update(up)
     except AttributeError:
