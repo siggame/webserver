@@ -42,14 +42,13 @@ def populate_score(api, game=None):
     else:
         score.score = None
 
-    # Set extra data for the glog.
+    # Set extra data for the glog by saving the game_data dict
+    # returned by the API
     extra = score.data
-    up = {'output_url': api['output_url'],
-          'version': api['version']}
     try:
-        extra.update(up)
+        extra.update(api)
     except AttributeError:
-        extra = up
+        extra = api
 
     score.extra_data = json.dumps(extra)
     return score
@@ -89,8 +88,8 @@ def fetch_games(arena_api_url, competition_slug,
 
             # Try to load or create a game object using get_or_create
             status = game['status']
-            extra = {'gamelog_url': game["gamelog_url"],
-                     'api_url': arena_api_url}
+            extra = game
+            extra.update({'api_url': arena_api_url})
             defaults = {
                 'start_time': datetime.today() if status in HAS_STARTED else None,
                 'end_time': datetime.today() if status in HAS_FINISHED else None,
@@ -155,13 +154,16 @@ def update_games(arena_api_url, competition_slug,
                 # Same for the end time.
                 if game.end_time == None:
                     game.end_time = datetime.today() if status in HAS_FINISHED else None
-                if status in HAS_FINISHED:
-                    data = game.data
-                    data.update({'gamelog_url': obj["gamelog_url"],
-                                 'api_url': arena_api_url})
-                    game.extra_data = json.dumps(data)
+
+                # Save API data
+                data = game.data
+                data.update(obj)
+                data.update({'api_url': arena_api_url})
+                game.extra_data = json.dumps(data)
                 game.status = status
-                game.save()
+
+                game.save()     # Save the Game
+
                 # Update the related score objects
                 for score in scores:
                     score.save()
