@@ -1,5 +1,5 @@
 from django import template
-from django.template.defaultfilters import stringfilter
+from competition.models.game_model import Game
 
 import slumber
 import logging
@@ -16,8 +16,10 @@ class CheckEmbargoedNode(template.Node):
 
     def render(self, context):
         team = context[self.team]
-        last_game = team.game_set.latest()
         try:
+            # Get the last game played
+            last_game = team.game_set.latest()
+
             # Grag the API url from the last Game that was played
             url = last_game.data['api_url']
 
@@ -32,6 +34,8 @@ class CheckEmbargoedNode(template.Node):
                 result = "embargoed"
             else:
                 result = "unembargoed"
+        except Game.DoesNotExist:
+            result = "not ready"
         except KeyError:
             result = "error"
         except AssertionError:
