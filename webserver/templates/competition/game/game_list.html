@@ -13,13 +13,13 @@
 
   {% if embargoed == "error" %}
     <button class="btn btn-warning btn-large pull-right">
-      <i class="icon-warning-sign"></i> <b>Arena Error</b>
+      <i class="icon-warning-sign"></i> <b>Something Broke</b>
     </button>
   {% endif %}
 
   {% if embargoed == "not ready" %}
     <button class="btn btn-info btn-large pull-right">
-      <i class="icon-cogs"></i> <b>Building Arena</b>
+      <i class="icon-cogs"></i> <b>Not Ready</b>
     </button>
   {% endif %}
 
@@ -47,12 +47,12 @@
         <tbody>
     {% endif %}
 
-    <tr class="game-info" game_url="{{ game.get_absolute_url }}">
+    <tr class="game-info" game_url="{{ game.get_absolute_url }}" style="cursor:pointer;">
       <td>{{ game.id }}</td>
 
       {% with scores=game.scores.select_related.all|dictsortreversed:"score" %}
         <td>{% include "competition/game/_opponent_list.html" %}</td>
-    {% include "competition/game/_result_display.html" %}
+        {% include "competition/game/_result_display.html" %}
       {% endwith %}
 
       {% for field in data_fields %}
