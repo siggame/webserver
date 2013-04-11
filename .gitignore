@@ -10,10 +10,7 @@
 
 # Ignore buildout stuff
 bin/
-var/eggs
-var/develop-eggs
-var/parts
-var/static
+var/
 .installed.cfg
 bootstrap.py
 *.egg-info/
@@ -33,11 +30,3 @@ secret_settings.py
 
 # Ignore other nose files
 .noseids
-
-# Don't commit django log files
-var/logs
-
-# Ignore repositories
-var/repos
-var/test_repos
-var/archives
