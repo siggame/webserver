@@ -26,6 +26,14 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default' : {
+        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': [MEMCACHED_LOCATION],   # Should be in secret_settings.py
+        'JOHNNY_CACHE': True,
+    }
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

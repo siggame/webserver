@@ -22,6 +22,14 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default' : {
+        'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(VAR_DIR, "cache", "development.cache"),
+        'JOHNNY_CACHE': True,
+    }
+}
+
 # Users don't need to verify email when developing.
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
