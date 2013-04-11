@@ -1,11 +1,18 @@
 from celery import task
-import slumber
-import json
 from datetime import datetime, timedelta
+from django.db.models import Q
+
 from competition.models.competition_model import Competition
 from competition.models.game_model import Game, GameScore
 from competition.models.team_model import Team
-from django.db.models import Q
+
+import slumber
+import logging
+import random
+import json
+
+
+logger = logging.getLogger(__name__)
 
 SCHEDULED_STRING = "Scheduled"
 COMPLETED_STRING = "Complete"
@@ -15,6 +22,29 @@ NEW_STRING = "New"
 HAS_STARTED = [COMPLETED_STRING, RUNNING_STRING, FAILED_STRING]
 HAS_FINISHED = [COMPLETED_STRING, FAILED_STRING]
 HAS_NOT_FINISHED = [NEW_STRING, SCHEDULED_STRING, RUNNING_STRING]
+
+
+@task()
+def create_test_game(competition):
+    game_data = {
+        'gamelog_url': 'http://placekitten.com/g/200/300',
+        'api_url': 'http://placekitten.com/g/300/200',
+        }
+    score_data = {
+        'output_url': 'http://placekitten.com/g/300/300',
+        'version': 'test_game',
+        }
+    teams = list(competition.team_set.all())
+    players = random.sample(teams, 2)
+    competition.game_set.all().delete()
+    g  = Game.objects.create(competition=competition,
+                             extra_data=json.dumps(game_data))
+    for player in players:
+        GameScore.objects.create(game=g, team=player,
+                                 score=random.randint(0,1),
+                                 extra_data=json.dumps(score_data))
+    p1, p2 = players
+    logger.info("Created game {} between {} and {}".format(str(g), p1, p2))
 
 
 def populate_score(api, game=None):
