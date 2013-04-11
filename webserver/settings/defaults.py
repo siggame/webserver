@@ -103,6 +103,7 @@ ALLOWED_HTML_ATTRS.update({
         'img': ['src', 'alt'],
         })
 
+
 ##########################################################################
 #
 # Celery settings
@@ -203,6 +204,15 @@ FIXTURE_DIRS = (
 
 ##########################################################################
 #
+# Cache settings
+#
+##########################################################################
+
+CACHE_MIDDLEWARE_SECONDS = 5
+CACHE_MIDDLEWARE_KEY_PREFIX = 'web_cache'
+
+##########################################################################
+#
 # Location settings
 #
 ##########################################################################
@@ -280,11 +290,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ##########################################################################
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 
