@@ -70,7 +70,7 @@ def fetch_games(arena_api_url, competition_slug,
         if max_time != None and datetime.today()-start_time > timedelta(seconds=max_time):
             break
         # Query the arena api
-        api = slumber.API(ARENA_API_URL)
+        api = slumber.API(arena_api_url)
         obj = api.game.get(offset=load, limit=at_a_time)
         if len(obj["objects"]) == 0:
             break
@@ -135,7 +135,7 @@ def update_games(arena_api_url, competition_slug,
         unfinished_games = unfinished_games.filter(competition=competition)
         unfinished_games = unfinished_games.order_by('-pk')[load:load+at_a_time]
 
-        api = slumber.API(ARENA_API_URL)
+        api = slumber.API(arena_api_url)
 
         for game in unfinished_games:
             # Query the api
