@@ -48,7 +48,9 @@
     {% endif %}
 
     <tr class="game-info" game_url="{{ game.get_absolute_url }}" style="cursor:pointer;">
-      <td>{{ game.id }}</td>
+      {# firstof will ALWAYS mark content as "safe", but since game.id and game.game_id #}
+      {# are both integers, it's not an issue here. #}
+      <td>{% firstof game.game_id game.id %}</td>
 
       {% with scores=game.scores.select_related.all|dictsortreversed:"score" %}
         <td>{% include "competition/game/_opponent_list.html" %}</td>
