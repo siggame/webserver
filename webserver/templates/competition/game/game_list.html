@@ -17,6 +17,12 @@
     </button>
   {% endif %}
 
+  {% if embargoed == "not ready" %}
+    <button class="btn btn-info btn-large pull-right">
+      <i class="icon-cogs"></i> <b>Building Arena</b>
+    </button>
+  {% endif %}
+
   {% if embargoed == "unembargoed" %}
     <button class="btn btn-success btn-large pull-right">
       <i class="icon-ok-circle"></i> <b>Thunderbirds are Go!</b>
