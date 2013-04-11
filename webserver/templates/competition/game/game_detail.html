@@ -23,7 +23,9 @@
         <td>
           <ul class="unstyled" style="margin-bottom:0;">
             {% for score in team_scores %}
-              <li>{{ score.data.version }}</li>
+              <span class="label label-info">
+                <li>{{ score.data.version }}</li>
+              </span>
             {% endfor %}
           </ul>
         </td>
