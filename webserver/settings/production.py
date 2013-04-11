@@ -19,9 +19,9 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': POSTGRES_DB,
-        'USER': POSTGRES_USER,
-        'PASSWORD': POSTGRES_PASSWORD,
+        'NAME': POSTGRES_DB,            # Should be in secret_settings.py
+        'USER': POSTGRES_USER,          # Should be in secret_settings.py
+        'PASSWORD': POSTGRES_PASSWORD,  # Should be in secret_settings.py
         'HOST': 'localhost'
     }
 }
@@ -31,7 +31,7 @@ LOGGING = {
     'disable_existing_loggers': True,
     'root': {
         'level': 'WARNING',
-        'handlers': ['sentry'],
+        'handlers': ['sentry', 'console', 'logfile'],
     },
     'formatters': {
         'verbose': {
