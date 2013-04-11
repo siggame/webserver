@@ -51,6 +51,9 @@ class CheckEmbargoedNode(template.Node):
         except (TypeError, KeyError), e:
             result = "error"
             logger.error("Error grabbing game data: {}".format(str(e)))
+        except slumber.exceptions.HttpClientError:
+            result = "error"
+            logger.error("Couldn't connect to arena api ({})".format(url))
         except AssertionError:
             result = "error"
             if response['meta']['total_count'] > 1:
