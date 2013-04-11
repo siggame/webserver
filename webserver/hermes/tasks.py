@@ -1,4 +1,4 @@
-import celery
+from celery import task
 import slumber
 import json
 from datetime import datetime, timedelta
@@ -55,7 +55,7 @@ def populate_score(slumber, game=None):
     return score
 
 
-#@celery.task
+@task()
 def fetch_games(arena_api_url, competition_slug,
                 offset=0, at_a_time=60, max_to_fetch=100000, max_time=None):
     # Fetch a bunch of games
@@ -110,6 +110,7 @@ def fetch_games(arena_api_url, competition_slug,
                     score.save()
 
 
+@task()
 def update_games(arena_api_url, competition_slug,
                  offset=0, at_a_time=20, max_updates=10000, max_time=None):
     competition = Competition.objects.get(slug=competition_slug)
