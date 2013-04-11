@@ -1,13 +1,29 @@
 {% extends "competition/competition_base.html" %}
 {% load competition_tags %}
+{% load hermes_tags %}
 
 {% block content %}
   <table class="table table-hover">
     <tbody>
       <tr>
         <th>Game #</th>
-        <td>{{ game.id }}</td>
+        {# firstof will ALWAYS mark content as "safe", but since game.id and game.game_id #}
+        {# are both integers, it's not an issue here. #}
+        <td>{% firstof game.game_id game.id %}</td>
       </tr>
+
+      <tr>
+        <th>Completed</th>
+        <td>
+          {% with time=game.data.completed|iso_to_datetime %}
+            {{ time|default:"--" }}
+            {% if time %}
+              ({{ time|timesince }} ago)
+            {% endif %}
+          {% endwith %}
+        </td>
+      </tr>
+
       {% with scores=game.scores.select_related.all|dictsortreversed:"score" %}
       <tr>
         <th>Opponents</th>
