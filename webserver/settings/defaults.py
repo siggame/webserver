@@ -116,6 +116,8 @@ try:
 except NameError:
     BROKER_URL = 'django://'
 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
 ##########################################################################
 #
 # Greta settings
@@ -343,6 +345,7 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
     'webserver.codemanagement',
+    'webserver.hermes',
 
     'guardian',
     'djcelery',                 # Django celery
