@@ -1,0 +1,9 @@
+{% if game.data.winner.name == user_team.name %}
+  <td class="win">Win</td>
+{% else %}
+  {% if game.data.loser.name == user_team.name %}
+    <td class="loss">Loss</td>
+  {% else %}
+    <td class="tie">--</td>
+  {% endif %}
+{% endif %}

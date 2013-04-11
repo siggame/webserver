@@ -1,12 +1,24 @@
 from django import template
+from django.template.defaultfilters import stringfilter
+
 from competition.models.game_model import Game
 
 import slumber
+import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 
 register = template.Library()
+
+
+@register.filter
+@stringfilter
+def iso_to_datetime(value):
+    try:
+        return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
+    except ValueError, e:
+        return ""
 
 
 class CheckEmbargoedNode(template.Node):
