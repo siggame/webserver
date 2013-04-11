@@ -36,7 +36,7 @@ def create_test_game(competition):
         }
     teams = list(competition.team_set.all())
     players = random.sample(teams, 2)
-    competition.game_set.all().delete()
+
     g  = Game.objects.create(competition=competition,
                              extra_data=json.dumps(game_data))
     for player in players:
