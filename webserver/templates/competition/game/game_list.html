@@ -5,7 +5,7 @@
 {% block content %}
   {% check_embargoed user_team as embargoed %}
 
-  {% if embargoed == True %}
+  {% if embargoed == "embargoed" %}
     <button class="btn btn-danger btn-large pull-right">
       <i class="icon-minus-sign"></i> <b>Embargoed</b>
     </button>
@@ -17,7 +17,7 @@
     </button>
   {% endif %}
 
-  {% if embargoed == False %}
+  {% if embargoed == "unembargoed" %}
     <button class="btn btn-success btn-large pull-right">
       <i class="icon-ok-circle"></i> <b>Thunderbirds are Go!</b>
     </button>

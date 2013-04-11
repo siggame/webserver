@@ -2,6 +2,9 @@ from django import template
 from django.template.defaultfilters import stringfilter
 
 import slumber
+import logging
+
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -15,10 +18,26 @@ class CheckEmbargoedNode(template.Node):
         team = context[self.team]
         last_game = team.game_set.latest()
         try:
+            # Grag the API url from the last Game that was played
             url = last_game.data['api_url']
-            result = slumber.API(url).client.get(name=team.name)['embargoed']
+
+            # Query API
+            response = slumber.API(url).client.get(name=team.name)
+
+            # Make sure that we only get one client item back.
+            assert response['meta']['total_count'] == 1
+
+            # Get "embargoed" from returned client
+            if response['objects'][0]['embargoed']:
+                result = "embargoed"
+            else:
+                result = "unembargoed"
         except KeyError:
             result = "error"
+        except AssertionError:
+            result = "error"
+            msg = "Found more than one team with name {} in arena"
+            logger.error(msg.format(team.name))
 
         context[self.variable_name] = result
         return ""
