@@ -53,7 +53,10 @@ class CheckEmbargoedNode(template.Node):
             logger.error("Error grabbing game data: {}".format(str(e)))
         except AssertionError:
             result = "error"
-            msg = "Found more than one team with name {} in arena"
+            if response['meta']['total_count'] > 1:
+                msg = 'Found more than one team with name "{}" in arena'
+            else:
+                msg = 'Found zero teams with name "{}" in arena'
             logger.error(msg.format(team.name))
 
         context[self.variable_name] = result
