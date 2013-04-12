@@ -50,8 +50,10 @@ def create_test_game(competition):
 def populate_score(api, game=None):
     # Fetch the team object based on the slug of the team name
 
-    # XXX: I could have sworn this was slug, but now it seems to be the actual name
-    team = Team.objects.get(name=api["name"]["name"])
+    try:
+        team = Team.objects.get(slug=api["name"]["name"])
+    except Team.DoesNotExist:
+        team = Team.objects.get(name=api["name"]["name"])
 
     # There is no game object provided, create a new gamescore
     if game == None:

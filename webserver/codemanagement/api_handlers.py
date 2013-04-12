@@ -90,7 +90,7 @@ class RepoTagListHandler(BaseHandler):
                         tag = None
                     return {
                         'id': team.pk,
-                        'name': team.name,
+                        'name': team.slug,
                         'path': team.teamclient.repository.repo.path,
                         'tag': tag
                     }
