@@ -29,9 +29,3 @@ test: bin/buildout
 clean:
 	find ./ -name *.pyc -delete
 	find ./ -name *.~ -delete
-
-very-clean: clean
-	@# This may vary depending where buildout sticks stuff.
-	rm -f bootstrap.py
-	rm -rf bin/
-	rm -rf var/
