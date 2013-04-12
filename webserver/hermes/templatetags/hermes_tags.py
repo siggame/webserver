@@ -36,7 +36,7 @@ class CheckEmbargoedNode(template.Node):
             url = last_game.data['api_url']
 
             # Query API
-            response = slumber.API(url).client.get(name=team.name)
+            response = slumber.API(url).client.get(name=team.slug)
 
             # Make sure that we only get one client item back.
             assert response['meta']['total_count'] == 1
@@ -57,10 +57,10 @@ class CheckEmbargoedNode(template.Node):
         except AssertionError:
             result = "error"
             if response['meta']['total_count'] > 1:
-                msg = 'Found more than one team with name "{}" in arena'
+                msg = 'Found more than one team with slug "{}" in arena'
             else:
-                msg = 'Found zero teams with name "{}" in arena'
-            logger.error(msg.format(team.name))
+                msg = 'Found zero teams with slug "{}" in arena'
+            logger.error(msg.format(team.slug))
 
         context[self.variable_name] = result
         return ""
