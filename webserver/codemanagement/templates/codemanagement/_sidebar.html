@@ -1,5 +1,6 @@
 {% load url from future %}
 
+{% if user_team %}
 {% if competition.is_running or user_team.teamclient %}
   <h2 class="text-right">Code</h2>
   <ul id="code-nav" class="nav nav-tabs nav-stacked" style="margin-top:20px;">
@@ -33,4 +34,5 @@
       </li>
     {% endif %}
   </ul>
+{% endif %}
 {% endif %}
