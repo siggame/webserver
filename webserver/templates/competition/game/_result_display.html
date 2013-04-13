@@ -1,7 +1,7 @@
-{% if game.data.winner.name == user_team.name %}
+{% if game.data.winner.name == user_team.slug %}
   <td class="win">Win</td>
 {% else %}
-  {% if game.data.loser.name == user_team.name %}
+  {% if game.data.loser.name == user_team.slug %}
     <td class="loss">Loss</td>
   {% else %}
     <td class="tie">--</td>
