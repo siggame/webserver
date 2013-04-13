@@ -26,7 +26,6 @@ CACHES = {
     'default' : {
         'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(VAR_DIR, "cache", "development.cache"),
-        'JOHNNY_CACHE': True,
     }
 }
 
