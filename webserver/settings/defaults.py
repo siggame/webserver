@@ -354,6 +354,9 @@ INSTALLED_APPS = (
     # Git app
     'greta',
 
+    # API stuff
+    'piston',
+
     'webserver.home',
     'webserver.profiles',
     'webserver.codemanagement',
