@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, url, include
+from django.contrib.auth.views import logout_then_login
 from django.conf import settings
 from django.contrib import admin
 
@@ -18,6 +19,7 @@ urlpatterns = patterns(
     url(r'^', include('competition.urls')),
 
     # Django AllAuth
+    url(r'^accounts/logout/$', logout_then_login),
     url(r'^accounts/', include('allauth.urls')),
 
     # Zinnia Blog
