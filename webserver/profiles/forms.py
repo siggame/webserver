@@ -58,7 +58,7 @@ class UserProfileForm(forms.ModelForm):
         profile.user.last_name = self.cleaned_data['last_name']
         profile.user.email = self.cleaned_data['email']
         profile.user.save(*args, **kwargs)
-        print "Saved"
+        print u"{}'s profile saved".format(profile.user.username)
         return profile
 
 
