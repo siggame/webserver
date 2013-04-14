@@ -1,4 +1,5 @@
 {% extends "competition/competition_base.html" %}
+{% load url from future %}
 {% load competition_tags %}
 {% load hermes_tags %}
 
@@ -110,7 +111,8 @@
 
 {% block script %}
   <script>
-    function success() {
+    function success(data) {
+      console.log(data);
       alert("Success!");
     }
 
@@ -129,13 +131,14 @@
       $(".rating").parent().unbind("click");
       $(".star").each(function(i, e){
         $(this).click(function(){
-          var url = "http://arena.megaminerai.com/mies/thunderdome/rate/";
+          var url = "{% url 'arena_rating' %}";
           var rating = $(this).attr("rating");
           var game_id = $(this).attr("game");
-          console.log("Pinging URL:" + URL + "with rating" + rating + "and game_id" + game_id);
-          url = url + game_id + "/" + rating;
-          console.log("before:"+url+", after:"+String(url));
-          $.getJSON(url, success).fail(failure);
+
+          console.log(url);
+
+          var jqxhr = $.get(url, {rating: rating, game_id: game_id}, success);
+          jqxhr.fail(failure);
         });
       });
     });
