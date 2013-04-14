@@ -58,6 +58,7 @@
           <tr>
             <th>Game #</th>
             <th>Status</th>
+            <th>Submission Tag</th>
             <th>Scores</th>
             <th>Result</th>
             {% for field in data_fields %}
@@ -75,6 +76,8 @@
       <td>{% firstof game.game_id game.id %}</td>
 
       <td>{{ game.data.status }}</td>
+
+      <td>{% include "competition/game/_version_display.html" %}</td>
 
       {% with scores=game.scores.select_related.all|dictsortreversed:"score" %}
         <td>{% include "competition/game/_opponent_list.html" %}</td>
@@ -134,8 +137,6 @@
           var url = "{% url 'arena_rating' %}";
           var rating = $(this).attr("rating");
           var game_id = $(this).attr("game");
-
-          console.log(url);
 
           var jqxhr = $.get(url, {rating: rating, game_id: game_id}, success);
           jqxhr.fail(failure);
