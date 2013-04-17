@@ -3,7 +3,6 @@
 {% load competition_tags %}
 {% load hermes_tags %}
 
-
 {% block content %}
   {% check_embargoed user_team as embargoed %}
 
@@ -81,4 +80,17 @@
   </ul>
 
 {% include "competition/_paginator.html" with page=page_obj %}
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(function(){
+      $(".win").parent().toggleClass("success");
+      $(".loss").parent().toggleClass("error");
+      $(".tie").parent().toggleClass("warning");
+      $(".game-info > td").click(function() {
+        document.location.href = $(this).parent().attr("game_url");
+      });
+    });
+  </script>
 {% endblock %}
