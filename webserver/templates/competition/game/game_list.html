@@ -3,24 +3,6 @@
 {% load competition_tags %}
 {% load hermes_tags %}
 
-{% block link %}
-  <style type="text/css">
-    .rating {
-      unicode-bidi: bidi-override;
-      direction: rtl;
-      margin-bottom: 0;
-      width: 150px;
-    }
-    .rating > span {
-      display: inline-block;
-      position: relative;
-    }
-    .rating > span:hover:before,
-    .rating > span:hover ~ span:before {
-       content: "\f005";
-    }
-  </style>
-{% endblock %}
 
 {% block content %}
   {% check_embargoed user_team as embargoed %}
@@ -64,7 +46,6 @@
             {% for field in data_fields %}
               <th>{{ field }}</th>
             {% endfor %}
-            <th>Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -87,16 +68,6 @@
       {% for field in data_fields %}
         <td>{{ game.data.display|get_item:field|default:"--" }}</td>
       {% endfor %}
-
-      <td>
-        <div class="rating">
-          <span class="star icon-star-empty icon-large" game="{{ game.game_id }}" rating="5"></span>
-          <span class="star icon-star-empty icon-large" game="{{ game.game_id }}" rating="4"></span>
-          <span class="star icon-star-empty icon-large" game="{{ game.game_id }}" rating="3"></span>
-          <span class="star icon-star-empty icon-large" game="{{ game.game_id }}" rating="2"></span>
-          <span class="star icon-star-empty icon-large" game="{{ game.game_id }}" rating="1"></span>
-        </div>
-      </td>
     </tr>
 
     {% if forloop.last %}
@@ -110,38 +81,4 @@
   </ul>
 
 {% include "competition/_paginator.html" with page=page_obj %}
-{% endblock %}
-
-{% block script %}
-  <script>
-    function success(data) {
-      console.log(data);
-      alert("Success!");
-    }
-
-    function failure() {
-      alert("Failure!");
-    }
-
-    $(function(){
-      $(".win").parent().toggleClass("success");
-      $(".loss").parent().toggleClass("error");
-      $(".tie").parent().toggleClass("warning");
-      $(".game-info > td").click(function() {
-        document.location.href = $(this).parent().attr("game_url");
-      });
-
-      $(".rating").parent().unbind("click");
-      $(".star").each(function(i, e){
-        $(this).click(function(){
-          var url = "{% url 'arena_rating' %}";
-          var rating = $(this).attr("rating");
-          var game_id = $(this).attr("game");
-
-          var jqxhr = $.get(url, {rating: rating, game_id: game_id}, success);
-          jqxhr.fail(failure);
-        });
-      });
-    });
-  </script>
 {% endblock %}

@@ -3,5 +3,4 @@ from .views import rating
 
 urlpatterns = patterns(
     '',
-    url(r'^rating/$', rating, name="arena_rating")
 )
