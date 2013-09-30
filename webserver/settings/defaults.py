@@ -362,6 +362,7 @@ INSTALLED_APPS = (
     'webserver.codemanagement',
     'webserver.hermes',
 
+    'gunicorn',                 # Adds gunicorn management commands
     'guardian',
     'djcelery',                 # Django celery
     'kombu.transport.django',
