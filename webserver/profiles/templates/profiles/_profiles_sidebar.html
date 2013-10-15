@@ -13,6 +13,17 @@
   <li {% if active == 'update' %}class="active"{% endif %}>
     <a href="{% url 'update_profile' %}"><i class="icon-pencil"></i> Update My Profile</a>
   </li>
+  <li>
+    <a href='/accounts/email/'><i class='icon-ok'></i>Verify My Email Settings</a>
+  </li>
+  <li>
+    <a href='/accounts/social/connections/'><i class='icon-globe'></i>My Social Connections</a>
+  </li>
+  {% if active == 'update' %}
+    <li>
+      <a href ='/accounts/password/change/'><i class='icon-edit'></i>Change My Password</a>
+    </li>
+  {% endif %}
 </ul>
 
 {% if userprofile and userprofile.user != user %}
