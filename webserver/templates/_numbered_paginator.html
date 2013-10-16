@@ -1,0 +1,35 @@
+{% if page.paginator.num_pages > 1 %}
+<div class="pagination pagination-centered">
+  <ul>
+    {% for i in page.paginator.page_range %}
+    {% if forloop.first %}
+      <li class="previous {% if not page.has_previous %}disabled{% endif%}">
+        {% if page.has_previous %}
+          <a href="?{{ page_name|default:"page" }}={{ page.previous_page_number }}">
+        {% else %}
+          <a href="#">
+        {% endif %}
+          &laquo;
+        </a>
+      </li>
+    {% endif %}
+
+    <li {% if page.number == i %}class="active"{% endif %}>
+      <a href="?{{ page_name|default:"page" }}={{ i }}">{{ i }}</a>
+    </li>
+
+    {% if forloop.last %}
+      <li class="next {% if not page.has_next %}disabled{% endif%}">
+        {% if page.has_next %}
+          <a href="?{{ page_name|default:"page" }}={{ page.next_page_number }}">
+        {% else %}
+          <a href="#">
+        {% endif %}
+          &raquo;
+        </a>
+      </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
