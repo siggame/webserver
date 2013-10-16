@@ -1,0 +1,86 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load url from future %}
+
+{% block head_title %}{% trans "Account" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "E-mail Addresses" %}</h1>
+{% if user.emailaddress_set.all %}
+<p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+
+<form action="{% url 'account_email' %}" method="post">
+{% csrf_token %}
+<fieldset class="blockLabels">
+
+  {% for emailaddress in user.emailaddress_set.all %}
+<div class="control-group">
+  <label for="email_radio_{{forloop.counter}}" class="radio">
+    <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary %}checked{%endif %} value="{{emailaddress.email}}" />
+
+    <span>{{ emailaddress.email }}</span>
+
+    {% if emailaddress.verified %}
+    <span class="label label-success">{% trans "Verified" %}</span>
+    {% else %}
+    <span class="label label-important">{% trans "Unverified" %}</span>
+    {% endif %}
+
+    {% if emailaddress.primary %}<span class="label label-info">{% trans "Primary" %}</span>{% endif %}
+</label>
+
+</div>
+  {% endfor %}
+
+<div class="control-group">
+      <input name="action_primary" type="submit" class="btn btn-primary btn-small" value="Make Primary"/>
+      <input name="action_send" type="submit" class="btn btn-primary btn-small" value="Re-send Verification"/>
+      <input name="action_remove" type="submit" class="btn btn-danger btn-small" value="Remove"/>
+</div>
+
+</fieldset>
+</form>
+
+{% else %}
+<p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
+
+{% endif %}
+
+<hr>
+
+    <h2>{% trans "Add E-mail Address" %}</h2>
+
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="control-group">
+        <div class="controls">
+          <input name="action_add" type="submit" class="btn btn-primary btn-small" value="Add E-mail"/>
+        </div>
+      </div>
+    </form>
+
+{% endblock %}
+
+
+{% block extra_body %}
+<script type="text/javascript">
+(function() {
+  var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+  var actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (! confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+})();
+</script>
+{% endblock %}
+
+{% block sidebar %}
+  {% include "profiles/_profiles_sidebar.html" with active="email" %}
+{% endblock %}
