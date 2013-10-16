@@ -81,4 +81,19 @@ $(function() {
     if (window.location.pathname.match(/^\/docs/) != null) {
         $("#documentation-tab").toggleClass("active");
     }
+
+    // If the URL starts with "/accounts/email", gray out the profile tab
+    if (window.location.pathname.match(/^\/accounts\/email/) != null) {
+        $("#profile-tab").toggleClass("active");
+    }
+
+    // If the URL starts with "/social/connections", gray out the profile tab
+    if (window.location.pathname.match(/^\/accounts\/social\//) != null) {
+        $("#profile-tab").toggleClass("active");
+    }
+
+    // If the URL starts with "/accounts/password", gray out the profile tab
+    if (window.location.pathname.match(/^\/accounts\/password\/(change|set)/) != null) {
+        $("#profile-tab").toggleClass("active");
+    }
 });
