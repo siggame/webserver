@@ -16,24 +16,25 @@
     </caption>
     <thead>
       <tr>
-	<th>Name</th>
+        <th>Name</th>
       </tr>
     </thead>
     <tbody>
       {% for profile in userprofiles %}
-	<tr>
-	  <td>
-	    <a href="{{profile.get_absolute_url}}">
-	      {% filter force_escape %}
-		{% firstof profile.user.get_name profile.user.username %}
-	      {% endfilter %}
-	    </a>
-	  </td>
-	</tr>
+        <tr>
+          <td>
+            <a href="{{profile.get_absolute_url}}">
+              {% filter force_escape %}
+                {% firstof profile.user.get_name profile.user.username %}
+              {% endfilter %}
+            </a>
+          </td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>
 
+{% include "_numbered_paginator.html" with page=page_obj %}
 {% endblock %}
 
 {% block sidebar %}
