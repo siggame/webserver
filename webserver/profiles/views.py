@@ -21,6 +21,7 @@ class ProfileListView(ListView):
     template_name = "profiles/list_profile.html"
     model = UserProfile
     context_object_name = "userprofiles"
+    paginate_by = 25
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
