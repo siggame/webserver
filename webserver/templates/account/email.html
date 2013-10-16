@@ -33,9 +33,9 @@
   {% endfor %}
 
 <div class="buttonHolder">
-      <input type="submit" class="btn btn-primary btn-small" value="Make Primary"/>
-      <input type="submit" class="btn btn-primary btn-small" value="Re-send Verification"/>
-      <input type="submit" class="btn btn-danger btn-small" value="Remove"/>
+      <input name="action_primary" type="submit" class="btn btn-primary btn-small" value="Make Primary"/>
+      <input name="action_send" type="submit" class="btn btn-primary btn-small" value="Re-send Verification"/>
+      <input name="action_remove" type="submit" class="btn btn-danger btn-small" value="Remove"/>
 </div>
 
 </fieldset>
@@ -52,7 +52,7 @@
     <form method="post" action="" class="add_email uniForm">
         {% csrf_token %}
         {{ form.as_p}}
-        <input type="submit" class="btn btn-primary btn-small" value="Add E-mail"/>
+        <input name="action_add" type="submit" class="btn btn-primary btn-small" value="Add E-mail"/>
     </form>
 
 {% endblock %}
