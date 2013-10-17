@@ -90,3 +90,10 @@ LOGGING = {
         }
     }
 }
+
+# localhost email server settings
+if DEBUG:
+    EMAIL_HOST='localhost'
+    EMAIL_USER=''
+    EMAIL_PASSWORD=''
+    EMAIL_PORT=1025
