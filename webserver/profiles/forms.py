@@ -44,6 +44,7 @@ class UserProfileForm(forms.ModelForm):
             HTML('<hr>'),
             HTML(epiceditor),
             Field('about_me', content_for="epiceditor"),
+            HTML('<br>'),
             FormActions(
                 Submit('save', 'Save changes',
                        epiceditor_save_button="true"),
