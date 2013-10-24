@@ -25,6 +25,10 @@ body {
     background-color: #f3f3f3;
 }
 
+#content {
+    padding-bottom: 2em;
+}
+
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
     #footer {

@@ -1,14 +1,121 @@
-{% extends "base.html" %}
-
 {% load zinnia_tags %}
 
-{% block content %}
-  <div style="padding-top:20px;">
-    <img src="{{ STATIC_URL }}img/wrench.png" alt="Missouri S&amp;T SIG-Game" class="img-responsive"/>
-  </div>
+{% load url from future %}
 
-  <hr>
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% block meta %}{% endblock %}
 
-  {% get_recent_entries 3 template="home/entries.html" %}
+        <!-- Title -->
+        <title>{% block title %}{% endblock %}</title>
 
-{% endblock %}
+        <!-- Links and style -->
+        <link href="{{ STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{ STATIC_URL}}css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet"/>
+        <link href="{{ STATIC_URL}}css/pygment_emacs.css" rel="stylesheet"/>
+        <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less"/>
+
+        <!--[if IE 7]>
+            <link href="{{ STATIC_URL}}css/font-awesome-ie7.min.css" rel="stylesheet">
+        <![endif]-->
+
+        <script src="{{ STATIC_URL }}js/less.min.js" type="text/javascript"></script>
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+        {% block link %}{% endblock %}
+    </head>
+    <body>
+      <div id="wrap">
+        <div class="navbar navbar-default">
+          <div class="navbar-header">
+            <a href="/" title="SIG-Game" class="navbar-brand" rel="home">
+              <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game" class="img-responsive" />
+            </a>
+
+            <!-- Helps the navbar collapse when the page shrinks -->
+            <button class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+              <span class="glyphicon glyphicon-bar"></span>
+              <span class="glyphicon glyphicon-bar"></span>
+              <span class="glyphicon glyphicon-bar"></span>
+            </button>
+          <!--mve this /div down with other...maybe-->
+          </div>
+          <div class="container">
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="navbar-collapse collapse">
+                <ul class="nav pull-left navbar-nav">
+                  {% include "navbar/_siggame.html" %}
+                  {% include "navbar/_competition.html" %}
+                  {% if user.is_authenticated %}
+                    {% include "navbar/_documentation.html" %}
+                    {% include "navbar/_invitation.html" %}
+                    {% include "navbar/_profile.html" %}
+                  {% endif %}
+                </ul>
+                <ul class="nav pull-right navbar-nav">
+                  {% if user.is_authenticated %}
+                    {% include "navbar/_authenticated_users.html" %}
+                  {% else %}
+                    {% include "navbar/_unauthenticated_users.html" %}
+                  {% endif %}
+                </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          {% block breadcrumbs %}
+            <div id="no-breadcrumb"></div>
+          {% endblock %}
+        </div>
+
+        {% block slider %}{% endblock %}
+
+        <div class="container">
+          {% include "_messages.html" %}
+          <div class="row">
+            <div id="content" class="col-md-12">
+              {% block page-header %}
+              {% endblock %}
+              {% block content %}
+  				<div style="padding-top:20px;">
+    				<img src="{{ STATIC_URL }}img/wrench.png" alt="Missouri S&amp;T SIG-Game" class="img-responsive"/>
+  				</div>
+  				<hr>
+  				{% get_recent_entries 3 template="home/entries.html" %}
+				{% endblock %}
+            </div>
+          </div>
+        </div>
+
+        <div id="push"></div>
+      </div>
+
+      <div id="footer">
+        <div class="container">
+          <p class="text-muted">
+            Brought to you by Missouri S&amp;T ACM SIG-Game.
+            | Fork us on <a href="http://siggame.github.com">GitHub</a>!
+          </p>
+        </div>
+      </div>
+
+    <!-- Scripts -->
+    <!-- Put them at the end so the page loads faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/page_setup.js"></script>
+    {% block script %}{% endblock %}
+
+  </body>
+</html>
