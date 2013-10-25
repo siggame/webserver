@@ -79,7 +79,7 @@
     {% endfor %}
   </ul>
 
-{% include "competition/_paginator.html" with page=page_obj %}
+{% include "_numbered_paginator.html" with page=page_obj %}
 {% endblock %}
 
 {% block script %}
