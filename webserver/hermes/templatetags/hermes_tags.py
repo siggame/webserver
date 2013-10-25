@@ -6,6 +6,7 @@ from competition.models.game_model import Game
 import slumber
 import datetime
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ register = template.Library()
 def iso_to_datetime(value):
     try:
         return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
-    except ValueError, e:
+    except ValueError:
         return ""
 
 
@@ -32,7 +33,7 @@ class CheckEmbargoedNode(template.Node):
             # Get the last game played
             last_game = team.game_set.latest()
 
-            # Grag the API url from the last Game that was played
+            # Grab the API url from the last Game that was played
             url = last_game.data['api_url']
 
             # Query API
@@ -48,12 +49,18 @@ class CheckEmbargoedNode(template.Node):
                 result = "unembargoed"
         except Game.DoesNotExist:
             result = "not ready"
+        except slumber.exceptions.ImproperlyConfigured:
+            result = "error"
+            logger.error("Bad arena URL: {}".format(url))
         except (TypeError, KeyError), e:
             result = "error"
             logger.error("Error grabbing game data: {}".format(str(e)))
         except slumber.exceptions.HttpClientError:
             result = "error"
             logger.error("Couldn't connect to arena api ({})".format(url))
+        except requests.exceptions.ConnectionError:
+            result = "error"
+            logger.error("Connection to arena api timed out ({})".format(url))
         except AssertionError:
             result = "error"
             if response['meta']['total_count'] > 1:
