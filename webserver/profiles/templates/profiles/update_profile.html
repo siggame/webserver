@@ -4,10 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block script %}
-  <script src="{{ STATIC_URL }}epiceditor/js/epiceditor.min.js"></script>
-  <script>
-    {% include "_epiceditor.js" %}
-  </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/epiceditor/0.2.0/js/epiceditor.min.js"></script>
 {% endblock %}
 
 {% block page-header %}
