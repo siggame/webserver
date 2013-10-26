@@ -27,6 +27,25 @@ def iso_to_datetime(value):
         return ""
 
 
+@register.assignment_tag
+def centered_list(value, center=None, size=None):
+    if size is None or center is None:
+        return value
+    if len(value) == 0:
+        return value
+    size = int(size)
+
+    start = center - size / 2 - 1
+    stop = center + size / 2
+    if start < 0:
+        stop = size
+        start = 0
+    if stop >= len(value):
+        start = len(value) - size
+        stop = len(value)
+    return value[start:stop]
+
+
 class CheckEmbargoedNode(template.Node):
     def __init__(self, team, variable_name):
         self.team = team

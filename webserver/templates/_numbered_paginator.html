@@ -1,7 +1,10 @@
+{% load hermes_tags %}
+
 {% if page.paginator.num_pages > 1 %}
 <div class="pagination pagination-centered">
   <ul>
-    {% for i in page.paginator.page_range %}
+    {% centered_list page.paginator.page_range center=page.number size=9 as pages %}
+    {% for i in pages %}
     {% if forloop.first %}
       <li class="previous {% if not page.has_previous %}disabled{% endif%}">
         {% if page.has_previous %}
