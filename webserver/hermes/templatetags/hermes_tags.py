@@ -19,6 +19,11 @@ def iso_to_datetime(value):
     try:
         return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
     except ValueError:
+        pass
+
+    try:
+        return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
         return ""
 
 
