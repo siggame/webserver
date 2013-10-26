@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.validators import MaxLengthValidator
 
 import markdown
 import bleach
@@ -11,7 +12,7 @@ import bleach
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    about_me = models.TextField()
+    about_me = models.TextField(validators=[MaxLengthValidator(500)])
     rendered_about_me = models.TextField(editable=False,
                                          null=True)
 
