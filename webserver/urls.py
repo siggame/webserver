@@ -39,6 +39,10 @@ if settings.DEBUG:
             {'document_root': settings.MEDIA_ROOT,'show_indexes':True}),
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.STATIC_ROOT}),
+        url(r'^500/$', 'django.views.generic.simple.direct_to_template',
+            {'template': '500.html'}),
+        url(r'^404/$', 'django.views.generic.simple.direct_to_template',
+            {'template': '404.html'}),
     )
 
 # Flat pages
