@@ -14,7 +14,6 @@
 
     <!-- Links and style -->
     <link href="{{ STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL}}css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less" />
 
@@ -29,19 +28,20 @@
   </head>
   <body>
     <div id="wrap">
-      <div class="navbar">
-        <div class="navbar-inner">
+      <div class="navbar navbar-default">
+        <div class="container">
           <div class="container">
-            <!-- Keep the brand -->
-            <a href="/" title="SIG-Game" class="brand" rel="home">
-              <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game"/>
+            <div class="navbar-header">
+              <!-- Keep the brand -->
+              <a href="/" title="SIG-Game" class="navbar-brand" rel="home">
+                <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game">
             </a>
           </div>
         </div>
 
         <div class="container">
           <div class="row">
-            <div id="content" class="offset2 span8">
+            <div id="content" class="col-lg-offset-2 col-sm-8 col-md-8">
               {% block content %}
               {% endblock %}
             </div>
@@ -52,9 +52,9 @@
 
       </div>
 
-      <div id="footer">
+      <div id="footer" style="height:60px;background-color=#f3f3f3">
         <div class="container">
-          <p class="muted">
+          <p class="text-muted">
             Brought to you by Missouri S&amp;T ACM SIG-Game.
             |  Fork us on <a href="http://siggame.github.com">GitHub</a>!
           </p>

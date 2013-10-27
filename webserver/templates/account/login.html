@@ -14,8 +14,8 @@
 
   {% if not user.is_authenticated %}
 
-    <div class="row-fluid">
-      <div class="span6">
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
         {% blocktrans with site.name as site_name %}
 
           <h4 class="text-center">Sign in with your <strong>{{ site_name }}</strong> account</h4>
@@ -27,9 +27,9 @@
           {{ form|crispy }}
 
           {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="form-control">
           {% endif %}
-          <div class="control-group">
+          <div class="form-group">
             <div class="controls">
               <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
               <a class="btn btn-info" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
@@ -42,7 +42,7 @@
       </div>
 
       {% if socialaccount.providers %}
-        <div class="span6">
+        <div class="col-sm-6 col-md-6">
           <p>
             {% blocktrans with site.name as site_name %}
 
@@ -53,7 +53,7 @@
 
           <div class="socialaccount_ballot">
             <div class="">
-              <ul class="nav nav-tabs nav-stacked socialaccount_providers">
+              <ul class="nav nav-pills nav-stacked socialaccount_providers">
                 {% include "socialaccount/snippets/provider_list.html" %}
               </ul>
             </div>
