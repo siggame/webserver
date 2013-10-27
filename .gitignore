@@ -30,3 +30,8 @@ secret_settings.py
 
 # Ignore other nose files
 .noseids
+
+# Ignore the versions file. Buildout versions may vary by machine
+# (2.2.1 vs 2.1.1), so it's best just to ignore this and just force
+# adds when necessary.
+versions.cfg

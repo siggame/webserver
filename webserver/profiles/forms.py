@@ -8,17 +8,16 @@ from crispy_forms.layout import (Layout, Fieldset, Submit, Button,
 from crispy_forms.bootstrap import FormActions
 
 from .models import UserProfile
+from .widgets import EpicEditorInput
 
 
-epiceditor = """
-<div class="control-group">
-  <label for="epiceditor" class="control-label ">About me</label>
-  <div class="controls">
-    <div id="epiceditor"></div>
-  </div>
-</div>
+epiceditor_help_text = """
+<i>
+  This editor accepts
+  <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+  formatted text!
+</i>
 """
-
 
 # Create the form class.
 class UserProfileForm(forms.ModelForm):
@@ -29,8 +28,8 @@ class UserProfileForm(forms.ModelForm):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     email = forms.EmailField()
-    about_me = forms.CharField(required=False,
-                               widget=forms.HiddenInput())
+    about_me = forms.CharField(required=False, widget=EpicEditorInput(),
+                                help_text=epiceditor_help_text)
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -42,8 +41,7 @@ class UserProfileForm(forms.ModelForm):
             Field('last_name'),
             Field('email'),
             HTML('<hr>'),
-            HTML(epiceditor),
-            Field('about_me', content_for="epiceditor"),
+            Field('about_me'),
             HTML('<br>'),
             FormActions(
                 Submit('save', 'Save changes',

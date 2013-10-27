@@ -49,17 +49,14 @@ AUTH_PROFILE_MODULE = 'profiles.UserProfile'
 # When a user successfully logs in, redirect here by default
 LOGIN_REDIRECT_URL = '/profile/'
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
 # Require that users who are signing up provide an email address
 ACCOUNT_EMAIL_REQUIRED = True
 
 # ACCOUNT_EMAIL_VERIFICATION  is set in development.py and production.py
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SIG-Game]"
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 # Try to pull username/email from provider.
 SOCIALACCOUNT_AUTO_SIGNUP = True
@@ -80,6 +77,7 @@ SOCIALACCOUNT_PROVIDERS = {
 # Django Guardian settings
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # this is default
+    'allauth.account.auth_backends.AuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
 )
 ANONYMOUS_USER_ID = -1

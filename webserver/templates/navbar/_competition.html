@@ -14,16 +14,18 @@
       </a>
     </li>
 
-    <li class="divider"></li>
-    <li id="your-competitions" class="disabled"
-        title="These are the competitions that you've registered for!">
-      <a href="#" data-toggle="tooltip">
-        Your Competitions
-      </a>
-    </li>
+    {% if user.is_authenticated %}
+      <li class="divider"></li>
+      <li id="your-competitions" class="disabled"
+          title="These are the competitions that you've registered for!">
+        <a href="#" data-toggle="tooltip">
+          Your Competitions
+        </a>
+      </li>
 
-    {# List competitions that the user is registered for #}
-    {% competitions_registered %}
+      {# List competitions that the user is registered for #}
+      {% competitions_registered %}
+    {% endif %}
 
   </ul>
 </li>
