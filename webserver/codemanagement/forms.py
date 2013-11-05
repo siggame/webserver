@@ -32,6 +32,8 @@ class TeamRepoForm(forms.ModelForm):
         # Crispy form styling stuff
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-8'
         self.helper.layout = Layout(
             Fieldset(
                 "Setup your team's code repository",
@@ -68,6 +70,9 @@ class TeamPasswordForm(forms.ModelForm):
         # Crispy form styling stuff
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-8'
+
         self.helper.layout = Layout(
             Fieldset(
                 "Change your team's git password",
@@ -96,6 +101,8 @@ class SubmitForm(forms.ModelForm):
         # Crispy form styling stuff
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-8'
         self.helper.layout = Layout(
             Fieldset(
                 'Submit to the arena',
