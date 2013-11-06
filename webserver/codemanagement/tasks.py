@@ -1,6 +1,9 @@
 from celery import task
 from celery.result import AsyncResult
 
+from competition.models import (Team, RegistrationQuestion,
+                                RegistrationQuestionResponse)
+
 from .models import TeamSubmission
 
 import logging
@@ -35,3 +38,34 @@ def create_shellai_tag(instance):
                                       name="ShellAI",
                                       submitter=None)
         logger.info("Tagged {}'s repo".format(team_name))
+
+@task()
+def mark_all_ineligible():
+    """Marks teams with non-student members as ineligible"""
+
+    question = "Are you currently a full time student?"
+    try:
+        q = RegistrationQuestion.objects.get(question=question)
+        no = q.question_choice_set.get(choice="No")
+        responses = RegistrationQuestionResponse.objects.filter(question=q,
+                                                                choices=no)
+    except RegistrationQuestion.DoesNotExist:
+        logger.error('No such question "{}"'.format(question))
+
+    if not responses.exists():
+        logger.info("No nonstudents found")
+        return
+
+    count = 0
+    for response in responses:
+        try:
+            reg = response.registration
+            team = Team.objects.get(competition=reg.competition,
+                                    members=reg.user)
+            team.eligible_to_win = False
+            team.save()
+            count += 1
+        except Team.DoesNotExist:
+            continue
+
+    logger.info('Marked {} teams ineligible to win'.format(count))
