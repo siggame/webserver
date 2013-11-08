@@ -37,6 +37,9 @@ $(function() {
         } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/games\/$/)) {
             // Activate Games nav button
             $(competition_nav[1]).toggleClass("active");
+        } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/gamestats\/$/)) {
+            // Activate Game Stats nav button
+            $(competition_nav[2]).toggleClass("active");
         } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/submissions\/$/)) {
             // Activate Code Submissions nav button
             $(code_nav[0]).toggleClass("active");
