@@ -6,6 +6,8 @@ from competition.models.competition_model import Competition
 from competition.models.game_model import Game, GameScore
 from competition.models.team_model import Team
 
+from .stats import update_game_stats
+
 import slumber
 import logging
 import random
@@ -200,3 +202,5 @@ def update_games(arena_api_url, competition_slug,
                 # Update the related score objects
                 for score in scores:
                     score.save()
+
+    update_game_stats.delay(competition_slug)

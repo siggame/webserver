@@ -25,7 +25,7 @@ def get_team_stats(team):
 
 
 @task()
-def calculate_win_loss_ratios(competition_slug):
+def update_game_stats(competition_slug):
     try:
         competition = Competition.objects.get(slug=competition_slug)
     except Competition.DoesNotExist:
