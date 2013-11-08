@@ -5,6 +5,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.10.8/jquery.tablesorter.min.js"></script>
   <script>
     $(function() {
+      $("#stat_time").tooltip();
       $("#stats").tablesorter();
       $("#stats").bind("sortEnd",function() {
         var icons = $("#stats > thead th i");
@@ -24,6 +25,13 @@
 {% block content %}
 
   <h2>Game Statistics for {{ user_team.name }}</h2>
+  <h4 class="muted">
+    Last updated
+    <a id="stat_time" href="#" data-toggle="tooltip" data-placement="bottom"
+       title="{{ stats.updated }}">
+      {{ stats.updated|timesince }}
+    </a>
+  </h4>
 
   <hr>
 
