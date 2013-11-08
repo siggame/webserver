@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models.signals import pre_save, post_save
-from django.dispatch import receiver
-from django.conf import settings
 
 from competition.models import Team
 
@@ -10,6 +7,7 @@ import json
 
 class TeamStats(models.Model):
     team = models.OneToOneField(Team)
+    updated = models.DateTimeField(auto_now=True)
     data_field = models.TextField(null=True, default="null")
 
     def __str__(self):
