@@ -12,6 +12,8 @@ class TeamStats(models.Model):
     team = models.OneToOneField(Team)
     data_field = models.TextField(null=True, default="null")
 
+    def __str__(self):
+        return self.team.name
 
     @property
     def data(self):
