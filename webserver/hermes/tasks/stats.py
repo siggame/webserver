@@ -4,6 +4,7 @@ from django.db.models import F
 from competition.models import Competition
 from ..models import TeamStats
 
+import itertools
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,23 @@ def get_team_stats(team):
         })
     return results
 
+
+def get_version_stats(team):
+    results = []
+    scores = team.gamescore_set.all()
+    groups = itertools.groupby(scores, lambda x: x.data['version'])
+    for version, iter_scores in groups:
+        scores = list(iter_scores)
+        total = len(scores)
+        wins = sum(x.score for x in scores)
+        losses = total - wins
+        results.append({
+            'version': version,
+            'n_games': total,
+            'n_win': wins,
+            'n_loss': losses
+        })
+    return results
 
 
 @task()
@@ -42,6 +60,7 @@ def update_game_stats(competition_slug):
 
         stats.data = {
             'teams': get_team_stats(team),
+            'versions': get_version_stats(team),
             'total': {
                 'n_games': scores.count(),
                 'n_win': wins,
