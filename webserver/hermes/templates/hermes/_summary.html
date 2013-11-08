@@ -1,0 +1,19 @@
+<h3 class="text-center">Summary</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Games</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>{{ stats_data.total.n_games }}</td>
+      <td>{{ stats_data.total.n_win }}</td>
+      <td>{{ stats_data.total.n_loss }}</td>
+      <td>{{ stats_data.total.ratio|floatformat:3 }}</td>
+    </tr>
+  </tbody>
+</table>

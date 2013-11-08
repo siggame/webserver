@@ -1,0 +1,29 @@
+<h3 class="text-center">Results Per Opponenet</h3>
+<table id="stats" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name <i class="icon-sort"></i></th>
+      <th>Games <i class="icon-sort"></i></th>
+      <th>Wins <i class="icon-sort"></i></th>
+      <th>Losses <i class="icon-sort"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in stats_data.teams %}
+      <tr class="{% if team.n_win >= team.n_loss %}success{% else %}error{% endif %}">
+        <td>{{ team.name }}</td>
+        <td>{{ team.n_games }}</td>
+        <td>{{ team.n_win }}</td>
+        <td>{{ team.n_loss }}</td>
+      </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">
+            <center>
+              No statistics are available at this time. Please be patient.
+            </center>
+          </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>

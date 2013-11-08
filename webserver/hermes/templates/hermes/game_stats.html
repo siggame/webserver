@@ -5,6 +5,10 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.10.8/jquery.tablesorter.min.js"></script>
   <script>
     $(function() {
+      $("#game_stats a").click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
       $("#stat_time").tooltip();
       $("#stats").tablesorter();
       $("#stats").bind("sortEnd",function() {
@@ -29,65 +33,26 @@
     Last updated
     <a id="stat_time" href="#" data-toggle="tooltip" data-placement="bottom"
        title="{{ stats.updated }}">
-      {{ stats.updated|timesince }}
+       {{ stats.updated|timesince }}
     </a>
   </h4>
 
   <hr>
 
-  {% with stats_data=stats.data %}
-    {% if stats_data %}
-      <h3 class="text-center">Summary</h3>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Games</th>
-            <th>Wins</th>
-            <th>Losses</th>
-            <th>Ratio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="info">
-            <td>{{ stats_data.total.n_games }}</td>
-            <td>{{ stats_data.total.n_win }}</td>
-            <td>{{ stats_data.total.n_loss }}</td>
-            <td>{{ stats_data.total.ratio|floatformat:3 }}</td>
-          </tr>
-        </tbody>
-      </table>
-    {% endif %}
+  <div class="tabbable">
+    <ul id="game_stats" class="nav nav-tabs">
+      <li class="active"><a href="#summary">Summary</a></li>
+      <li><a href="#per-opponent">Per Opponent</a></li>
+    </ul>
 
-    <hr>
+    <div class="tab-content">
+      <div class="tab-pane active" id="summary">
+        {% include "hermes/_summary.html" with stats_data=stats.data %}
+      </div>
+      <div class="tab-pane" id="per-opponent">
+        {% include "hermes/_per_opponent.html" with stats_data=stats.data %}
+      </div>
+    </div>
+  </div>
 
-    <h3 class="text-center">Results Per Opponenet</h3>
-    <table id="stats" class="table table-hover">
-      <thead>
-        <tr>
-          <th>Name <i class="icon-sort"></i></th>
-          <th>Games <i class="icon-sort"></i></th>
-          <th>Wins <i class="icon-sort"></i></th>
-          <th>Losses <i class="icon-sort"></i></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for team in stats_data.teams %}
-          <tr class="{% if team.n_win >= team.n_loss %}success{% else %}error{% endif %}">
-            <td>{{ team.name }}</td>
-            <td>{{ team.n_games }}</td>
-            <td>{{ team.n_win }}</td>
-            <td>{{ team.n_loss }}</td>
-          </tr>
-          {% empty %}
-            <tr>
-              <td colspan="4">
-                <center>
-                  No statistics are available at this time. Please be patient.
-                </center>
-              </td>
-            </tr>
-          {% endfor %}
-      </tbody>
-    </table>
-  {% endwith %}
 {% endblock %}
