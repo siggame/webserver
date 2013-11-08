@@ -1,17 +1,37 @@
 {% extends "competition/competition_base.html" %}
 {% load cache %}
 
+{% block script %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.10.8/jquery.tablesorter.min.js"></script>
+  <script>
+    $(function() {
+      $("#stats").tablesorter();
+      $("#stats").bind("sortEnd",function() {
+        var icons = $("#stats > thead th i");
+        icons.removeClass().toggleClass("icon-sort");
+
+        var asc_icons = $("#stats .tablesorter-headerAsc i");
+        asc_icons.removeClass().toggleClass("icon-sort-up");
+
+        var desc_icons = $("#stats .tablesorter-headerDesc i");
+        desc_icons.removeClass().toggleClass("icon-sort-down");
+      });
+    });
+
+  </script>
+{% endblock %}
+
 {% block content %}
 
   <h2>Game Statistics for {{ user_team.name }}</h2>
 
-  <table class="table table-hover">
+  <table id="stats" class="table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Games</th>
-        <th>Wins</th>
-        <th>Losses</th>
+        <th>Name <i class="icon-sort"></i></th>
+        <th>Games <i class="icon-sort"></i></th>
+        <th>Wins <i class="icon-sort"></i></th>
+        <th>Losses <i class="icon-sort"></i></th>
       </tr>
     </thead>
     <tbody>
