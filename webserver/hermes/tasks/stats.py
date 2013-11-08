@@ -34,14 +34,19 @@ def update_game_stats(competition_slug):
     teams = competition.team_set.all()
 
     for team in teams:
-        scores = team.gamescore_set.all()
         stats, _ = TeamStats.objects.get_or_create(team=team)
+
+        scores = team.gamescore_set.all()
+        wins = scores.filter(score=1).count()
+        losses = scores.filter(score=0).count()
+
         stats.data = {
             'teams': get_team_stats(team),
             'total': {
                 'n_games': scores.count(),
-                'n_win': scores.filter(score=1).count(),
-                'n_loss': scores.filter(score=0).count(),
+                'n_win': wins,
+                'n_loss': losses,
+                'ratio': float(wins) / float(losses)
             }
         }
         stats.save()
