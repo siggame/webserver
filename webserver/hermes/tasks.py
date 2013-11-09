@@ -48,13 +48,15 @@ def create_test_game(competition):
     logger.info("Created game {} between {} and {}".format(str(g), p1, p2))
 
 
-def populate_score(api, game=None):
+def populate_score(api, competition, game=None):
     # Fetch the team object based on the slug of the team name
 
     try:
-        team = Team.objects.get(slug=api["name"]["name"])
+        team = Team.objects.get(competition=competition,
+                                slug=api["name"]["name"])
     except Team.DoesNotExist:
-        team = Team.objects.get(name=api["name"]["name"])
+        team = Team.objects.get(competition=competition,
+                                name=api["name"]["name"])
 
     # There is no game object provided, create a new gamescore
     if game == None:
@@ -112,7 +114,7 @@ def fetch_games(arena_api_url, competition_slug,
             # Populate a score object for this match
             try:
                 for team in game["game_data"]:
-                    score = populate_score(team, None)
+                    score = populate_score(team, competition, None)
                     scores.append(score)
             # Handle if the team cannot be found.
             except Team.DoesNotExist:
@@ -179,7 +181,7 @@ def update_games(arena_api_url, competition_slug,
             if status != game.status:
                 # Populate new score objects from the server
                 for team in obj["game_data"]:
-                    score = populate_score(team, game)
+                    score = populate_score(team, competition, game)
                     scores.append(score)
                 # If we haven't recorded a start time, see if we should.
                 if game.start_time == None:
