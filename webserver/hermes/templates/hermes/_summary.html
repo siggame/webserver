@@ -9,11 +9,21 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="info">
-      <td>{{ stats_data.total.n_games }}</td>
-      <td>{{ stats_data.total.n_win }}</td>
-      <td>{{ stats_data.total.n_loss }}</td>
-      <td>{{ stats_data.total.ratio|floatformat:3 }}</td>
-    </tr>
+    {% if stats_data %}
+      <tr class="info">
+        <td>{{ stats_data.total.n_games }}</td>
+        <td>{{ stats_data.total.n_win }}</td>
+        <td>{{ stats_data.total.n_loss }}</td>
+        <td>{{ stats_data.total.ratio|floatformat:3 }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4">
+          <center>
+            No statistics are available at this time. Please be patient.
+          </center>
+        </td>
+      </tr>
+    {% endif %}
   </tbody>
 </table>
