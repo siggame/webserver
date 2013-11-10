@@ -176,7 +176,11 @@ def update_games(arena_api_url, competition_slug,
 
         for game in unfinished_games:
             # Query the api
-            obj = api.game(game.game_id).get()
+            try:
+                obj = api.game(game.game_id).get()
+            except slumber.exceptions.HttpClientError:
+                logger.info("Cannot fetch game {}".format(game.id))
+                continue
             scores = []
             status = obj["status"]
             # See if the game status is changed
