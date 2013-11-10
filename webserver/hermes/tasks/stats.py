@@ -26,21 +26,24 @@ def get_team_stats(team):
 
 
 def get_version_stats(team):
-    results = []
+    results = {}
     scores = team.gamescore_set.filter(game__status="Complete")
-    groups = itertools.groupby(scores, lambda x: x.data['version'])
-    for version, iter_scores in groups:
-        scores = list(iter_scores)
-        total = len(scores)
-        wins = sum(x.score for x in scores)
-        losses = total - wins
-        results.append({
-            'version': version,
-            'n_games': total,
-            'n_win': wins,
-            'n_loss': losses
-        })
-    return results
+    for score in scores:
+        version = score.data['version']
+        wins = score.score
+        losses = 1 - score.score
+        try:
+            results[version]['n_games'] += 1
+            results[version]['n_win'] += wins
+            results[version]['n_loss'] += losses
+        except KeyError:
+            results[version] = {
+                'version': version,
+                'n_games': 1,
+                'n_win': wins,
+                'n_loss': losses
+            }
+    return results.values()
 
 
 @task()
