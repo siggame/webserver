@@ -2,6 +2,7 @@
 {% load url from future %}
 {% load competition_tags %}
 {% load hermes_tags %}
+{% load cache %}
 
 {% block content %}
   {% check_embargoed user_team as embargoed %}
@@ -32,6 +33,7 @@
 
   <h2>Played Games</h2>
 
+{% cache 500 game_list user_team page_obj.number %}
   {% for game in games %}
     {% if forloop.first %}
       <table class="table table-hover">
@@ -40,7 +42,7 @@
             <th>Game #</th>
             <th>Status</th>
             <th>Submission Tag</th>
-            <th>Scores</th>
+            <th>Opponent</th>
             <th>Result</th>
             {% for field in data_fields %}
               <th>{{ field }}</th>
@@ -79,7 +81,9 @@
     {% endfor %}
   </ul>
 
-{% include "competition/_paginator.html" with page=page_obj %}
+  {% include "_numbered_paginator.html" with page=page_obj %}
+{% endcache %}
+
 {% endblock %}
 
 {% block script %}

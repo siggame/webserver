@@ -1,0 +1,68 @@
+{% extends "competition/competition_base.html" %}
+{% load cache %}
+
+{% block script %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.10.8/jquery.tablesorter.min.js"></script>
+  <script>
+    var setup_sorter = function(identifier) {
+      $(identifier).tablesorter();
+      $(identifier).bind("sortEnd", function() {
+        var icons = $(identifier + " > thead th i");
+        icons.removeClass().toggleClass("icon-sort");
+
+        var asc_icons = $(identifier + " .tablesorter-headerAsc i");
+        asc_icons.removeClass().toggleClass("icon-sort-up");
+
+        var desc_icons = $(identifier + " .tablesorter-headerDesc i");
+        desc_icons.removeClass().toggleClass("icon-sort-down");
+      });
+    }
+
+    $(function() {
+      $("#game_stats a").click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+
+      $("#stat_time").tooltip();
+
+      setup_sorter("#version_stats");
+      setup_sorter("#opponent_stats");
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+
+  <h2>Game Statistics for {{ user_team.name }}</h2>
+  <h4 class="muted">
+    Last updated
+    <a id="stat_time" href="#" data-toggle="tooltip" data-placement="bottom"
+       title="{{ stats.updated }}">
+       {{ stats.updated|timesince }}
+    </a>
+  </h4>
+
+  <hr>
+
+  <div class="tabbable">
+    <ul id="game_stats" class="nav nav-tabs">
+      <li class="active"><a href="#summary">Summary</a></li>
+      <li><a href="#per-version">Per Version</a></li>
+      <li><a href="#per-opponent">Per Opponent</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="summary">
+        {% include "hermes/_summary.html" with stats_data=stats.data %}
+      </div>
+      <div class="tab-pane" id="per-version">
+        {% include "hermes/_per_version.html" with stats_data=stats.data %}
+      </div>
+      <div class="tab-pane" id="per-opponent">
+        {% include "hermes/_per_opponent.html" with stats_data=stats.data %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

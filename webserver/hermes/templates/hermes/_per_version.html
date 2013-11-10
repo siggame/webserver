@@ -1,0 +1,29 @@
+<h3 class="text-center">Results Per Submission Version</h3>
+<table id="version_stats" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Version <i class="icon-sort"></i></th>
+      <th>Games <i class="icon-sort"></i></th>
+      <th>Wins <i class="icon-sort"></i></th>
+      <th>Losses <i class="icon-sort"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for version in stats_data.versions %}
+      <tr class="{% if version.n_win >= version.n_loss %}success{% else %}error{% endif %}">
+        <td>{{ version.version }}</td>
+        <td>{{ version.n_games }}</td>
+        <td>{{ version.n_win }}</td>
+        <td>{{ version.n_loss }}</td>
+      </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">
+            <center>
+              No statistics are available at this time. Please be patient.
+            </center>
+          </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>
