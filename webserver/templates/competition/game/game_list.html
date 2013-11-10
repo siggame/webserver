@@ -80,10 +80,9 @@
       <h3 class="text-center">No games, yet</h3>
     {% endfor %}
   </ul>
-
-  {% include "_numbered_paginator.html" with page=page_obj %}
 {% endcache %}
 
+{% include "_numbered_paginator.html" with page=page_obj %}
 {% endblock %}
 
 {% block script %}
