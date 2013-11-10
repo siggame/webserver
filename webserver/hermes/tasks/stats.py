@@ -14,7 +14,8 @@ def get_team_stats(team):
     results = []
     opponents = team.competition.team_set.exclude(pk=team.pk)
     for opponent in opponents.order_by('slug'):
-        team_scores = team.gamescore_set.filter(game__scores__team=opponent)
+        team_scores = team.gamescore_set.filter(game__scores__team=opponent,
+                                                game__status="Complete")
         results.append({
             'name': opponent.name,
             'n_games': team_scores.count(),
@@ -26,7 +27,7 @@ def get_team_stats(team):
 
 def get_version_stats(team):
     results = []
-    scores = team.gamescore_set.all()
+    scores = team.gamescore_set.filter(game__status="Complete")
     groups = itertools.groupby(scores, lambda x: x.data['version'])
     for version, iter_scores in groups:
         scores = list(iter_scores)
