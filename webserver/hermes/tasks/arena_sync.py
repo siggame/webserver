@@ -204,5 +204,3 @@ def update_games(arena_api_url, competition_slug,
                 # Update the related score objects
                 for score in scores:
                     score.save()
-
-    update_game_stats.delay(competition_slug)
