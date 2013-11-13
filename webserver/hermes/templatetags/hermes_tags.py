@@ -82,6 +82,9 @@ class CheckEmbargoedNode(template.Node):
         except slumber.exceptions.HttpClientError:
             result = "error"
             logger.error("Couldn't connect to arena api ({})".format(url))
+        except slumber.exceptions.HttpServerError:
+            result = "error"
+            logger.error("Arena server error ({})".format(url))
         except requests.exceptions.ConnectionError:
             result = "error"
             logger.error("Connection to arena api timed out ({})".format(url))
