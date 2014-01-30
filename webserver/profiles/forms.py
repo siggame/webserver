@@ -27,7 +27,6 @@ class UserProfileForm(forms.ModelForm):
 
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
-    email = forms.EmailField()
     about_me = forms.CharField(required=False, widget=EpicEditorInput(),
                                 help_text=epiceditor_help_text)
 
@@ -41,7 +40,6 @@ class UserProfileForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field('first_name'),
             Field('last_name'),
-            Field('email'),
             HTML('<hr>'),
             Field('about_me'),
             HTML('<br>'),
@@ -57,7 +55,6 @@ class UserProfileForm(forms.ModelForm):
         profile = super(UserProfileForm, self).save(*args, **kwargs)
         profile.user.first_name = self.cleaned_data['first_name']
         profile.user.last_name = self.cleaned_data['last_name']
-        profile.user.email = self.cleaned_data['email']
         profile.user.save(*args, **kwargs)
         print u"{}'s profile saved".format(profile.user.username)
         return profile
