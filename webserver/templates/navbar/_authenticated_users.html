@@ -11,5 +11,5 @@
   </li>
 {% endif %}
 <li>
-  <a href="{% url 'account_logout' %}">Logout</a>
+  <a href="{% url 'account_logout' %}?next={% url 'home' %}"> Logout</a>
 </li>

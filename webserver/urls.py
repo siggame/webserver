@@ -18,6 +18,9 @@ urlpatterns = patterns(
     # Competition
     url(r'^', include('competition.urls')),
 
+    # Custom Auth for Login
+    url(r'^accounts/auth/$', 'webserver.views.auth_view'),
+
     # Django AllAuth
     url(r'^accounts/logout/$', logout_then_login),
     url(r'^accounts/', include('allauth.urls')),

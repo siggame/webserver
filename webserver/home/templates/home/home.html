@@ -11,5 +11,8 @@
   <hr>
 
   {% get_recent_entries 3 template="home/entries.html" %}
+{% endblock %}
 
+{% block sidebar %}
+  {% include "home/_home_sidebar.html" %}
 {% endblock %}
