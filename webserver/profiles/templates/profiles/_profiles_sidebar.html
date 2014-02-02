@@ -17,13 +17,13 @@
 <h2 class="text-right">My Account</h2>
 <ul class="nav nav-pills nav-stacked">
     <li {% if active == 'email' %}class="active"{% endif %}>
-      <a href="/accounts/email/"><i class="glyphicon glyphicon-ok"></i>  My Email Settings</a>
+      <a href="{% url 'account_email' %}"><i class="glyphicon glyphicon-ok"></i>  My Email Settings</a>
     </li>
     <li {% if active == 'social' %}class="active"{% endif %}>
-      <a href="/accounts/social/connections/"><i class="glyphicon glyphicon-globe"></i>  My Social Connections</a>
+      <a href="{% url 'socialaccount_connections' %}"><i class="glyphicon glyphicon-globe"></i>  My Social Connections</a>
     </li>
     <li {% if active == 'password' %}class="active"{% endif %}>
-      <a href="/accounts/password/change/"><i class="glyphicon glyphicon-edit"></i>  Change My Password</a>
+      <a href="{% url 'account_change_password'%}"><i class="glyphicon glyphicon-edit"></i>  Change My Password</a>
     </li>
 </ul>
 
