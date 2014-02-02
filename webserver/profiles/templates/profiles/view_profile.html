@@ -3,30 +3,29 @@
 
 {% block content %}
 
-  <div class="row-fluid">
-    <div class="span9">
+  <div class="row">
+    <div class="col-md-9">
       <div class="well">
-	<h2>
+        <h2>
           {% filter force_escape %}
             {% firstof userprofile.user.get_full_name userprofile.user.username %}
           {% endfilter %}
-	</h2>
-          {% if userprofile.has_badges%}<div class="row-fluid">
-              <div class="span12">
-                <!-- Badges go here -->
-              </div>
-            </div>
-          {% endif %}
+        </h2>
+        {% if userprofile.has_badges%}<div class="row">
+          <div class="col-md-12">
+            <!-- Badges go here -->
+          </div>
+        </div>
+        {% endif %}
         <h4 class="muted"><i>{{ userprofile.user.username }}</i></h4>
         <p>
           {{ userprofile.rendered_about_me|safe }}
         </p>
       </div>
     </div>
-    <div class="span3">
-      <a id="profilepic" class="thumbnail" href="https://en.gravatar.com/site/login"
-         data-toggle="tooltip" title="Set your gravatar at gravatar.com!" >
-         <img src="{% gravatar_url userprofile.user.email %}" />
+    <div class="col-md-3">
+      <a id="profilepic" class="thumbnail" href="https://en.gravatar.com/site/login"   data-toggle="tooltip" title="Set your gravatar at gravatar.com!">
+        <img src="{% gravatar_url userprofile.user.email %}" class="img-responsive" />
       </a>
     </div>
   </div>

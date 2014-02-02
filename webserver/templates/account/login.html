@@ -14,35 +14,34 @@
 
   {% if not user.is_authenticated %}
 
-    <div class="row-fluid">
-      <div class="span6">
-        {% blocktrans with site.name as site_name %}
+    <div class="row">
+      <div class="well col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
+        <h4 class="text-center">
+          <a href="{% url 'account_signup' %}">Sign up</a> or sign in with your <strong>{{ site_name }}</strong> account
+        </h4>
 
-          <h4 class="text-center">Sign in with your <strong>{{ site_name }}</strong> account</h4>
-
-        {% endblocktrans %}
-        <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+        <form id="login_form" class="form-horizontal" method="POST" action="{% url 'account_login' %}">
           {% csrf_token %}
 
           {{ form|crispy }}
 
           {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="form-control">
           {% endif %}
-          <div class="control-group">
+          <div id="login_buttons" class="form-group">
             <div class="controls">
               <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
               <a class="btn btn-info" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             </div>
           </div>
         </form>
-        <p class="text-center">
-          <a href="{% url 'account_signup' %}">Sign up</a> for a <strong>{{ site_name }}</strong> account
-        </p>
       </div>
 
       {% if socialaccount.providers %}
-        <div class="span6">
+        <div class="col-sm-1 col-md-1" style="padding-top: 50px; padding-bottom: 50px;">
+          <h4 class="text-muted text-center">OR</h4>
+        </div>
+        <div class="well col-sm-4 col-md-4">
           <p>
             {% blocktrans with site.name as site_name %}
 
@@ -53,7 +52,7 @@
 
           <div class="socialaccount_ballot">
             <div class="">
-              <ul class="nav nav-tabs nav-stacked socialaccount_providers">
+              <ul class="nav nav-pills nav-stacked socialaccount_providers">
                 {% include "socialaccount/snippets/provider_list.html" %}
               </ul>
             </div>

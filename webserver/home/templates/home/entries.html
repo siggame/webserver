@@ -1,12 +1,12 @@
-<div class="row-fluid">
+<div class="row">
   {% for entry in entries %}
-    <div class="span4">
+    <div class="col-md-4">
       <h2>{{ entry.title }}</h2>
       <p>
         {{ entry.excerpt }}
       </p>
       <p>
-        <a class="btn"
+        <a class="btn btn-primary"
            href="{{ entry.get_absolute_url }}"
            title="{{ entry.title }}">
            Continue reading

@@ -4,11 +4,15 @@
 
 {% block content %}
   <div style="padding-top:20px;">
-    <img src="{{ STATIC_URL }}img/wrench.png" alt="Missouri S&amp;T SIG-Game"/>
+    <img src="{{ STATIC_URL }}img/wrench.png" alt="Missouri S&amp;T SIG-Game"
+         class="img-responsive"/>
   </div>
 
   <hr>
 
   {% get_recent_entries 3 template="home/entries.html" %}
+{% endblock %}
 
+{% block sidebar %}
+  {% include "home/_home_sidebar.html" %}
 {% endblock %}

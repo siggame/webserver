@@ -3,12 +3,12 @@
 {% if user_team %}
 {% if competition.is_running or user_team.teamclient %}
   <h2 class="text-right">Code</h2>
-  <ul id="code-nav" class="nav nav-tabs nav-stacked" style="margin-top:20px;">
+  <ul id="code-nav" class="nav nav-pills nav-stacked" style="margin-top:20px;">
     {% if not user_team.teamclient %}
       {% if competition.is_running %}
         <li>
           <a href="{% url 'create_repo' comp_slug=competition.slug %}">
-            <i class="icon-plus"></i>
+            <i class="glyphicon glyphicon-plus"></i>
             Create Repository
           </a>
         </li>
@@ -16,19 +16,19 @@
     {% else %}
       <li>
         <a href="{% url 'list_submissions' competition.slug %}">
-          <i class="icon-tags"></i>
+          <i class="glyphicon glyphicon-tags"></i>
           Code Submissions
         </a>
       </li>
       <li>
         <a href="{{ user_team.teamclient.get_absolute_url }}">
-          <i class="icon-hdd"></i>
+          <i class="glyphicon glyphicon-hdd"></i>
           My Team's Repository
         </a>
       </li>
       <li>
         <a href="{% url 'update_repo_password' comp_slug=competition.slug %}">
-          <i class="icon-pencil"></i>
+          <i class="glyphicon glyphicon-pencil"></i>
           Update Repository Password
         </a>
       </li>

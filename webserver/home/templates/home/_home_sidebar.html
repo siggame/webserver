@@ -1,0 +1,67 @@
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Login Form -->
+{% if not user.is_authenticated %}
+  {% if form.errors %}
+    <p class="error">Sorry, that's not a valid username or password</p>
+  {% endif %}
+<div style="text-align: center;">
+  <form action="{% url 'account_login' %}" method="POST">
+    {% csrf_token %}
+     <div class="control-group">
+      <h4 style="text-align:left">Login</h4>
+        <div class="controls">
+          <input type="text" name="login" value="" id="username"
+                 placeholder="Username or e-mail" style="width:100%">
+        </div>
+      </div>
+      <div class="control-group">
+          <h4 style="text-align:left">Password</h4>
+            <div class="controls">
+              <input type="password" name="password" id="password" value=""
+                     placeholder="Password" style="width:100%">
+            </div>
+      </div>
+
+    <br>
+    <div class="form-group">
+      <div class="controls">
+        <input type="submit" class="btn btn-primary" value="Sign In"/>
+        <a href="{% url 'account_reset_password' %}" class="btn btn-info">Forgot Password?</a>
+      </div>
+    </div>
+  </form>
+
+
+  <hr>
+
+  <!-- Social account providers -->
+  {% if socialaccount.providers %}
+    <p>
+        <h4 class="text-center">Sign in with OpenID</h4>
+    </p>
+
+    <div class="socialaccount_ballot">
+      <div class="">
+        <ul class="nav nav-pills nav-stacked socialaccount_providers">
+          {% include "socialaccount/snippets/provider_list.html" %}
+        </ul>
+      </div>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+  {% endif %}
+
+  <hr>
+</div>
+{% endif %}
+
+<!-- Competition List -->
+
+
+
+{% endblock %}
