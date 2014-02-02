@@ -19,18 +19,9 @@
         <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less"/>
         <link href="{{ STATIC_URL }}css/form-fix.css" rel="stylesheet">
 
-        <!--[if IE 7]>
-            <link href="{{ STATIC_URL}}css/font-awesome-ie7.min.css" rel="stylesheet">
-        <![endif]-->
-
-        <script src="{{ STATIC_URL }}js/less.min.js" type="text/javascript"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
+        <!-- Favicon -->
         <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+
         {% block link %}{% endblock %}
     </head>
     <body>
@@ -112,8 +103,15 @@
 
     <!-- Scripts -->
     <!-- Put them at the end so the page loads faster -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/page_setup.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/page_setup.js" type="text/javascript"></script>
     {% block script %}{% endblock %}
 
   </body>
