@@ -4,6 +4,10 @@
 {% load hermes_tags %}
 {% load cache %}
 
+{% block title %}
+  Games
+{% endblock %}
+
 {% block content %}
   {% check_embargoed user_team as embargoed %}
 
