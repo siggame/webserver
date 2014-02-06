@@ -13,7 +13,8 @@
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Links and style -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}css/sticky-footer.css" rel="stylesheet"/>
     <link href="{{ STATIC_URL}}css/sticky-footer.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less" />
 
@@ -28,7 +29,7 @@
   </head>
   <body>
     <div id="wrap">
-      <div class="navbar navbar-default">
+      <div class="navbar navbar-inverse">
         <div class="navbar-header">
           <!-- Keep the brand -->
           <a href="/" title="SIG-Game" class="navbar-brand" rel="home">
@@ -47,11 +48,11 @@
       </div>
     </div>
 
-    <div id="footer" style="height:60px;background-color=#f3f3f3">
+    <div id="footer" style="height:60px;background-color:#f3f3f3;padding-top:20px;">
       <div class="container">
         <p class="text-muted">
           Brought to you by Missouri S&amp;T ACM SIG-Game.
-          |  Fork us on <a href="http://siggame.github.com">GitHub</a>!
+          | Fork us on <a href="http://siggame.github.com">GitHub</a>!
         </p>
       </div>
     </div>

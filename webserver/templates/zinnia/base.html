@@ -2,6 +2,10 @@
 {% load zinnia_tags i18n %}
 {% load url from future %}
 
+{% block title %}
+  Blog
+{% endblock %}
+
 {% block meta-keywords %}{% get_tags as entry_tags %}{{ entry_tags|join:", "}}{% endblock %}
 
 {% block meta %}
