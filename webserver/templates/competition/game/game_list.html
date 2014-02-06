@@ -93,7 +93,7 @@
   <script>
     $(function(){
       $(".win").parent().toggleClass("success");
-      $(".loss").parent().toggleClass("error");
+      $(".loss").parent().toggleClass("danger");
       $(".tie").parent().toggleClass("warning");
       $(".game-info > td").click(function() {
         document.location.href = $(this).parent().attr("game_url");
