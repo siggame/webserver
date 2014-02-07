@@ -1,9 +1,9 @@
 {% if game.data.winner.name == user_team.slug %}
-  <td class="win">Win</td>
+  <td class="win"><span class="label label-success">Win</span></td>
 {% else %}
   {% if game.data.loser.name == user_team.slug %}
-    <td class="loss">Loss</td>
+    <td class="loss"><span class="label label-danger">Loss</span></td>
   {% else %}
-    <td class="tie">--</td>
+    <td class="tie"><span class="label label-warning">Tie</span></td>
   {% endif %}
 {% endif %}
