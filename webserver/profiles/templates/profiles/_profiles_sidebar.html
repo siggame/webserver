@@ -32,7 +32,7 @@
   {% for team in invitable %}
     {% if forloop.first %}
       <h2 class="text-right">Invitations</h2>
-      <ul class="nav nav-tabs nav-stacked">
+      <ul class="nav nav-pills nav-stacked">
     {% endif %}
     <li>
       <a href="{% url 'invitation_create' %}?invitee={{ userprofile.user.pk }}&team={{ team.id }}">
