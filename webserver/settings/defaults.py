@@ -270,11 +270,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
 
-    # for django-admin-tools and zinnia
+    # for django-admin-tools
     'django.core.context_processors.request',
 
-    # Optional for Zinnia
-    'zinnia.context_processors.version',
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
 )
