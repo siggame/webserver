@@ -165,15 +165,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 #
 ##########################################################################
 
-# Disable the WYSIWIG editor and use a markup language instaead.
-ZINNIA_MARKUP_LANGUAGE = 'markdown'
-
-# Disable comments and pingbacks immediately
-ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
-ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
-
-ZINNIA_PING_DIRECTORIES = ()
-ZINNIA_PING_EXTERNAL_URLS = False
 
 
 ##########################################################################
