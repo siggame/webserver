@@ -348,12 +348,6 @@ INSTALLED_APPS = (
     # django-crispy-forms
     'crispy_forms',
 
-    # Zinnia
-    'tagging',
-    'mptt',
-    'zinnia_bootstrap',
-    'zinnia',
-
     # Competition app
     'competition',
 
