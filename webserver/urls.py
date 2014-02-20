@@ -22,10 +22,6 @@ urlpatterns = patterns(
     url(r'^accounts/logout/$', logout_then_login),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Zinnia Blog
-    url(r'^weblog/', include('zinnia.urls')),
-    url(r'^comments/', include('django.contrib.comments.urls')),
-
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
