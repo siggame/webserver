@@ -10,7 +10,7 @@
     {% get_flatpages '/docs/' for user as flatpages %}
     {% for page in flatpages %}
       <li>
-        <a href="{{ page.url }}">{{ page.title }}</a>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
       </li>
     {% empty %}
       <li class="disabled">
