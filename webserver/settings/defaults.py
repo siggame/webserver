@@ -165,15 +165,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 #
 ##########################################################################
 
-# Disable the WYSIWIG editor and use a markup language instaead.
-ZINNIA_MARKUP_LANGUAGE = 'markdown'
-
-# Disable comments and pingbacks immediately
-ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
-ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
-
-ZINNIA_PING_DIRECTORIES = ()
-ZINNIA_PING_EXTERNAL_URLS = False
 
 
 ##########################################################################
@@ -279,11 +270,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
 
-    # for django-admin-tools and zinnia
+    # for django-admin-tools
     'django.core.context_processors.request',
 
-    # Optional for Zinnia
-    'zinnia.context_processors.version',
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
 )
@@ -347,12 +336,6 @@ INSTALLED_APPS = (
 
     # django-crispy-forms
     'crispy_forms',
-
-    # Zinnia
-    'tagging',
-    'mptt',
-    'zinnia_bootstrap',
-    'zinnia',
 
     # Competition app
     'competition',
