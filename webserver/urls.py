@@ -1,5 +1,6 @@
-from django.conf.urls.defaults import patterns, url, include
+from django.conf.urls import patterns, url, include
 from django.contrib.auth.views import logout_then_login
+from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.contrib import admin
 
@@ -35,10 +36,8 @@ if settings.DEBUG:
             {'document_root': settings.MEDIA_ROOT,'show_indexes':True}),
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.STATIC_ROOT}),
-        url(r'^500/$', 'django.views.generic.simple.direct_to_template',
-            {'template': '500.html'}),
-        url(r'^404/$', 'django.views.generic.simple.direct_to_template',
-            {'template': '404.html'}),
+        url(r'^500/$', TemplateView.as_view(template_name="500.html")),
+        url(r'^404/$', TemplateView.as_view(template_name="404.html")),
     )
 
 # Flat pages
