@@ -5,7 +5,9 @@
 
 {% block page-header %}
   <div class="page-header">
-    {% include "greta/_branch_and_tag.html" %}
+    <div class="repo-nav">
+      {% include "greta/_branch_and_tag.html" %}
+    </div>
     <h1>
       {{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small>
       {% if repo.owner.competition %}
