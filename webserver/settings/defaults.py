@@ -194,6 +194,9 @@ MESSAGE_TAGS = {
 # Should be overridden by development.py or production.py
 DATABASES = None
 
+# Make every HTTP request an atomic transaction
+ATOMIC_REQUESTS = True
+
 # Add project/fixtures to the list of places where django looks for
 # fixtures to install.
 FIXTURE_DIRS = (
