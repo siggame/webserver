@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from guardian.shortcuts import assign, remove_perm, get_groups_with_perms
+from guardian.shortcuts import assign_perm, remove_perm, get_groups_with_perms
 
 from competition.models import Competition, Team
 from greta.models import Repository
@@ -132,7 +132,7 @@ def create_team_repo(sender, instance, raw, **kwargs):
         logger.info("TeamClient repository created")
 
     # Give the team access to their repo
-    assign('can_view_repository', instance.team.get_group(),
+    assign_perm('can_view_repository', instance.team.get_group(),
            instance.repository)
 
 
