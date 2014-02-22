@@ -124,6 +124,8 @@ except NameError:
     BROKER_URL = 'django://'
 
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_ACCEPT_CONTENT = ['pickle']
 
 ##########################################################################
 #
