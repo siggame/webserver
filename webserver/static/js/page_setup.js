@@ -34,7 +34,7 @@ $(function() {
         if (window.location.pathname.match(/^\/competition\/[\w\-]+\/$/)) {
             // Activate Competition Details nav button
             $(competition_nav[0]).toggleClass("active");
-        } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/games\/$/)) {
+        } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/games?\//)) {
             // Activate Games nav button
             $(competition_nav[1]).toggleClass("active");
         } else if (window.location.pathname.match(/^\/competition\/[\w\-]+\/gamestats\/$/)) {
