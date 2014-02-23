@@ -1,8 +1,8 @@
 {% load hermes_tags %}
 
 {% if page.paginator.num_pages > 1 %}
-<div class="pagination pagination-centered">
-  <ul>
+<div class="text-center">
+  <ul class="pagination">
     {% centered_list page.paginator.page_range center=page.number size=9 as pages %}
     {% for i in pages %}
     {% if forloop.first %}

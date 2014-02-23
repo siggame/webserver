@@ -2,19 +2,23 @@
 {% load greta_tags %}
 {% load code_tags %}
 
-<h2 id="tree-paths">
-  <a href="{% url 'tree_detail' pk=repo.pk ref=ref path="" %}">
-    {{ repo.name|clean_repo_name }}/
-  </a>
+<ol id="path-breadcrumb" class="breadcrumb">
+  <li>
+    <a href="{% url 'tree_detail' pk=repo.pk ref=ref path="" %}">{{ repo.name }}</a>
+  </li>
   {% for dir in path|subpaths %}
-    {% if not forloop.last %}
-      <a href="{% url 'tree_detail' pk=repo.pk ref=ref path=dir %}">
-        {{ dir|basename }}/
-      </a>
-    {% endif %}
-
-    {% if forloop.last %}
-      {{ dir|basename }}
+    {% if dir %}
+      <li>
+        {% if not forloop.last %}
+          <a href="{% url 'tree_detail' pk=repo.pk ref=ref path=dir %}">
+            {{ dir|basename }}
+          </a>
+        {% else %}
+          <a href="#">
+            {{ dir|basename }}
+          </a>
+        {% endif %}
+      </li>
     {% endif %}
   {% endfor %}
-</h2>
+</ol>

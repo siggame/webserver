@@ -17,7 +17,6 @@
         <link href="{{ STATIC_URL }}css/sticky-footer.css" rel="stylesheet"/>
         <link href="{{ STATIC_URL }}css/pygment_emacs.css" rel="stylesheet"/>
         <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less"/>
-        <link href="{{ STATIC_URL }}css/form-fix.css" rel="stylesheet">
         <link href="{{ STATIC_URL }}css/hover-dropdown.css" rel="stylesheet">
 
         <!-- Favicon -->
@@ -96,12 +95,15 @@
         <div id="push"></div>
       </div>
 
-      <div id="footer" style="height:60px;background-color:#f3f3f3;padding-top:20px;">
+      <div id="footer">
         <div class="container">
-          <p class="text-muted">
-            Brought to you by Missouri S&amp;T ACM SIG-Game.
-            | Fork us on <a href="http://siggame.github.com">GitHub</a>!
-          </p>
+          <div class="row">
+            <div class="col-xs-12">
+              <p class="text-muted">
+                Brought to you by Missouri S&amp;T ACM SIG-Game. | Fork us on <a href="http://github.com/siggame">GitHub</a>!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

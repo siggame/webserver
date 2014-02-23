@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+  <h2><strong>Game {% firstof game.game_id game.id %}</strong></h2>
   <table class="table table-hover">
     <tbody>
       <tr>
@@ -41,11 +42,11 @@
       <tr>
         <th>Submission Name</th>
         <td>
-          <ul class="unstyled" style="margin-bottom:0;">
+          <ul class="list-unstyled" style="margin-bottom:0;">
             {% for score in team_scores %}
-              <span class="label label-info">
-                <li>{{ score.data.version }}</li>
-              </span>
+              <li>
+                <span class="label label-info">{{ score.data.version }}</span>
+              </li>
             {% endfor %}
           </ul>
         </td>
