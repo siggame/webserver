@@ -127,6 +127,16 @@ CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_ACCEPT_CONTENT = ['pickle']
 
+
+##########################################################################
+#
+# Competition settings
+#
+##########################################################################
+
+QR_DIR = os.path.join(VAR_DIR, "qr")
+
+
 ##########################################################################
 #
 # Greta settings
