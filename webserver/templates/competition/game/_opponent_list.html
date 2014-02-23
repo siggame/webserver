@@ -1,9 +1,7 @@
 {% for score in scores %}
-  {% if forloop.first %}<ul class="unstyled" style="margin-bottom:0">{% endif %}
-  <li>
+  {% if forloop.first %}<ul class="list-unstyled" style="margin-bottom:0">{% endif %}
     {% if score.team != user_team %}
-      {{ score.team.name }}
+      <li>{{ score.team.name }}</li>
     {% endif %}
-  </li>
   {% if forloop.last %}</ul>{% endif %}
 {% endfor %}
