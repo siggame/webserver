@@ -1,0 +1,18 @@
+<div id="cloneCommandModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cloneCommandLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title" id="cloneCommandLabel">Clone Command</h3>
+      </div>
+      <div class="modal-body">
+        <p>Use this command to clone your repository</p>
+        <pre>{{ repo.owner.git_clone_command|default:'Under construction...' }}</pre>
+        <p>If you need assistance, check out <a href="http://git-scm.com/book">Pro Git</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
