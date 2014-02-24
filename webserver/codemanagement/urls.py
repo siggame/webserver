@@ -2,11 +2,15 @@ from django.conf.urls import patterns, url, include
 
 from .views import (CreateRepoView, UpdatePasswordView,
                     ListSubmissionView, SubmitView)
+from .api import RepoAuth, RepoPath, RepoTagList
 
 
 urlpatterns = patterns(
     "",
 
+    url(r'^api/repo/auth/', RepoAuth.as_view()),
+    url(r'^api/repo/path/(?P<team_id>[\d]+)/$', RepoPath.as_view()),
+    url(r'^api/repo/tags/(?P<competition_slug>[\w-]+)/$', RepoTagList.as_view()),
 
     url(r'^competition/(?P<comp_slug>[\w-]+)/create-repo/$',
         CreateRepoView.as_view(),
