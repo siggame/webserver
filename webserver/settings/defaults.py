@@ -86,6 +86,18 @@ ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: "/profile/%s/" % u.username,
 }
 
+##########################################################################
+#
+# API settings
+#
+##########################################################################
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    )
+}
+
 
 ##########################################################################
 #
@@ -367,7 +379,7 @@ INSTALLED_APPS = (
     'greta',
 
     # API stuff
-    'piston',
+    'rest_framework',
 
     'webserver.home',
     'webserver.profiles',
