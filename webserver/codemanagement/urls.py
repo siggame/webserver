@@ -1,17 +1,12 @@
 from django.conf.urls import patterns, url, include
-from piston.resource import Resource
 
 from .views import (CreateRepoView, UpdatePasswordView,
                     ListSubmissionView, SubmitView)
-from .api_handlers import RepoAuthHandler, RepoPathHandler, RepoTagListHandler
 
 
 urlpatterns = patterns(
     "",
 
-    url(r'^api/repo/auth/', Resource(handler=RepoAuthHandler)),
-    url(r'^api/repo/path/', Resource(handler=RepoPathHandler)),
-    url(r'^api/repo/tags/', Resource(handler=RepoTagListHandler)),
 
     url(r'^competition/(?P<comp_slug>[\w-]+)/create-repo/$',
         CreateRepoView.as_view(),
