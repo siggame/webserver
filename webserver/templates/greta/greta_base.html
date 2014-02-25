@@ -8,12 +8,12 @@
     <div class="repo-nav">
       {% include "greta/_branch_and_tag.html" %}
     </div>
-    <h1>
+    <h2>
       {{ repo.name|clean_repo_name }} <small>{{ ref|pretty_ref|truncatechars:15 }}</small>
-      {% if repo.owner.competition %}
-        <small class="text-right text-error">This is a shell repository</small>
-      {% endif %}
-    </h1>
+    </h2>
+    {% if repo.owner.competition %}
+      <h3 class="text-danger">This is a shell repository</h3>
+    {% endif %}
   </div>
 {% endblock %}
 

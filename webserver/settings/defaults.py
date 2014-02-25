@@ -43,9 +43,6 @@ MANAGERS = ADMINS
 #
 ##########################################################################
 
-# Sets up the get_profile() method for User
-AUTH_PROFILE_MODULE = 'profiles.UserProfile'
-
 # When a user successfully logs in, redirect here by default
 LOGIN_REDIRECT_URL = '/profile/'
 
@@ -199,11 +196,11 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Change the default messgae tags to play nice with Bootstrap
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-debug',
+    messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-error',
+    messages.ERROR: 'alert-danger',
 }
 
 
