@@ -10,7 +10,7 @@ import bleach
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name="profile")
 
     about_me = models.TextField(validators=[MaxLengthValidator(500)])
     rendered_about_me = models.TextField(editable=False,

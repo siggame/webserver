@@ -59,7 +59,7 @@ class MyProfileView(ProfileView):
     """
     def get_object(self, queryset=None):
         try:
-            return self.request.user.get_profile()
+            return self.request.user.profile
         except UserProfile.DoesNotExist:
             user = self.request.user
             logger.info("Creating user profile for %s" % user.username)
@@ -78,7 +78,7 @@ class ProfileUpdateView(UpdateView):
         return super(ProfileUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self):
-        return self.request.user.get_profile()
+        return self.request.user.profile
 
     def get_initial(self):
         initial = super(ProfileUpdateView, self).get_initial()
