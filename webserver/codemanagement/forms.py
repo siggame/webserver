@@ -121,9 +121,7 @@ class SubmitForm(forms.ModelForm):
         try:
             self.instance.validate_unique(exclude=exclude)
         except forms.ValidationError, e:
-            msg = 'Your team already has a submission with this name.'
-            e.message_dict['__all__'] = [msg]
-            self._update_errors(e.message_dict)
+            self._update_errors(e)
 
 
 class AuthForm(forms.Form):
