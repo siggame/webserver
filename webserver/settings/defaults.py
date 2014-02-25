@@ -199,11 +199,11 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Change the default messgae tags to play nice with Bootstrap
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-debug',
+    messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-error',
+    messages.ERROR: 'alert-danger',
 }
 
 
