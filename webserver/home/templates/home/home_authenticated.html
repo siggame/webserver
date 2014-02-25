@@ -1,0 +1,27 @@
+{% load competition_tags %}
+
+{% block content %}
+<!-- Repositories -->
+<div class="well col-md-12">
+  <h1>Your MegaMinerAI Repositories:</h1>
+  <hr>
+  <ul class="nav nav-pills">
+    {# user_repositories #}
+  </ul>
+</div>
+
+<!-- Competitions Registered For -->
+<div class="well col-md-12">
+  <h1>Competitions You Are Registered For:</h1>
+  <hr>
+  <ul class="nav nav-pills">
+    {% competitions_registered %}
+  </ul>
+</div>
+
+<!-- Past Competitions -->
+<div class="well col-md-12">
+  <h1>Your Past Competitions:</h1>
+  <hr>
+</div>
+{% endblock %}

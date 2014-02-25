@@ -10,7 +10,7 @@
   {% if form.errors %}
     <p class="error">Sorry, that's not a valid username or password</p>
   {% endif %}
-<div style="text-align: center;">
+<div style="text-align: center;" class="well">
   <form action="{% url 'account_login' %}" method="POST">
     {% csrf_token %}
      <div class="control-group">
@@ -56,12 +56,17 @@
     {% include "socialaccount/snippets/login_extra.html" %}
   {% endif %}
 
-  <hr>
 </div>
+
+{% else %}
+  <!-- Webserver Health -->
+  <div class="well">
+    WEBSERVER HEALTH
+  </div>
+
+  <!-- Arena Health -->
+  <div class="well">
+    ARENA HEALTH
+  </div>
 {% endif %}
-
-<!-- Competition List -->
-
-
-
 {% endblock %}
