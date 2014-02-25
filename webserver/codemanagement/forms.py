@@ -130,13 +130,3 @@ class AuthForm(forms.Form):
     """Used by the RepoAuthHandler to check data from API clients"""
     teamid = forms.IntegerField(required=True)
     password = forms.CharField(required=True)
-
-
-class PathForm(forms.Form):
-    """Used by the RepoPathHandler to check data from API clients"""
-    teamid = forms.IntegerField(required=True)
-
-
-class TagListForm(forms.Form):
-    """Used by the RepoTagListHandler to obtain a list of tags"""
-    competition = forms.CharField(required=True)
