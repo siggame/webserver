@@ -33,7 +33,7 @@
 
         <tr class="commit-row"
             {% if refs %}
-              href="{% url 'commit_detail' pk=repo.pk ref=refs.0|clean_ref_string %}"
+              href="{% url 'commit_detail' pk=repo.pk ref=refs.0 %}"
             {% else %}
               href="{% url 'commit_detail' pk=repo.pk ref=commit.id %}"
             {% endif %}
@@ -44,8 +44,8 @@
             </a>
             {% if refs %}
               {% for ref in refs %}
-                <a href="{% url 'commit_detail' pk=repo.pk ref=ref|clean_ref_string %}"
-                   class="btn btn-xs btn-{% if 'tag:' in ref %}danger{% else %}info{% endif%}">
+                <a href="{% url 'commit_detail' pk=repo.pk ref=ref %}"
+                   class="btn btn-xs btn-{% if ref|is_tag %}danger{% else %}info{% endif%}">
                   {{ ref|pretty_ref }}
                 </a>
               {% endfor %}
