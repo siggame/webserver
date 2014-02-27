@@ -15,7 +15,13 @@
   <h1>Competitions You Are Registered For:</h1>
   <hr>
   <ul class="nav nav-pills">
-    {% competitions_registered %}
+    {% for competition in registered_competitions %}
+      <li>
+        <a href="{{ competition.get_absolute_url }}">
+          {{ competition.name }}
+        </a>
+      </li>
+    {% endfor %}
   </ul>
 </div>
 
@@ -23,5 +29,14 @@
 <div class="well col-md-12">
   <h1>Your Past Competitions:</h1>
   <hr>
+  <ul class="nav nav-pills">
+    {% for competition in closed_competitions %}
+      <li>
+        <a href="{{ competition.get_absolute_url }}">
+          {{ competition.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}
