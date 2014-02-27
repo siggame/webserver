@@ -44,7 +44,7 @@ MANAGERS = ADMINS
 ##########################################################################
 
 # When a user successfully logs in, redirect here by default
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/'
 
 # Require that users who are signing up provide an email address
 ACCOUNT_EMAIL_REQUIRED = True
