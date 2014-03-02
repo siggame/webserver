@@ -41,11 +41,12 @@ class TeamClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamClient
-        fields = ('team', 'repository', 'tag')
+        fields = ('team', 'repository', 'tag', 'language')
 
     team = TeamSerializer()
     repository = RepoSerializer()
     tag = serializers.SerializerMethodField('get_tag')
+    language = serializers.SerializerMethodField('get_language')
 
     def get_tag(self, teamclient):
         try:
@@ -53,3 +54,6 @@ class TeamClientSerializer(serializers.ModelSerializer):
             return TeamSubmissionSerializer(latest_sub).data
         except TeamSubmission.DoesNotExist:
             return None
+
+    def get_language(self, teamclient):
+        return teamclient.base.language
