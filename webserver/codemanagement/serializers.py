@@ -34,6 +34,7 @@ class TeamSubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeamSubmission
+        fields = ('name', 'commit')
 
 
 class TeamClientSerializer(serializers.ModelSerializer):
@@ -48,7 +49,7 @@ class TeamClientSerializer(serializers.ModelSerializer):
 
     def get_tag(self, teamclient):
         try:
-            tc = teamclient.submissions.latest().name
-            return TeamSubmissionSerializer(tc)
+            latest_sub= teamclient.submissions.latest()
+            return TeamSubmissionSerializer(latest_sub).data
         except TeamSubmission.DoesNotExist:
             return None
