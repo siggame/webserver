@@ -382,7 +382,9 @@ INSTALLED_APPS = (
     'webserver.profiles',
     'webserver.codemanagement',
     'webserver.hermes',
+    'webserver.badges',
 
+    'brabeion',
     'gunicorn',                 # Adds gunicorn management commands
     'guardian',
     'djcelery',                 # Django celery
