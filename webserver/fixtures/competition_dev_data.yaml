@@ -1,36 +1,35 @@
-# -*- mode: yaml -*-
 - fields:
     avatar: null
-    cost: 20.0
-    description: Mars!
-    end_time: 2014-03-05 20:14:32
+    cost: 24.0
+    description: Space!
+    end_time: 2014-03-05 20:43:19
     is_open: true
     is_running: true
     max_num_team_members: 3
     min_num_team_members: 1
-    name: MegaMiner 12
+    name: 'MegaMinerAI 9: Space'
     payment_option: T
     questions: []
-    slug: megaminer-12
-    start_time: 2014-03-05 20:14:30
+    slug: megaminerai-9-space
+    start_time: 2014-03-05 20:43:17
   model: competition.competition
   pk: 1
 - fields:
     avatar: null
     competition: 1
-    created: 2014-03-05 20:02:07.744598
+    created: 2014-03-05 20:30:23.016785
     eligible_to_win: true
     members: [2, 4]
-    name: alice
+    name: alice_team
     paid: false
-    slug: alice
+    slug: alice_team
     time_paid: null
   model: competition.team
   pk: 1
 - fields:
     avatar: null
     competition: 1
-    created: 2014-03-05 20:02:27.241536
+    created: 2014-03-05 20:30:27.299987
     eligible_to_win: true
     members: [3]
     name: bob-team
@@ -39,19 +38,29 @@
     time_paid: null
   model: competition.team
   pk: 2
-- fields: {message: akejbrfker, read: true, receiver: 4, response: A, sender: 2, sent: ! '2014-03-05
-      20:03:07.135283', team: 1}
+- fields: {message: jvfwjhsvfjh, read: true, receiver: 4, response: A, sender: 2,
+    sent: ! '2014-03-05 20:30:35.791552', team: 1}
   model: competition.invitation
   pk: 1
-- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:02:03.080451',
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:14.142303',
     user: 2}
   model: competition.registration
   pk: 1
-- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:02:14.557720',
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:21.995311',
     user: 3}
   model: competition.registration
   pk: 2
-- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:02:50.694636',
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:48.576822',
     user: 4}
   model: competition.registration
   pk: 3
+- fields:
+    name: team-1-1
+    permissions: []
+  model: auth.group
+  pk: 1
+- fields:
+    name: team-1-2
+    permissions: []
+  model: auth.group
+  pk: 2
