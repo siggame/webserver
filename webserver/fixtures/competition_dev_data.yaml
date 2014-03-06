@@ -1,0 +1,87 @@
+- fields:
+    avatar: null
+    cost: 24.0
+    description: Space!
+    end_time: 2014-03-05 20:43:19
+    is_open: true
+    is_running: true
+    max_num_team_members: 3
+    min_num_team_members: 1
+    name: 'MegaMinerAI 9: Space'
+    payment_option: T
+    questions: []
+    slug: megaminerai-9-space
+    start_time: 2014-03-05 20:43:17
+  model: competition.competition
+  pk: 1
+- fields:
+    avatar: null
+    competition: 1
+    created: 2014-03-05 20:30:23.016785
+    eligible_to_win: true
+    members: [2, 4]
+    name: alice_team
+    paid: false
+    slug: alice_team
+    time_paid: null
+  model: competition.team
+  pk: 1
+- fields:
+    avatar: null
+    competition: 1
+    created: 2014-03-05 20:30:27.299987
+    eligible_to_win: true
+    members: [3]
+    name: bob-team
+    paid: false
+    slug: bob-team
+    time_paid: null
+  model: competition.team
+  pk: 2
+- fields:
+    avatar: null
+    competition: 1
+    created: 2014-03-06 22:07:52.058927
+    eligible_to_win: true
+    members: [1]
+    name: superuser-team
+    paid: false
+    slug: superuser-team
+    time_paid: null
+  model: competition.team
+  pk: 3
+- fields: {message: jvfwjhsvfjh, read: true, receiver: 4, response: A, sender: 2,
+    sent: ! '2014-03-05 20:30:35.791552', team: 1}
+  model: competition.invitation
+  pk: 1
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:14.142303',
+    user: 2}
+  model: competition.registration
+  pk: 1
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:21.995311',
+    user: 3}
+  model: competition.registration
+  pk: 2
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-05 20:30:48.576822',
+    user: 4}
+  model: competition.registration
+  pk: 3
+- fields: {active: true, competition: 1, signup_date: ! '2014-03-06 22:07:31.530668',
+    user: 1}
+  model: competition.registration
+  pk: 4
+- fields:
+    name: team-1-1
+    permissions: []
+  model: auth.group
+  pk: 1
+- fields:
+    name: team-1-2
+    permissions: []
+  model: auth.group
+  pk: 2
+- fields:
+    name: team-1-3
+    permissions: []
+  model: auth.group
+  pk: 3

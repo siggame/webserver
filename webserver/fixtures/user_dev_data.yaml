@@ -3,7 +3,7 @@
     date_joined: 2013-02-01 13:31:04.227156
     email: none@none.com
     first_name: Super
-    groups: []
+    groups: [3]
     is_active: true
     is_staff: true
     is_superuser: true
@@ -18,7 +18,7 @@
     date_joined: 2013-02-09 16:08:29.078644
     email: ''
     first_name: ''
-    groups: []
+    groups: [1]
     is_active: true
     is_staff: false
     is_superuser: false
@@ -33,7 +33,7 @@
     date_joined: 2013-02-09 16:08:35.376571
     email: ''
     first_name: ''
-    groups: []
+    groups: [2]
     is_active: true
     is_staff: false
     is_superuser: false
@@ -48,7 +48,7 @@
     date_joined: 2013-02-09 16:08:43.880973
     email: ''
     first_name: ''
-    groups: []
+    groups: [1]
     is_active: true
     is_staff: false
     is_superuser: false

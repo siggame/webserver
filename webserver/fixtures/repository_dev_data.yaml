@@ -1,0 +1,35 @@
+# Greta repos
+- fields: {default_branch: master, description: 'MegaMinerAI 9: Space client for python',
+    forked_from: null, name: megaminerai-9-space/python.git, owner_id: 1, owner_type: 36,
+    task_id: null}
+  model: greta.repository
+  pk: 1
+- fields: {default_branch: master, description: 'MegaMinerAI 9: Space client for c++',
+    forked_from: null, name: megaminerai-9-space/cpp.git, owner_id: 2, owner_type: 36,
+    task_id: null}
+  model: greta.repository
+  pk: 2
+- fields: {default_branch: master, description: 'alice_team''s python client for MegaMinerAI
+      9: Space', forked_from: 1, name: megaminerai-9-space/alice_team__1.git, owner_id: 1,
+    owner_type: 37, task_id: null}
+  model: greta.repository
+  pk: 3
+- fields: {default_branch: master, description: 'superuser-team''s python client for
+      MegaMinerAI 9: Space', forked_from: 1, name: megaminerai-9-space/superuser-team__3.git,
+    owner_id: 2, owner_type: 37, task_id: null}
+  model: greta.repository
+  pk: 4
+
+# Clients
+- fields: {competition: 1, language: python, language_slug: python, repository: 1}
+  model: codemanagement.baseclient
+  pk: 1
+- fields: {competition: 1, language: c++, language_slug: cpp, repository: 2}
+  model: codemanagement.baseclient
+  pk: 2
+- fields: {base: 1, git_password: 843fa19f991e9d5, repository: 3, team: 1}
+  model: codemanagement.teamclient
+  pk: 1
+- fields: {base: 1, git_password: a34430ee91be6bc, repository: 4, team: 3}
+  model: codemanagement.teamclient
+  pk: 2
