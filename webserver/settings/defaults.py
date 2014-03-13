@@ -144,6 +144,7 @@ CELERY_ACCEPT_CONTENT = ['pickle']
 ##########################################################################
 
 QR_DIR = os.path.join(VAR_DIR, "qr")
+COMPETITION_DEFAULT_THUMB = "/static/img/default_competition_image_t.png"
 
 
 ##########################################################################
