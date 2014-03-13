@@ -11,6 +11,7 @@ from .stats import update_game_stats
 import slumber
 import logging
 import random
+import requests
 import json
 
 
@@ -107,7 +108,12 @@ def fetch_games(arena_api_url, competition_slug,
             break
         # Query the arena api
         api = slumber.API(arena_api_url)
-        obj = api.game.get(offset=load, limit=at_a_time)
+        try:
+            obj = api.game.get(offset=load, limit=at_a_time)
+        except requests.ConnectionError:
+            logger.error("Cannot connect to arena at {}".format(arena_api_url))
+            return
+
         if len(obj["objects"]) == 0:
             break
         print "Loading offset {}".format(load)
@@ -181,6 +187,10 @@ def update_games(arena_api_url, competition_slug,
             except slumber.exceptions.HttpClientError:
                 logger.info("Cannot fetch game {}".format(game.id))
                 continue
+            except requests.ConnectionError:
+                logger.error("Cannot connect to arena at {}".format(arena_api_url))
+                return
+
             scores = []
             status = obj["status"]
             # See if the game status is changed
