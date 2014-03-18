@@ -1,5 +1,4 @@
 - fields:
-    avatar: null
     cost: 24.0
     description: Space!
     end_time: 2014-03-05 20:43:19
@@ -15,7 +14,6 @@
   model: competition.competition
   pk: 1
 - fields:
-    avatar: null
     competition: 1
     created: 2014-03-05 20:30:23.016785
     eligible_to_win: true
@@ -27,7 +25,6 @@
   model: competition.team
   pk: 1
 - fields:
-    avatar: null
     competition: 1
     created: 2014-03-05 20:30:27.299987
     eligible_to_win: true
@@ -39,7 +36,6 @@
   model: competition.team
   pk: 2
 - fields:
-    avatar: null
     competition: 1
     created: 2014-03-06 22:07:52.058927
     eligible_to_win: true
