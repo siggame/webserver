@@ -1,7 +1,7 @@
 from celery import task
 from django.db.models import F
 
-from competition.models import Competition
+from competition.models import Competition, GameScore
 from ..models import TeamStats
 
 import itertools
