@@ -6,6 +6,8 @@
       <th>Wins</th>
       <th>Losses</th>
       <th>Ratio</th>
+      <th>Elo Rating</th>
+      <th>TrueSkill Rating</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +17,8 @@
         <td>{{ stats_data.total.n_win }}</td>
         <td>{{ stats_data.total.n_loss }}</td>
         <td>{{ stats_data.total.ratio|floatformat:3 }}</td>
+        <td>{{ stats_data.ratings.elo|floatformat:3 }}</td>
+        <td>{{ stats_data.ratings.trueskill|floatformat:3 }}</td>
       </tr>
     {% else %}
       <tr>

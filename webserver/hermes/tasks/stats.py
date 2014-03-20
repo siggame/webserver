@@ -7,6 +7,10 @@ from ..models import TeamStats
 import itertools
 import logging
 
+from elopopulars import FIDERating, make_fide_k_factor
+from elo import Elo
+from trueskill import TrueSkill, Rating, rate_1vs1
+
 logger = logging.getLogger(__name__)
 
 
@@ -45,6 +49,42 @@ def get_version_stats(team):
             }
     return results.values()
 
+def calculate_elo(competition):
+    fide30 = Elo(make_fide_k_factor(30, 15, 10), FIDERating)
+    games = competition.game_set.all()
+    ratings = {t.pk: FIDERating() for t in competition.team_set.all()}
+
+    for game in games:
+        draw = False
+        try:
+            winner = game.scores.get(score=1).team
+            loser = game.scores.get(score=0).team
+        except GameScore.DoesNotExist:
+            winner, loser = list(game.teams.all())
+            draw = True
+
+        ratings[winner.pk], ratings[loser.pk] = fide30.rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw)
+
+    return ratings
+
+def calculate_trueskill(competition):
+    trueskill = TrueSkill()
+    games = competition.game_set.all()
+    ratings = {t.pk: Rating() for t in competition.team_set.all()}
+
+    for game in games:
+        draw = False
+        try:
+            winner = game.scores.get(score=1).team
+            loser = game.scores.get(score=0).team
+        except GameScore.DoesNotExist:
+            winner, loser = list(game.teams.all())
+            draw = True
+
+        ratings[winner.pk], ratings[loser.pk] = rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw, env=trueskill)
+
+    return ratings
+
 
 @task()
 def update_game_stats(competition_slug):
@@ -53,16 +93,27 @@ def update_game_stats(competition_slug):
     except Competition.DoesNotExist:
         logger.error("Cannot locate competition {}".format(competition_slug))
 
+    elos = calculate_elo(competition)
+    ts_ratings = calculate_trueskill(competition)
+
     teams = competition.team_set.all()
 
     for team in teams:
         stats, _ = TeamStats.objects.get_or_create(team=team)
 
         scores = team.gamescore_set.all()
+
+        if not scores.exists():
+            continue
+
         wins = scores.filter(score=1).count()
         losses = scores.filter(score=0).count()
 
         stats.data = {
+            'ratings': {
+                'elo': float(elos[team.pk]),
+                'trueskill': float(ts_ratings[team.pk])
+            },
             'teams': get_team_stats(team),
             'versions': get_version_stats(team),
             'total': {
