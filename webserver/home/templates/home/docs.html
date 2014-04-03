@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load flatpages %}
+
+{% block title %}
+  Documentation
+{% endblock %}
+
+{% block page-header %}
+  <div class="page-header">
+    <h1>MegaMinerAI Documentation</h1>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <ul style="list-style-type: none;">
+    {% get_flatpages '/docs/' for user as flatpages %}
+    {% for page in flatpages %}
+      <li>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+      </li>
+    {% empty %}
+      <li class="disabled">
+        <a href="#">No documentation sets available</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

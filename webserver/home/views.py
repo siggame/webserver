@@ -5,7 +5,7 @@ from competition.models import Competition
 
 class HomePageView(TemplateView):
     template_name = "home/home.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
 
@@ -15,3 +15,5 @@ class HomePageView(TemplateView):
             context["closed_competitions"] = my_competitions.filter(is_running=False, is_open=False)
         return context
 
+class DocsPageView(TemplateView):
+    template_name = "home/docs.html"

@@ -1,31 +1,8 @@
 {% load url from future %}
 {% load competition_tags %}
 
-<li id="competition-tab" class="dropdown">
-
-  <a href="#" class="toggle-dropdown" data-toggle="dropdown">
-    Competition
+<li id="competition-tab">
+  <a href="{% url 'competition_list' %}">
+    Competitions
   </a>
-
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="{% url 'competition_list' %}">
-        Competitions
-      </a>
-    </li>
-
-    {% if user.is_authenticated %}
-      <li class="divider"></li>
-      <li id="your-competitions" class="disabled"
-          title="These are the competitions that you've registered for!">
-        <a href="#" data-toggle="tooltip">
-          Your Competitions
-        </a>
-      </li>
-
-      {# List competitions that the user is registered for #}
-      {% competitions_registered %}
-    {% endif %}
-
-  </ul>
 </li>
