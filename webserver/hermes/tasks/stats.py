@@ -51,7 +51,7 @@ def get_version_stats(team):
 
 def calculate_elo(competition):
     fide30 = Elo(make_fide_k_factor(30, 15, 10), FIDERating)
-    games = competition.game_set.all()
+    games = competition.game_set.filter(status__iexact="complete")
     ratings = {t.pk: FIDERating() for t in competition.team_set.all()}
 
     for game in games:
@@ -69,7 +69,7 @@ def calculate_elo(competition):
 
 def calculate_trueskill(competition):
     trueskill = TrueSkill()
-    games = competition.game_set.all()
+    games = competition.game_set.filter(status__iexact="complete")
     ratings = {t.pk: Rating() for t in competition.team_set.all()}
 
     for game in games:
@@ -101,7 +101,7 @@ def update_game_stats(competition_slug):
     for team in teams:
         stats, _ = TeamStats.objects.get_or_create(team=team)
 
-        scores = team.gamescore_set.all()
+        scores = team.gamescore_set.filter(game__status__iexact="complete")
 
         if not scores.exists():
             continue
