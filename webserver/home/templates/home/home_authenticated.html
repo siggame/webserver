@@ -1,34 +1,61 @@
 {% load competition_tags %}
 
 {% block content %}
-<!-- Repositories -->
-<div class="well col-md-12">
-  <h1>Your MegaMinerAI Repositories:</h1>
-  <hr>
-  <ul class="nav nav-pills">
-    {# user_repositories #}
-  </ul>
-</div>
+  <!-- Repositories -->
+  <div class="well">
+    <h1>Your MegaMinerAI Repositories:</h1>
+    <hr>
+    <ul class="nav nav-pills">
+      {# user_repositories #}
+    </ul>
+  </div>
 
-<!-- Competitions Registered For -->
-<div class="well col-md-12">
-  <h1>Competitions You Are Registered For:</h1>
-  <hr>
-  {% for competition in registered_competitions %}
-    <a href="{{ competition.get_absolute_url }}" class="btn btn-{% if competition.is_running %}success{% else %}info{% endif %}">
-      {{ competition.name }}
-    </a>
-  {% endfor %}
-</div>
+  <!-- Open Competitions -->
+  {% if open_competitions %}
+    <div class="well">
+      <h1>Open MegaMinerAI Competitions:</h1>
+      <hr>
+      {% for competition in open_competitions %}
+        <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
+          {{ competition.name }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
 
-<!-- Past Competitions -->
-<div class="well col-md-12">
-  <h1>Your Past Competitions:</h1>
-  <hr>
-  {% for competition in closed_competitions %}
-    <a href="{{ competition.get_absolute_url }}" class="btn btn-default">
-      {{ competition.name }}
-    </a>
-  {% endfor %}
-</div>
+  <!-- Running Competitions -->
+  {% if running_competitions %}
+    <div class="well">
+      <h1>Running MegaMinerAI Competitions:</h1>
+      <hr>
+      {% for competition in running_competitions %}
+        <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
+          {{ competition.name }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+
+  <!-- Competitions Registered For -->
+  <div class="well">
+    <h1>Competitions You Are Registered For:</h1>
+    <hr>
+    {% for competition in registered_competitions %}
+      <a href="{{ competition.get_absolute_url }}" class="btn btn-{% if competition.is_running %}success{% else %}info{% endif %}">
+        {{ competition.name }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- Past Competitions -->
+  <div class="well">
+    <h1>Your Past Competitions:</h1>
+    <hr>
+    {% for competition in closed_competitions %}
+      <a href="{{ competition.get_absolute_url }}" class="btn btn-default">
+        {{ competition.name }}
+      </a>
+    {% endfor %}
+  </div>
 {% endblock %}
