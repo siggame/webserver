@@ -6,7 +6,7 @@ import re
 
 sha1_validator = RegexValidator(regex="^[a-f0-9]{40}$",
                                 message="Must be valid sha1 sum")
-tag_regex = re.compile(r'^[A-Za-z][\w\-\.]+[A-Za-z]$')
+tag_regex = re.compile(r'^[\w\-\.]+$')
 
 
 def tag_validator(value):
