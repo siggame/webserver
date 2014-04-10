@@ -35,6 +35,9 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 # Config for Django Debug Toolbar
 INTERNAL_IPS = ('127.0.0.1',)
 
+# Don't cache flatpages
+FLATPAGE_TIMEOUT = 0
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }

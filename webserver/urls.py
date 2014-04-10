@@ -1,8 +1,10 @@
-from django.conf.urls import patterns, url, include
-from django.contrib.auth.views import logout_then_login
-from django.views.generic.base import TemplateView
 from django.conf import settings
+from django.conf.urls import patterns, url, include
 from django.contrib import admin
+from django.contrib.auth.views import logout_then_login
+from django.contrib.flatpages.views import flatpage
+from django.views.decorators.cache import cache_page
+from django.views.generic.base import TemplateView
 
 
 admin.autodiscover()
@@ -44,6 +46,7 @@ if settings.DEBUG:
 
 # Flat pages
 urlpatterns += patterns(
-    'django.contrib.flatpages.views',
-    url(r'^(?P<url>.*/)$', 'flatpage'),
+    '',
+    # Cache flat pages for 60 seconds
+    url(r'^(?P<url>.*/)$', cache_page(settings.FLATPAGE_TIMEOUT)(flatpage)),
 )

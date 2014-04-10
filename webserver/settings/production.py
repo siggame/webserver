@@ -16,6 +16,9 @@ USE_X_FORWARDED_HOST = True
 # Require that users verify their account before they can login.
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
+# Cache flatpages for a minute
+FLATPAGE_TIMEOUT = 60
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
