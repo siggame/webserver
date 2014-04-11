@@ -19,6 +19,6 @@ def run():
             writer.writerow([r.signup_date,
                              r.user.username,
                              r.user.get_full_name(),
+                             r.user.email,
                              size])
         print csv_content.getvalue()
-
