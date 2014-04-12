@@ -9,7 +9,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ('id', 'name', 'slug')
+        fields = ('id', 'name', 'slug', 'eligible_to_win')
 
 
 class RepoSerializer(serializers.ModelSerializer):
