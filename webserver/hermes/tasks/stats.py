@@ -4,6 +4,7 @@ from django.db.models import F
 from competition.models import Competition, GameScore
 from ..models import TeamStats
 
+import functools
 import itertools
 import logging
 
@@ -49,49 +50,43 @@ def get_version_stats(team):
             }
     return results.values()
 
-def calculate_elo(competition):
-    fide30 = Elo(make_fide_k_factor(30, 15, 10), FIDERating)
+
+def calculate_rating(competition, rating_class, rating_function):
     games = competition.game_set.filter(status__iexact="complete")
-    ratings = {t.pk: FIDERating() for t in competition.team_set.all()}
+    ratings = {t.pk: rating_class() for t in competition.team_set.all()}
 
     for game in games:
         draw = False
+
         try:
+            # Try to determine a winner and a loser
             winner = game.scores.get(score=1).team
             loser = game.scores.get(score=0).team
         except GameScore.DoesNotExist:
-            winner, loser = list(game.teams.all())
             draw = True
+
+        try:
+            # If it's drawn, just unpack the list
+            if draw:
+                winner, loser = list(game.teams.all())
         except ValueError:
-            msg = "Unable to unpack results. Team must have been deleted"
-            logger.info(msg)
+            logger.debug("Unable to unpack results. Team must have been deleted")
             continue
 
-        ratings[winner.pk], ratings[loser.pk] = fide30.rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw)
+        ratings[winner.pk], ratings[loser.pk] = rating_function(ratings[winner.pk], ratings[loser.pk], drawn=draw)
 
     return ratings
+
+
+def calculate_elo(competition):
+    fide30 = Elo(make_fide_k_factor(30, 15, 10), FIDERating)
+    return calculate_rating(competition, FIDERating, fide30.rate_1vs1)
+
 
 def calculate_trueskill(competition):
     trueskill = TrueSkill()
-    games = competition.game_set.filter(status__iexact="complete")
-    ratings = {t.pk: Rating() for t in competition.team_set.all()}
-
-    for game in games:
-        draw = False
-        try:
-            winner = game.scores.get(score=1).team
-            loser = game.scores.get(score=0).team
-        except GameScore.DoesNotExist:
-            winner, loser = list(game.teams.all())
-            draw = True
-        except ValueError:
-            msg = "Unable to unpack results. Team must have been deleted"
-            logger.info(msg)
-            continue
-
-        ratings[winner.pk], ratings[loser.pk] = rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw, env=trueskill)
-
-    return ratings
+    rating_func = functools.partial(rate_1vs1, env=trueskill)
+    return calculate_rating(competition, Rating, rating_func)
 
 
 @task()
