@@ -62,6 +62,10 @@ def calculate_elo(competition):
         except GameScore.DoesNotExist:
             winner, loser = list(game.teams.all())
             draw = True
+        except ValueError:
+            msg = "Unable to unpack results. Team must have been deleted"
+            logger.info(msg)
+            continue
 
         ratings[winner.pk], ratings[loser.pk] = fide30.rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw)
 
@@ -80,6 +84,10 @@ def calculate_trueskill(competition):
         except GameScore.DoesNotExist:
             winner, loser = list(game.teams.all())
             draw = True
+        except ValueError:
+            msg = "Unable to unpack results. Team must have been deleted"
+            logger.info(msg)
+            continue
 
         ratings[winner.pk], ratings[loser.pk] = rate_1vs1(ratings[winner.pk], ratings[loser.pk], drawn=draw, env=trueskill)
 
