@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from competition.models import Team
@@ -21,6 +22,8 @@ class RepoAuth(APIView):
     teamid/password was wrong.
 
     """
+
+    permission_classes = (IsAdminUser,)
 
     def get(self, request, format=None):
         form = AuthForm(request.GET)
@@ -63,6 +66,8 @@ class RepoPath(APIView):
 
     """
 
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, team_id, format=None):
         try:
             team = Team.objects.get(pk=team_id)
@@ -95,6 +100,8 @@ class RepoTagList(APIView):
     If the team hasn't tagged anything, then ``tag`` will be null.
 
     """
+
+    permission_classes = (IsAdminUser,)
 
     def get(self, request, competition_slug, format=None):
         try:
