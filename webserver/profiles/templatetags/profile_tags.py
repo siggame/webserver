@@ -20,7 +20,7 @@ class GravatarUrlNode(template.Node):
             return ''
 
         email_hash = hashlib.md5(email.lower()).hexdigest()
-        query_str = urllib.urlencode({'s': 200})  # No extra options at the moment
+        query_str = urllib.urlencode({'d': 'megaminerai.com/static/img/default_profile_image.png'}) 
 
         url = "http://www.gravatar.com/avatar/{0}?{1}"
 
@@ -35,4 +35,3 @@ def gravatar_url(parser, token):
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
 
     return GravatarUrlNode(email)
-
