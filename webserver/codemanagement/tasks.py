@@ -43,14 +43,14 @@ def create_shellai_tag(instance):
 def mark_all_ineligible():
     """Marks teams with non-student members as ineligible"""
 
-    question = "Are you currently a full time student?"
+    question_contains = "accredited educational institution"
     try:
-        q = RegistrationQuestion.objects.get(question=question)
+        q = RegistrationQuestion.objects.get(question__contains=question_contains)
         no = q.question_choice_set.get(choice="No")
         responses = RegistrationQuestionResponse.objects.filter(question=q,
                                                                 choices=no)
     except RegistrationQuestion.DoesNotExist:
-        logger.error('No such question "{}"'.format(question))
+        logger.error('No such question containing "{}"'.format(question_contains))
 
     if not responses.exists():
         logger.info("No nonstudents found")
