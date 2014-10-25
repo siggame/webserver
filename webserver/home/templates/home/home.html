@@ -1,14 +1,14 @@
 {% extends "sidebar.html" %}
 
-{% block content %}
+{% block main_content %}
   {% if user.is_authenticated %}
     {% include "home/home_authenticated.html" %}
   {% else %}
     {% include "home/home_unauthenticated.html" %}
   {% endif %}
-{% endblock %}
+{% endblock main_content %}
 
 
 {% block sidebar %}
   {% include "home/_home_sidebar.html" %}
-{% endblock %}
+{% endblock sidebar %}
