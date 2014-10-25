@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div id="content" class="col-md-9">
+    {% block page-header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <div id="sidebar" class="col-md-3">
+    {% block sidebar %}
+    {% endblock %}
+  </div>
+{% endblock main %}

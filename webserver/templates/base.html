@@ -26,30 +26,11 @@
   <body>
     <div id="wrap">
       {% include "navbar/navbar.html" %}
-    </div>
 
-    <div class="container">
-      {% block breadcrumbs %}
-        <div id="no-breadcrumb"></div>
-      {% endblock %}
-    </div>
-
-    {% block slider %}{% endblock %}
-
-    <div class="container">
-      {% include "_messages.html" %}
-      <div class="row">
-        <div id="content" class="col-md-9">
-          {% block page-header %}
-          {% endblock %}
-          {% block content %}
-          {% endblock %}
-        </div>
-
-        <div id="sidebar" class="col-md-3">
-          {% block sidebar %}
-            <div id="no-sidebar"></div>
-          {% endblock %}
+      <div class="container">
+        {% include "_messages.html" %}
+        <div class="row">
+          {% block main %}{% endblock main %}
         </div>
       </div>
     </div>
