@@ -25,10 +25,8 @@
   <body>
     <div id="wrap">
       {% include "navbar/navbar.html" %}
-      <div class="container">
-        {% include "_messages.html" %}
-        {% block content %}{% endblock %}
-      </div>
+      {% include "_messages.html" %}
+      {% block content %}{% endblock %}
     </div>
 
     <div id="push"></div>
