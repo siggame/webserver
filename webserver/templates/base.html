@@ -2,111 +2,71 @@
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Meta tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        {% block meta %}{% endblock %}
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% block meta %}{% endblock %}
+      <!-- Title -->
+    <title>{% block title %}MegaMinerAI{% endblock %}</title>
+      <!-- Links and style -->
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/yeti/bootstrap.min.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}css/sticky-footer.css" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}css/pygment_emacs.css" rel="stylesheet"/>
+    <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less"/>
+    <link href="{{ STATIC_URL }}css/hover-dropdown.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/carousel.css" rel="stylesheet">
+      <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+      {% block link %}{% endblock %}
+      <!-- jQuery needs to be made available earlier than the other scripts -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      {% include "navbar/navbar.html" %}
+    </div>
 
-        <!-- Title -->
-        <title>{% block title %}MegaMinerAI{% endblock %}</title>
+    <div class="container">
+      {% block breadcrumbs %}
+        <div id="no-breadcrumb"></div>
+      {% endblock %}
+    </div>
 
-        <!-- Links and style -->
-        <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/yeti/bootstrap.min.css" rel="stylesheet" />
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"/>
-        <link href="{{ STATIC_URL }}css/sticky-footer.css" rel="stylesheet"/>
-        <link href="{{ STATIC_URL }}css/pygment_emacs.css" rel="stylesheet"/>
-        <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL}}css/style.less"/>
-        <link href="{{ STATIC_URL }}css/hover-dropdown.css" rel="stylesheet">
-        <link href="{{ STATIC_URL }}css/carousel.css" rel="stylesheet">
+    {% block slider %}{% endblock %}
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
-
-        {% block link %}{% endblock %}
-
-        <!-- jQuery needs to be made available earlier than the other scripts -->
-        <script src="//code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
-    </head>
-    <body>
-      <div id="wrap">
-        <div class="navbar navbar-inverse">
-          <div class="navbar-header">
-            <a href="/" title="SIG-Game" class="navbar-brand" rel="home">
-              <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game" class="img-responsive" />
-            </a>
-            <!-- Helps the navbar collapse when the page shrinks -->
-            <button class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          <!--mve this /div down with other...maybe-->
-          </div>
-          <div class="container">
-            <!-- Everything you want hidden at 940px or less, place within here -->
-            <div class="navbar-collapse collapse">
-                <ul class="nav pull-left navbar-nav">
-                  {% include "navbar/_blog.html" %}
-                  {% include "navbar/_competition.html" %}
-                  {% if user.is_authenticated %}
-                    {% include "navbar/_documentation.html" %}
-                    {% include "navbar/_invitation.html" %}
-                    {% include "navbar/_profile.html" %}
-                  {% endif %}
-                </ul>
-                <ul class="nav pull-right navbar-nav">
-                  {% if user.is_authenticated %}
-                    {% include "navbar/_authenticated_users.html" %}
-                  {% else %}
-                    {% include "navbar/_unauthenticated_users.html" %}
-                  {% endif %}
-                </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="container">
-          {% block breadcrumbs %}
-            <div id="no-breadcrumb"></div>
+    <div class="container">
+      {% include "_messages.html" %}
+      <div class="row">
+        <div id="content" class="col-md-9">
+          {% block page-header %}
+          {% endblock %}
+          {% block content %}
           {% endblock %}
         </div>
 
-        {% block slider %}{% endblock %}
-
-        <div class="container">
-          {% include "_messages.html" %}
-          <div class="row">
-            <div id="content" class="col-md-9">
-              {% block page-header %}
-              {% endblock %}
-              {% block content %}
-              {% endblock %}
-            </div>
-
-            <div id="sidebar" class="col-md-3">
-              {% block sidebar %}
-                <div id="no-sidebar"></div>
-              {% endblock %}
-            </div>
-          </div>
+        <div id="sidebar" class="col-md-3">
+          {% block sidebar %}
+            <div id="no-sidebar"></div>
+          {% endblock %}
         </div>
-
-        <div id="push"></div>
       </div>
+    </div>
 
-      <div id="footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <p class="text-muted">
-                Brought to you by Missouri S&amp;T ACM SIG-Game. | Fork us on <a href="https://github.com/siggame">GitHub</a>!
-              </p>
-            </div>
+    <div id="push"></div>
+
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-muted">
+              Brought to you by Missouri S&amp;T ACM SIG-Game. | Fork us on <a href="https://github.com/siggame">GitHub</a>!
+            </p>
           </div>
         </div>
       </div>
+    </div>
 
     <!-- Scripts -->
     <!-- Put them at the end so the page loads faster -->
