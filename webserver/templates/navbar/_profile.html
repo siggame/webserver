@@ -1,9 +1,8 @@
 {% load url from future %}
+{% load active_tags %}
 
-<li id="profile-tab">
-
+<li class="{% active '^/profiles' %}" id="profile-tab">
   <a href="{% url 'list_profile' %}">
     Profiles
   </a>
-
 </li>
