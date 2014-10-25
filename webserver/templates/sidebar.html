@@ -1,17 +1,14 @@
 {% extends "base.html" %}
 
-{% block main %}
+{% block content %}
   <div class="row">
     <div id="content" class="col-md-9">
-      {% block page-header %}
-      {% endblock %}
-      {% block content %}
-      {% endblock %}
+      {% block page-header %}{% endblock %}
+      {% block main_content %}{% endblock %}
     </div>
 
     <div id="sidebar" class="col-md-3">
-      {% block sidebar %}
-      {% endblock %}
+      {% block sidebar %}{% endblock %}
     </div>
   </div>
-{% endblock main %}
+{% endblock content %}
