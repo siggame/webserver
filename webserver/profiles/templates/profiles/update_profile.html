@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "sidebar.html" %}
 
 {% load url from future %}
 {% load crispy_forms_tags %}
@@ -17,7 +17,7 @@
   </div>
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 
   {% crispy form %}
 

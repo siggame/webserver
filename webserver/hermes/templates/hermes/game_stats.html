@@ -1,4 +1,4 @@
-{% extends "competition/competition_base.html" %}
+{% extends "competition/competition_base_sidebar.html" %}
 {% load cache %}
 
 {% block script %}
@@ -32,7 +32,7 @@
   </script>
 {% endblock %}
 
-{% block content %}
+{% block competition_content %}
 
   <h2>Game Statistics for {{ user_team.name }}</h2>
   <h4 class="muted">

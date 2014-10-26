@@ -1,7 +1,69 @@
 {% load url from future %}
 {% load competition_tags %}
 
-{% include "competition/competition/_sidebar.html" %}
-{% include "codemanagement/_sidebar.html" %}
-{% include "competition/team/_sidebar.html" %}
-{% include "competition/registration/_sidebar.html" %}
+{% if user_registered %}
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#competitionCollapse">
+        <h4 class="panel-title">
+          Competition
+        </h4>
+      </div>
+      <div id="competitionCollapse" class="panel-collapse collapse in">
+        <div class="panel-body">
+          {% include "competition/competition/_sidebar.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#codeCollapse">
+        <h4 class="panel-title">
+          Code
+        </h4>
+      </div>
+      <div id="codeCollapse" class="panel-collapse collapse">
+        <div class="panel-body">
+          {% include "codemanagement/_sidebar.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#teamCollapse">
+        <h4 class="panel-title">
+          Team
+        </h4>
+      </div>
+      <div id="teamCollapse" class="panel-collapse collapse">
+        <div class="panel-body">
+          {% include "competition/team/_sidebar.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#registrationCollapse">
+        <h4 class="panel-title">
+          Registration
+        </h4>
+      </div>
+      <div id="registrationCollapse" class="panel-collapse collapse">
+        <div class="panel-body">
+          {% include "competition/registration/_sidebar.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="well text-center">
+    <h3 >Interested in competing?</h3>
+    <hr>
+    <div class="btn-group btn-group-justified">
+      <div class="btn-group">
+        <a class="{% if not competition.is_open %}disabled{% endif %} btn btn-success btn-lg"
+           href="{% url 'register_for' competition.slug %}">
+          Register Now!
+        </a>
+      </div>
+    </div>
+  </div>
+
+{% endif %}

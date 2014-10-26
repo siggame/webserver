@@ -10,44 +10,51 @@
   {% if form.errors %}
     <p class="error">Sorry, that's not a valid username or password</p>
   {% endif %}
-<div class="well text-center">
-  <form action="{% url 'account_login' %}" method="POST">
-    {% csrf_token %}
-     <div class="control-group">
-      <h4 class="text-left">Login</h4>
+
+  <div class="well text-center">
+    <form action="{% url 'account_login' %}" method="POST">
+      {% csrf_token %}
+      <div class="control-group">
+        <h4>Login</h4>
         <div class="controls">
           <input type="text" name="login" value="" id="username"
                  placeholder="Username or e-mail" style="width:100%">
         </div>
       </div>
+      <br>
       <div class="control-group">
-          <h4 class="text-left">Password</h4>
-            <div class="controls">
-              <input type="password" name="password" id="password" value=""
-                     placeholder="Password" style="width:100%">
-            </div>
+        <div class="controls">
+          <input type="password" name="password" id="password" value=""
+                 placeholder="Password" style="width:100%">
+        </div>
       </div>
+
+      <br>
+
+      <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+          <input type="submit" class="btn btn-primary btn-sm" value="Sign In"/>
+        </div>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="btn-group-vertical">
+        <a href="{% url 'account_reset_password' %}" class="btn btn-info btn-sm">Forgot Password?</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-primary btn-sm">
+          Sign Up for an Account
+        </a>
+      </div>
+    </form>
 
     <br>
-    <div class="form-group">
-      <div class="controls">
-        <input type="submit" class="btn btn-primary" value="Sign In" style="width:30%"/>
-        <a href="{% url 'account_reset_password' %}" class="btn btn-info" style="width:65%">Forgot Password?</a>
-      </div>
-    </div>
-    <!-- Sign up Button -->
-    <a href="{% url 'account_signup' %}" class="btn btn-primary btn-sm" style="width:97%">
-      Sign Up for an Account
-    </a>
-  </form>
+    <span class="text-muted">OR</span>
 
-  <br>
-  <span class="text-muted">OR</span>
-
-  <!-- Social account providers -->
-  {% if socialaccount.providers %}
+    <!-- Social account providers -->
+    {% if socialaccount.providers %}
     <p>
-        <h4 class="text-center">Sign in with OpenID</h4>
+      <h4>Sign in with OpenID</h4>
     </p>
 
     <div class="socialaccount_ballot">
@@ -59,18 +66,7 @@
     </div>
     {% include "socialaccount/snippets/login_extra.html" %}
   {% endif %}
-
 </div>
 
-{% else %}
-  <!-- Webserver Health -->
-  <div class="well">
-    WEBSERVER HEALTH
-  </div>
-
-  <!-- Arena Health -->
-  <div class="well">
-    ARENA HEALTH
-  </div>
 {% endif %}
 {% endblock %}
