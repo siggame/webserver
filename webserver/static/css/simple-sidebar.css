@@ -26,7 +26,6 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    /* background-color: white; */
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -53,6 +52,7 @@
     position: absolute;
     top: 0;
     width: 250px;
+    padding-top: 20px;
     margin: 0;
     padding-left: 20px;
     list-style: none;
