@@ -12,25 +12,23 @@
     </button>
   <!--mve this /div down with other...maybe-->
   </div>
-  <div class="container">
-    <!-- Everything you want hidden at 940px or less, place within here -->
-    <div class="navbar-collapse collapse">
-      <ul class="nav pull-left navbar-nav">
-        {% include "navbar/_blog.html" %}
-        {% include "navbar/_competition.html" %}
-        {% if user.is_authenticated %}
-          {% include "navbar/_documentation.html" %}
-          {% include "navbar/_invitation.html" %}
-          {% include "navbar/_profile.html" %}
-        {% endif %}
-      </ul>
-      <ul class="nav pull-right navbar-nav">
-        {% if user.is_authenticated %}
-          {% include "navbar/_authenticated_users.html" %}
-        {% else %}
-          {% include "navbar/_unauthenticated_users.html" %}
-        {% endif %}
-      </ul>
-    </div>
-  </div>
+  <!-- Everything you want hidden at 940px or less, place within here -->
+  <div class="navbar-collapse collapse">
+    <ul class="nav pull-left navbar-nav">
+      {% include "navbar/_blog.html" %}
+      {% include "navbar/_competition.html" %}
+      {% if user.is_authenticated %}
+        {% include "navbar/_documentation.html" %}
+        {% include "navbar/_invitation.html" %}
+        {% include "navbar/_profile.html" %}
+      {% endif %}
+    </ul>
+    <ul class="nav pull-right navbar-nav">
+      {% if user.is_authenticated %}
+        {% include "navbar/_authenticated_users.html" %}
+      {% else %}
+        {% include "navbar/_unauthenticated_users.html" %}
+      {% endif %}
+    </ul>
+</div>
 </div>
