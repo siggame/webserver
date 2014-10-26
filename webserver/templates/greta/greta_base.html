@@ -25,11 +25,8 @@
   {% endwith %}
 {% endblock %}
 
-{% block script %}
-  <script>
-    $(function(){
-    $('#clone-command').popover({placement: 'left'});
-    $('#view-password').popover({placement: 'left'});
-    });
-  </script>
+{% block modal %}
+  {% include "greta/_clone_command_modal.html" %}
+  {% include "greta/_help_modal.html" %}
+  {% include "greta/_repository_password_modal.html" %}
 {% endblock %}

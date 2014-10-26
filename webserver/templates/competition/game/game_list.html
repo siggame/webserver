@@ -1,4 +1,4 @@
-{% extends "competition/competition_base.html" %}
+{% extends "competition/competition_base_sidebar.html" %}
 {% load url from future %}
 {% load competition_tags %}
 {% load hermes_tags %}
@@ -8,7 +8,7 @@
   Games
 {% endblock %}
 
-{% block content %}
+{% block competition_content %}
   {% check_embargoed user_team as embargoed %}
 
   {% if embargoed == "embargoed" %}
