@@ -1,23 +1,20 @@
 {% load url from future %}
-<h4>Competition</h4>
+
 <ul id="competition-nav" class="nav nav-pills nav-stacked">
   <li>
     <a href="{% url 'competition_detail' competition.slug %}">
-      <i class="icon-comment"></i>
-      Competition Details
+      <i class="fa fa-newspaper-o"></i> Competition Details
     </a>
   </li>
   {% if competition.is_running and user_team %}
   <li>
     <a href="{% url 'game_list' competition.slug %}">
-      <i class="icon-flag"></i>
-      Games
+      <i class="fa fa-flag"></i> Games
     </a>
   </li>
   <li>
     <a href="{% url 'game_stats' competition.slug %}">
-      <i class="icon-dashboard"></i>
-      Game Statistics
+      <i class="fa fa-bar-chart"></i> Game Statistics
     </a>
   </li>
   {% endif %}
