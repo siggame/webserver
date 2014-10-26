@@ -1,41 +1,89 @@
 {% load url from future %}
 
-{% include "competition/competition/_sidebar.html" %}
-{% include "codemanagement/_sidebar.html" %}
-
-<h4>Repository</h4>
-<ul class="nav nav-pills nav-stacked">
-  <li>
-    <a href="#cloneCommandModal" role="button" data-toggle="modal">
-      <i class="glyphicon glyphicon-share"></i>
-      View Clone Command
-    </a>
-  </li>
-  <li>
-    <a href="#passwordModal" role="button" data-toggle="modal">
-       <i class="glyphicon glyphicon-eye-open"></i>
-       View Team Password
-    </a>
-  </li>
-  <li>
-    <a href="/repo/ssh-fingerprint/">
-      <i class="glyphicon glyphicon-lock"></i>
-      Verify SSH Fingerprint
-    </a>
-  </li>
-  <li>
-    <a href="#helpModal" role="button" data-toggle="modal">
-      <i class="glyphicon glyphicon-question-sign"></i>
-      Help!
-    </a>
-  </li>
-</ul>
-{% include "competition/team/_sidebar.html" %}
-{% include "competition/registration/_sidebar.html" %}
-
-
-<!-- This is where all the modals go! -->
-
-{% include "greta/_clone_command_modal.html" %}
-{% include "greta/_help_modal.html" %}
-{% include "greta/_repository_password_modal.html" %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#competitionCollapse">
+      <h4 class="panel-title">
+        Competition
+      </h4>
+    </div>
+    <div id="competitionCollapse" class="panel-collapse collapse in">
+      <div class="panel-body">
+        {% include "competition/competition/_sidebar.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#codeCollapse">
+      <h4 class="panel-title">
+        Code
+      </h4>
+    </div>
+    <div id="codeCollapse" class="panel-collapse collapse">
+      <div class="panel-body">
+        {% include "codemanagement/_sidebar.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#repoCollapse">
+      <h4 class="panel-title">
+        Repository
+      </h4>
+    </div>
+    <div id="repoCollapse" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+          <li>
+            <a href="#cloneCommandModal" role="button" data-toggle="modal">
+              <i class="fa fa-cloud-download"></i>
+              View Clone Command
+            </a>
+          </li>
+          <li>
+            <a href="#passwordModal" role="button" data-toggle="modal">
+              <i class="fa fa-eye"></i>
+              View Team Password
+            </a>
+          </li>
+          <li>
+            <a href="/repo/ssh-fingerprint/">
+              <i class="fa fa-lock"></i>
+              Verify SSH Fingerprint
+            </a>
+          </li>
+          <li>
+            <a href="#helpModal" role="button" data-toggle="modal">
+              <i class="fa fa-life-saver"></i>
+              Help!
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#teamCollapse">
+      <h4 class="panel-title">
+        Team
+      </h4>
+    </div>
+    <div id="teamCollapse" class="panel-collapse collapse">
+      <div class="panel-body">
+        {% include "competition/team/_sidebar.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#registrationCollapse">
+      <h4 class="panel-title">
+        Registration
+      </h4>
+    </div>
+    <div id="registrationCollapse" class="panel-collapse collapse">
+      <div class="panel-body">
+        {% include "competition/registration/_sidebar.html" %}
+      </div>
+    </div>
+  </div>
+</div>

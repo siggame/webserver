@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "sidebar.html" %}
 
 {% block title %}
   User Profiles
@@ -10,7 +10,7 @@
   </div>
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 
   <table class="table">
     <caption>
@@ -42,5 +42,5 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include "profiles/_profiles_sidebar.html" with active="all" %}
+  {% include "profiles/_profiles_sidebar.html" %}
 {% endblock %}

@@ -1,7 +1,8 @@
 {% load url from future %}
 {% load competition_tags %}
+{% load active_tags %}
 
-<li id="competition-tab">
+<li class="{% active '^/competition' %}" id="competition-tab">
   <a href="{% url 'competition_list' %}">
     Competitions
   </a>

@@ -34,7 +34,7 @@ urlpatterns = patterns(
 if settings.DEBUG:
     urlpatterns += patterns(
         '',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        url(r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT,'show_indexes':True}),
         url(r'^qr/(?P<path>.*\.png)$', 'django.views.static.serve',
             {'document_root': settings.QR_DIR}),

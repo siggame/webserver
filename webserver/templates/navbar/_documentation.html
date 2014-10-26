@@ -1,7 +1,8 @@
 {% load url from future %}
 {% load flatpages %}
+{% load active_tags %}
 
-<li id="documentation-tab">
+<li class="{% active '^/docs' %}" id="documentation-tab">
   <a href="{% url 'docs' %}">
     Documentation
   </a>

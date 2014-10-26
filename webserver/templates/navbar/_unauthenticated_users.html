@@ -1,5 +1,6 @@
 {% load url from future %}
+{% load active_tags %}
 
-<li>
+<li class="{% active '^/accounts/login' %}">
   <a href="{% url 'account_login' %}">Login</a>
 </li>

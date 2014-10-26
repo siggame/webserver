@@ -1,4 +1,4 @@
-{% extends "competition/competition_base.html" %}
+{% extends "competition/competition_base_sidebar.html" %}
 {% load url from future %}
 
 {% block title %}
@@ -11,7 +11,7 @@
   </div>
 {% endblock %}
 
-{% block content %}
+{% block competition_content %}
   {% if submissions %}
     <table class="table table-hover">
       <thead>
@@ -30,7 +30,7 @@
               style="cursor:pointer;">
             <td>
               {% if forloop.first %}
-                <i class="glyphicon glyphicon-ok"></i>
+                <i class="fa fa-check"></i>
               {% endif %}
             </td>
             <td>

@@ -1,0 +1,36 @@
+<div class="navbar navbar-inverse">
+  <div class="navbar-header">
+    <a href="/" title="SIG-Game" class="navbar-brand" rel="home">
+      <img src="{{ STATIC_URL }}img/brand.png" alt="SIG-Game" class="img-responsive" />
+    </a>
+    <!-- Helps the navbar collapse when the page shrinks -->
+    <button class="navbar-toggle collapsed" data-toggle="collapse"
+            data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  <!--mve this /div down with other...maybe-->
+  </div>
+  <div class="container">
+    <!-- Everything you want hidden at 940px or less, place within here -->
+    <div class="navbar-collapse collapse">
+      <ul class="nav pull-left navbar-nav">
+        {% include "navbar/_blog.html" %}
+        {% include "navbar/_competition.html" %}
+        {% if user.is_authenticated %}
+          {% include "navbar/_documentation.html" %}
+          {% include "navbar/_invitation.html" %}
+          {% include "navbar/_profile.html" %}
+        {% endif %}
+      </ul>
+      <ul class="nav pull-right navbar-nav">
+        {% if user.is_authenticated %}
+          {% include "navbar/_authenticated_users.html" %}
+        {% else %}
+          {% include "navbar/_unauthenticated_users.html" %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

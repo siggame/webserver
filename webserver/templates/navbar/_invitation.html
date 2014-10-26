@@ -1,7 +1,8 @@
 {% load url from future %}
 {% load competition_tags %}
+{% load active_tags %}
 
-<li id="invitation-tab">
+<li class="{% active '^/invitations' %}" id="invitation-tab">
   <a href="{% url 'invitation_list' %}">
     Invitations
     {% if user|has_unread_invitations %}

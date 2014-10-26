@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "sidebar.html" %}
 {% load profile_tags %}
 
 {% block title %}
   My Profile
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 
   <div class="row">
     <div class="col-md-9">
@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include "profiles/_profiles_sidebar.html" with active="me" %}
+  {% include "profiles/_profiles_sidebar.html" %}
 {% endblock %}
 
 {% block script %}

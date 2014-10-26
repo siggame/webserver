@@ -1,30 +1,32 @@
 {% load url from future %}
 {% load competition_tags %}
+{% load active_tags %}
+
 
 <h4>Profiles</h4>
 
 <ul class="nav nav-pills nav-stacked">
-    <li {% if active == 'all' %}class="active"{% endif %}>
-      <a href="{% url 'list_profile' %}"><i class="glyphicon glyphicon-th-list"></i>  All Competitors</a>
-    </li>
-    <li {% if active == 'me' and userprofile.user == user %}class="active"{% endif %}>
-      <a href="{{ user.profile.get_absolute_url }}"><i class="glyphicon glyphicon-user"></i>  View My Profile</a>
-    </li>
-    <li {% if active == 'update' %}class="active"{% endif %}>
-      <a href="{% url 'update_profile' %}"><i class="glyphicon glyphicon-pencil"></i>  Update My Profile</a>
-    </li>
+  <li class="{% active '^/profiles' %}">
+    <a href="{% url 'list_profile' %}"><i class="fa fa-users"></i>  All Competitors</a>
+  </li>
+  <li class="{% active '^/profile/{{request.user.username}}' %}">
+    <a href="{{ user.profile.get_absolute_url }}"><i class="fa fa-user"></i>  View My Profile</a>
+  </li>
+  <li class="{% active '^/profile-edit' %}">
+    <a href="{% url 'update_profile' %}"><i class="fa fa-pencil"></i>  Update My Profile</a>
+  </li>
 </ul>
 <h4>My Account</h4>
 <ul class="nav nav-pills nav-stacked">
-    <li {% if active == 'email' %}class="active"{% endif %}>
-      <a href="{% url 'account_email' %}"><i class="glyphicon glyphicon-ok"></i>  My Email Settings</a>
-    </li>
-    <li {% if active == 'social' %}class="active"{% endif %}>
-      <a href="{% url 'socialaccount_connections' %}"><i class="glyphicon glyphicon-globe"></i>  My Social Connections</a>
-    </li>
-    <li {% if active == 'password' %}class="active"{% endif %}>
-      <a href="{% url 'account_change_password'%}"><i class="glyphicon glyphicon-edit"></i>  Change My Password</a>
-    </li>
+  <li class="{% active '^/accounts/email' %}">
+    <a href="{% url 'account_email' %}"><i class="fa fa-check"></i>  My Email Settings</a>
+  </li>
+  <li class="{% active '^/accounts/social/connections' %}">
+    <a href="{% url 'socialaccount_connections' %}"><i class="fa fa-globe"></i>  My Social Connections</a>
+  </li>
+  <li class="{% active '^/accounts/password/change' %}">
+    <a href="{% url 'account_change_password'%}"><i class="fa fa-edit"></i>  Change My Password</a>
+  </li>
 </ul>
 
 {% if userprofile and userprofile.user != user %}
@@ -36,7 +38,7 @@
     {% endif %}
     <li>
       <a href="{% url 'invitation_create' %}?invitee={{ userprofile.user.pk }}&team={{ team.id }}">
-        <i class="glyphicon glyphicon-plus"></i>
+        <i class="fa fa-plus"></i>
         Invite to {{ team.name }}
         <span class="pull-right badge badge-info invitation-tooltip" data-toggle="tooltip"
               title="This team has {{team.num_invites_left}} invites left to send">

@@ -383,6 +383,7 @@ INSTALLED_APPS = (
     'webserver.profiles',
     'webserver.codemanagement',
     'webserver.hermes',
+    'webserver.utility',
 
     'gunicorn',                 # Adds gunicorn management commands
     'guardian',
