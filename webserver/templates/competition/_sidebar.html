@@ -25,7 +25,13 @@
         </div>
         <div id="codeCollapse" class="panel-collapse collapse">
           <div class="panel-body">
-            {% include "codemanagement/_sidebar.html" %}
+            {% if user_team %}
+              {% include "codemanagement/_sidebar.html" %}
+            {% else %}
+              <p class="text-center text-warning">
+                You need to be on a team in order to create a repository!
+              </p>
+            {% endif %}
           </div>
         </div>
       </div>
