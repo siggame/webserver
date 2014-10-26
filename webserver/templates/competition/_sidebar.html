@@ -15,18 +15,22 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#codeCollapse">
-        <h4 class="panel-title">
-          Code
-        </h4>
-      </div>
-      <div id="codeCollapse" class="panel-collapse collapse">
-        <div class="panel-body">
-          {% include "codemanagement/_sidebar.html" %}
+
+    {% if competition.is_running %}
+      <div class="panel panel-default">
+        <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#codeCollapse">
+          <h4 class="panel-title">
+            Code
+          </h4>
+        </div>
+        <div id="codeCollapse" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% include "codemanagement/_sidebar.html" %}
+          </div>
         </div>
       </div>
-    </div>
+    {% endif %}
+
     <div class="panel panel-default">
       <div class="sidebar-collapse panel-heading" data-toggle="collapse" data-parent="#accordion" href="#teamCollapse">
         <h4 class="panel-title">
