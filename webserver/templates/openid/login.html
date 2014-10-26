@@ -1,27 +1,33 @@
-{% extends "openid/base.html" %}
+{% extends "plain.html" %}
 
 {% load url from future %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block title %}
-  OpenID Sign In
+OpenID Sign In
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 
-<h1>{% trans 'OpenID Sign In' %}</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+      <h1>{% trans 'OpenID Sign In' %}</h1>
 
 
-<form id="openid_login_form" class="form-horizontal" method="POST" action="{% url 'openid_login' %}">
-	<br>
-	{% csrf_token %}
-	{{ form|crispy }}
-	<div class="form-group">
+      <form id="openid_login_form" class="form-horizontal" method="POST" action="{% url 'openid_login' %}">
+        <br>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
           <div class="controls">
             <input type="submit" class="btn btn-primary btn form-control" value="Sign In">
           </div>
+        </div>
+      </form>
     </div>
-</form>
+  </div>
+</div>
 
 {% endblock %}

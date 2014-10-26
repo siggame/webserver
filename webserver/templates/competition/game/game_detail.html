@@ -1,4 +1,4 @@
-{% extends "competition/competition_base.html" %}
+{% extends "competition/competition_base_sidebar.html" %}
 {% load competition_tags %}
 {% load hermes_tags %}
 
@@ -6,7 +6,7 @@
   Games
 {% endblock %}
 
-{% block content %}
+{% block competition_content %}
   <h2><strong>Game {% firstof game.game_id game.id %}</strong></h2>
   <table class="table table-hover">
     <tbody>
