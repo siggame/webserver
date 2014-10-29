@@ -23,12 +23,18 @@
 {% block script %}
   <script>
     $(function() {
-      $(window).resize(function() {
+      var check_sidebar = function() {
         if ($(this).width() < 768) {
           $('#sidebar-wrapper').removeClass('toggled');
         } else {
           $('#sidebar-wrapper').addClass('toggled');
         }
+      };
+
+      check_sidebar();
+
+      $(window).resize(function() {
+        check_sidebar();
       });
     });
   </script>
