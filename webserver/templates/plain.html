@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div id="content" class="col-md-12">
-        {% block page-header %}{% endblock %}
-        {% block main_content %}{% endblock %}
+  <div id="sidebar-wrapper" class="toggled">
+    <div id="inner-sidebar-wrapper">
+      <div class="sidebar-nav">
+        {% include "_siggame-sidebar.html" %}
+      </div>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div id="content" class="col-xs-12">
+            {% block page-header %}{% endblock %}
+            {% block main_content %}{% endblock %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
