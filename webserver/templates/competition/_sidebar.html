@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load competition_tags %}
+{% load active_tags %}
 
 {% if user_registered %}
   <div class="panel-group" id="accordion">
@@ -9,7 +10,7 @@
           Competition <span class="fa fa-angle-down pull-right" id="collapseArrow"></span>
         </h4>
       </div>
-      <div id="competitionCollapse" class="panel-collapse collapse in">
+      <div id="competitionCollapse" class="panel-collapse collapse {% active_re '^/competition/[^/]+/(games/|gamestats/)?$' 'in' %}">
         <div class="panel-body">
           {% include "competition/competition/_sidebar.html" %}
         </div>
@@ -23,7 +24,7 @@
             Code <span class="fa fa-angle-down pull-right" id="collapseArrow"></span>
           </h4>
         </div>
-        <div id="codeCollapse" class="panel-collapse collapse">
+        <div id="codeCollapse" class="panel-collapse collapse {% active_re '^/competition/[^/]*/(submissions|update-password)' 'in' %}">
           <div class="panel-body">
             {% if user_team %}
               {% include "codemanagement/_sidebar.html" %}
@@ -43,7 +44,7 @@
           Team <span class="fa fa-angle-down pull-right" id="collapseArrow"></span>
         </h4>
       </div>
-      <div id="teamCollapse" class="panel-collapse collapse">
+      <div id="teamCollapse" class="panel-collapse collapse {% active_re '^/competition/[^/]+/(team|freeagents)' 'in' %}">
         <div class="panel-body">
           {% include "competition/team/_sidebar.html" %}
         </div>
