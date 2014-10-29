@@ -6,26 +6,26 @@
 <h4>Profiles</h4>
 
 <ul class="nav nav-pills nav-stacked">
-  <li class="{% active '^/profiles' %}">
+  <li class="{% active 'list_profile' %}">
     <a href="{% url 'list_profile' %}"><i class="fa fa-users"></i>  All Competitors</a>
   </li>
-  <li class="{% active '^/profile/{{request.user.username}}' %}">
+  <li class="{% active_re '^/profile/{{request.user.username}}' %}">
     <a href="{{ user.profile.get_absolute_url }}"><i class="fa fa-user"></i>  View My Profile</a>
   </li>
-  <li class="{% active '^/profile-edit' %}">
+  <li class="{% active 'update_profile' %}">
     <a href="{% url 'update_profile' %}"><i class="fa fa-pencil"></i>  Update My Profile</a>
   </li>
 </ul>
 <h4>My Account</h4>
 <ul class="nav nav-pills nav-stacked">
-  <li class="{% active '^/accounts/email' %}">
+  <li class="{% active 'account_email' %}">
     <a href="{% url 'account_email' %}"><i class="fa fa-check"></i>  My Email Settings</a>
   </li>
-  <li class="{% active '^/accounts/social/connections' %}">
+  <li class="{% active 'socialaccount_connections' %}">
     <a href="{% url 'socialaccount_connections' %}"><i class="fa fa-globe"></i>  My Social Connections</a>
   </li>
-  <li class="{% active '^/accounts/password/change' %}">
-    <a href="{% url 'account_change_password'%}"><i class="fa fa-edit"></i>  Change My Password</a>
+  <li class="{% active 'account_change_password' %}">
+    <a href="{% url 'account_change_password' %}"><i class="fa fa-edit"></i>  Change My Password</a>
   </li>
 </ul>
 

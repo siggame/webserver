@@ -2,7 +2,7 @@
 {% load competition_tags %}
 {% load active_tags %}
 
-<li class="{% active '^/invitations' %}" id="invitation-tab">
+<li class="{% active_re '^/invitations' %}" id="invitation-tab">
   <a href="{% url 'invitation_list' %}">
     Invitations
     {% if user|has_unread_invitations %}

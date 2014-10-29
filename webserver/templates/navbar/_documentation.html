@@ -2,7 +2,7 @@
 {% load flatpages %}
 {% load active_tags %}
 
-<li class="{% active '^/docs' %}" id="documentation-tab">
+<li class="{% active_re '^/docs' %}" id="documentation-tab">
   <a href="{% url 'docs' %}">
     Documentation
   </a>
