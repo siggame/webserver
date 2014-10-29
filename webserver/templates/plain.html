@@ -19,3 +19,17 @@
     </div>
   </div>
 {% endblock content %}
+
+{% block script %}
+  <script>
+    $(function() {
+      $(window).resize(function() {
+        if ($(this).width() < 768) {
+          $('#sidebar-wrapper').removeClass('toggled');
+        } else {
+          $('#sidebar-wrapper').addClass('toggled');
+        }
+      });
+    });
+  </script>
+{% endblock script %}
