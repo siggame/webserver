@@ -1,12 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div id="content" class="col-md-12">
-        {% block page-header %}{% endblock %}
-        {% block main_content %}{% endblock %}
+  <div id="sidebar-wrapper" class="toggled">
+    <div id="inner-sidebar-wrapper">
+      <div class="sidebar-nav">
+        {% include "_siggame-sidebar.html" %}
+      </div>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div id="content" class="col-xs-12">
+            {% block page-header %}{% endblock %}
+            {% block main_content %}{% endblock %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 {% endblock content %}
+
+{% block script %}
+  <script>
+    $(function() {
+      $(window).resize(function() {
+        if ($(this).width() < 768) {
+          $('#sidebar-wrapper').removeClass('toggled');
+        } else {
+          $('#sidebar-wrapper').addClass('toggled');
+        }
+      });
+    });
+  </script>
+{% endblock script %}

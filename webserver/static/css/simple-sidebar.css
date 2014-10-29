@@ -41,7 +41,8 @@
     padding: 15px;
 }
 
-#sidebar-wrapper.toggled {
+#sidebar-wrapper.toggled #page-content-wrapper {
+    position: absolute;
     margin-right: -250px;
 }
 
