@@ -1,0 +1,42 @@
+{% load competition_tags %}
+{% load active_tags %}
+
+<ul id="team-nav" class="nav nav-pills nav-stacked">
+  <li class="{% active 'team_list' %}">
+    <a href="{% url 'team_list' competition.slug %}">
+      <i class="fa fa-users"></i>
+      All Teams <span class="badge badge-info pull-right">{% team_count competition %}</span>
+    </a>
+  </li>
+  <li class="{% active 'freeagent_list' %}">
+    <a href="{% url 'freeagent_list' competition.slug %}">
+      <i class="fa fa-bullhorn"></i>
+      Free Agents <span class="badge badge-info pull-right">{% freeagent_count competition %}</span>
+    </a>
+  </li>
+  {% if not user_team %}
+    {% if competition.is_open %}
+      <li class="{% active 'team_create' %}">
+        <a href="{% url 'team_create' competition.slug %}">
+          <i class="fa fa-plus"></i>
+          Create Team
+        </a>
+      </li>
+    {% endif %}
+  {% else %}
+    <li class="{% active_re '{{ user_team.get_absolute_url }}' %}">
+      <a href="{{ user_team.get_absolute_url }}">
+        <i class="fa fa-user"></i>
+        My Team
+      </a>
+    </li>
+    {% if competition.is_open %}
+      <li>
+        <a data-toggle="modal" data-target="#leaveTeamModal" href="#">
+          <i class="fa fa-remove"></i>
+          Leave Team
+        </a>
+      </li>
+    {% endif %}
+  {% endif %}
+</ul>

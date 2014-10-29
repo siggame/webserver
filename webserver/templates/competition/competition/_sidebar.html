@@ -1,18 +1,19 @@
 {% load url from future %}
+{% load active_tags %}
 
 <ul id="competition-nav" class="nav nav-pills nav-stacked">
-  <li>
+  <li class="{% active 'competition_detail' %}">
     <a href="{% url 'competition_detail' competition.slug %}">
       <i class="fa fa-newspaper-o"></i> Competition Details
     </a>
   </li>
   {% if competition.is_running and user_team %}
-  <li>
+  <li class="{% active 'game_list' %}">
     <a href="{% url 'game_list' competition.slug %}">
       <i class="fa fa-flag"></i> Games
     </a>
   </li>
-  <li>
+  <li class="{% active 'game_stats' %}">
     <a href="{% url 'game_stats' competition.slug %}">
       <i class="fa fa-bar-chart"></i> Game Statistics
     </a>
