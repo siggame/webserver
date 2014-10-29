@@ -24,7 +24,7 @@
             Code <span class="fa fa-angle-down pull-right" id="collapseArrow"></span>
           </h4>
         </div>
-        <div id="codeCollapse" class="panel-collapse collapse {% active_re '^/competition/[^/]*/(submissions|update-password)' 'in' %}">
+        <div id="codeCollapse" class="panel-collapse collapse {% active_re '^/(repo|(competition/[^/]*/(submissions|update-password)))' 'in' %}">
           <div class="panel-body">
             {% if user_team %}
               {% include "codemanagement/_sidebar.html" %}

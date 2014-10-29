@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% with user_team=repo.owner.team competition=repo.owner.team.competition %}
+  {% with user_team=repo.owner.team competition=repo.owner.team.competition user_registered=True %}
     {% if competition %}
       {% include "greta/_sidebar.html" %}
     {% endif %}
@@ -29,4 +29,9 @@
   {% include "greta/_clone_command_modal.html" %}
   {% include "greta/_help_modal.html" %}
   {% include "greta/_repository_password_modal.html" %}
+  {% with user_team=repo.owner.team competition=repo.owner.team.competition %}
+    {% if competition %}
+      {% include "competition/_modals.html" %}
+    {% endif %}
+  {% endwith %}
 {% endblock %}

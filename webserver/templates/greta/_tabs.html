@@ -1,0 +1,56 @@
+{% load url from future%}
+{% load greta_tags %}
+
+<ul class="nav nav-tabs">
+  <li {% if log %}class="active"{% endif %}>
+    <a href="{% url 'repo_detail' pk=repo.pk ref=full_ref %}">
+      Commit History
+    </a>
+  </li>
+
+  {% if repo.repo.get_refs %} {# refs need to exist to see the tree #}
+    <li {% if tree %}class="active"{% endif %}>
+      <a href="{% url 'tree_detail' pk=repo.pk ref=ref path='' %}">
+        Files
+      </a>
+    </li>
+  {% else %}
+    <li class="disabled">
+      <a href="#">
+        Files
+      </a>
+    </li>
+  {% endif %}
+
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Help <span class="fa fa-angle-down"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li>
+        <a href="#cloneCommandModal" role="button" data-toggle="modal">
+          <i class="fa fa-cloud-download"></i>
+          View Clone Command
+        </a>
+      </li>
+      <li>
+        <a href="#passwordModal" role="button" data-toggle="modal">
+          <i class="fa fa-eye"></i>
+          View Team Password
+        </a>
+      </li>
+      <li>
+        <a href="/repo/ssh-fingerprint/">
+          <i class="fa fa-lock"></i>
+          Verify SSH Fingerprint
+        </a>
+      </li>
+      <li>
+        <a href="#helpModal" role="button" data-toggle="modal">
+          <i class="fa fa-life-saver"></i>
+          Help!
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
