@@ -1,13 +1,13 @@
 {% block content %}
   <!-- Welcome Banner -->
   <div class="well text-center">
-    <h1>Hello, welcome to MegaMinerAI.com!</h1>
+    <h2>Hello, welcome to MegaMinerAI.com!</h2>
   </div>
 
   <!-- Open Competitions -->
   {% if open_competitions %}
     <div class="well">
-      <h1>Open MegaMinerAI Competitions:</h1>
+      <h2>Open MegaMinerAI Competitions:</h2>
       <hr>
       {% for competition in open_competitions %}
         <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
@@ -20,7 +20,7 @@
   <!-- Running Competitions -->
   {% if running_competitions %}
     <div class="well">
-      <h1>Running MegaMinerAI Competitions:</h1>
+      <h2>Running MegaMinerAI Competitions:</h2>
       <hr>
       {% for competition in running_competitions %}
         <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
