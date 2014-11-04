@@ -11,32 +11,32 @@
 {% endblock %}
 
 {% block main_content %}
+  <div ng-app="profile_list">
 
-  <table class="table">
-    <caption>
-      Your fellow competitors.
-      <br>
-      All your teammates and nemeses in the same place.
-    </caption>
-    <thead>
-      <tr>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for profile in userprofiles %}
-        <tr>
-          <td>
-            <a href="{{profile.get_absolute_url}}">
-              {% filter force_escape %}
-                {% firstof profile.user.get_name profile.user.username %}
-              {% endfilter %}
+    <div class="pull-right">
+      <form novalidate class="form-inline pull-right" role="form">
+        <div class="form-group">
+          <input type="text" class="form-control" id="name" placeholder="Search for Profiles"
+                 ng-model="search" style="width:100%" autocomplete="off">
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="list-group" ng-controller="ProfileListController as profile_list">
+          {% verbatim %}
+          <li ng-repeat="profile in profile_list.profiles | filter:search | orderBy: 'name' | orderBy: 'username'"
+              class="list-group-item">
+            <a href="{{ profile.url }}">
+              {{ profile.user.username }} <span ng-show="profile.user.fullname">{{ profile.user.fullname | limitTo : 50 }}</span>
             </a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+          <li ng-show="profile_list.empty()">No profiles</li>
+          {% endverbatim %}
+        </ul>
+      </div>
+    </div>
+  </div>
 
 {% include "_numbered_paginator.html" with page=page_obj %}
 {% endblock %}
@@ -44,3 +44,8 @@
 {% block sidebar %}
   {% include "profiles/_profiles_sidebar.html" %}
 {% endblock %}
+
+{% block script %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/profile_list.js" type="text/javascript"></script>
+{% endblock script%}
