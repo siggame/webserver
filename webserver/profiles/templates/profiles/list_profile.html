@@ -5,22 +5,32 @@
 {% endblock %}
 
 {% block page-header %}
-  <div class="page-header">
-    <h1>Competitors <small>Friends and Foes</small></h1>
-  </div>
 {% endblock %}
 
 {% block main_content %}
   <div ng-app="profile_list">
-
-    <div class="pull-right">
-      <form novalidate class="form-inline pull-right" role="form">
-        <div class="form-group">
-          <input type="text" class="form-control" id="name" placeholder="Search for Profiles"
-                 ng-model="search" style="width:100%" autocomplete="off">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+          <h1 class="inline">Competitors</h1>
         </div>
-      </form>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+          <div class="search-form">
+            <form novalidate class="form" role="form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="name"
+                         placeholder="Search profiles"
+                         ng-model="search" style="width:100%" autocomplete="off">
+                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+
 
     <div class="row">
       <div class="col-xs-12">
@@ -29,7 +39,7 @@
           <li ng-repeat="profile in profile_list.profiles | filter:search | orderBy: 'user.username'"
               class="list-group-item">
             <a href="{{ profile.url }}">
-              {{ profile.user.username }} <span ng-show="profile.user.fullname">{{ profile.user.fullname | limitTo : 50 }}</span>
+              {{ profile.user.username }} <i ng-show="profile.user.fullname">({{ profile.user.fullname | limitTo : 50 }})</i>
             </a>
           <li ng-show="profile_list.empty()">No profiles</li>
           {% endverbatim %}
