@@ -26,7 +26,7 @@
       <div class="col-xs-12">
         <ul class="list-group" ng-controller="ProfileListController as profile_list">
           {% verbatim %}
-          <li ng-repeat="profile in profile_list.profiles | filter:search | orderBy: 'name' | orderBy: 'username'"
+          <li ng-repeat="profile in profile_list.profiles | filter:search | orderBy: 'user.username'"
               class="list-group-item">
             <a href="{{ profile.url }}">
               {{ profile.user.username }} <span ng-show="profile.user.fullname">{{ profile.user.fullname | limitTo : 50 }}</span>
