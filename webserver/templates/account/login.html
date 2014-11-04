@@ -30,8 +30,8 @@
           {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="form-control">
           {% endif %}
-          <div id="login_buttons" class="form-group">
-            <div class="controls">
+          <div id="login_buttons" class="form-group pull-left">
+            <div class="btn btn-grp">
               <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
               <a class="btn btn-info" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             </div>
