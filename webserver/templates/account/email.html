@@ -31,7 +31,7 @@
             {% if emailaddress.verified %}
             <span class="label label-success">{% trans "Verified" %}</span>
             {% else %}
-            <span class="label label-important">{% trans "Unverified" %}</span>
+            <span class="label label-warning">{% trans "Unverified" %}</span>
             {% endif %}
 
             {% if emailaddress.primary %}<span class="label label-info">{% trans "Primary" %}</span>{% endif %}
