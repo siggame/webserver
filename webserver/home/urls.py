@@ -8,7 +8,4 @@ urlpatterns = patterns(
     url(r'^$',
         HomePageView.as_view(),
         name='home'),
-    url(r'^docs/$',
-        DocsPageView.as_view(),
-        name="docs"),
 )
