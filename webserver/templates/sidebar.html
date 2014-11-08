@@ -20,3 +20,21 @@
     </div>
   </div>
 {% endblock content %}
+
+{% block script %}
+  <script>
+    $(function() {
+      var check_sidebar = function() {
+        if ($(this).width() > 768 && $('#sidebar-wrapper').hasClass('toggled')) {
+          $('#sidebar-wrapper').removeClass('toggled');
+        }
+      };
+
+      check_sidebar();
+
+      $(window).resize(function() {
+        check_sidebar();
+      });
+    });
+  </script>
+{% endblock script %}
