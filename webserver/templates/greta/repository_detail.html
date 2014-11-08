@@ -92,8 +92,10 @@
 {% endblock %}
 
 {% block script %}
+
+{{ block.super }}
+
 <script>
-  $(".time").tooltip();
   $(".commit-row").each(function(i, e){
     var next = $(this).attr("href");
     $(this).click(function(){

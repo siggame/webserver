@@ -22,6 +22,7 @@
 {% endblock main_content %}
 
 {% block script %}
+  {{ block.super }}
   {% if competition %}
     <script>
       window.competition_slug = "{{ competition.slug }}";

@@ -90,6 +90,7 @@
 {% endblock %}
 
 {% block script %}
+  {{ block.super }}
   <script>
     $(function(){
       $(".win").parent().toggleClass("success");
