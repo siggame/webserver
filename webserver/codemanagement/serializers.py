@@ -19,7 +19,7 @@ class RepoSerializer(serializers.ModelSerializer):
         fields = ('name', 'description', 'forked_from',
                   'path', 'is_ready')
 
-    forked_from = serializers.RelatedField()
+    forked_from = serializers.RelatedField(read_only=True)
     path = serializers.SerializerMethodField('get_path')
     is_ready = serializers.SerializerMethodField('get_is_ready')
 
