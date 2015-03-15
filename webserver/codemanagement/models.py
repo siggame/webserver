@@ -90,6 +90,14 @@ class TeamSubmission(models.Model):
     tag_time = models.DateTimeField(auto_now_add=True)
     submission_time = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def bytestring_name(self):
+        return self.name.encode('latin-1')
+
+    @property
+    def bytestring_commit(self):
+        return self.commit.encode('latin-1')
+
 
 @receiver(pre_save, sender=BaseClient)
 def create_base_repo(sender, instance, raw, **kwargs):
@@ -193,9 +201,9 @@ def tag_commit(sender, instance, raw, **kwargs):
     repo = repository.repo
 
     try:
-        commit = repo[instance.commit]
+        commit = repo[instance.bytestring_commit]
     except KeyError:
-        msg = "No such commit with sha {}".format(instance.commit)
+        msg = "No such commit with sha {}".format(instance.bytestring_commit)
         raise CodeManagementException(msg)
 
     instance.tag_time = datetime.datetime.now()
@@ -208,7 +216,7 @@ def tag_commit(sender, instance, raw, **kwargs):
     tag = Tag()
     tag.tagger = "SIG-Game <siggame@mst.edu>"
     tag.message = msg
-    tag.name = instance.name
+    tag.name = instance.bytestring_name
     tag.object = (commit, commit.id)
     tag.tag_time = time.mktime(instance.tag_time.timetuple())
     tag.tag_timezone, _ = parse_timezone('-0600')
