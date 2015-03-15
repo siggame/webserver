@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'fullname')
 
-    fullname = serializers.SerializerMethodField('get_fullname')
+    fullname = serializers.SerializerMethodField(read_only=True)
 
     def get_fullname(self, obj):
         return obj.get_full_name()
@@ -25,7 +25,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('user', 'url')
 
-    url = serializers.SerializerMethodField('get_url')
+    url = serializers.SerializerMethodField(read_only=True)
 
     def get_url(self, obj):
         return obj.get_absolute_url()
