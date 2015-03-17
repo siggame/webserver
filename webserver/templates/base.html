@@ -23,11 +23,9 @@
     <script src="//code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
   </head>
   <body>
-    <div id="wrap">
-      {% include "navbar/navbar.html" %}
-      {% include "_messages.html" %}
-      {% block content %}{% endblock %}
-    </div>
+    {% include "navbar/navbar.html" %}
+    {% include "_messages.html" %}
+    {% block content %}{% endblock %}
 
     <div class="footer">
       <div class="container">
