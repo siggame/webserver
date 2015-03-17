@@ -59,6 +59,12 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 SOCIALACCOUNT_AUTO_SIGNUP = True
 
 SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': { 'access_type': 'online' }
+    },
+    'github': {
+        'SCOPE': ['user'],
     }
 }
 
@@ -340,6 +346,8 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 
     # Django Admin Tools
     'admin_tools',
