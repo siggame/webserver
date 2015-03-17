@@ -59,15 +59,6 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 SOCIALACCOUNT_AUTO_SIGNUP = True
 
 SOCIALACCOUNT_PROVIDERS = {
-    'openid': {
-        'SERVERS': [
-            {'id': 'yahoo',
-             'name': 'Yahoo',
-             'openid_url': 'http://me.yahoo.com'},
-            {'id': 'google',
-             'name': 'Google',
-             'openid_url': 'https://www.google.com/accounts/o8/id'},
-        ]
     }
 }
 
@@ -349,7 +340,6 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.openid',
 
     # Django Admin Tools
     'admin_tools',
