@@ -1,0 +1,9 @@
+<!-- Competitions Registered For -->
+{% if registered_competitions %}
+  {% include "home/_competition_list.html" with section_name="Your Competitions" competitions=registered_competitions %}
+{% endif %}
+
+<!-- Past Competitions -->
+{% if closed_competitions %}
+  {% include "home/_competition_list.html" with section_name="Past Competitions" competitions=closed_competitions %}
+{% endif %}

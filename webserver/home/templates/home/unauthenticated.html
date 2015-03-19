@@ -1,0 +1,21 @@
+{% extends "sidebar.html" %}
+
+{% block main_content %}
+  <div class="row">
+    <div class="col-sm-8">
+      {% include "home/_home_content.html" %}
+    </div>
+
+    <div class="col-sm-4">
+      <!-- Open Competitions -->
+      {% include "home/_open_competitions.html" %}
+
+      <!-- Running Competitions -->
+      {% include "home/_running_competitions.html" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  {% include "home/_home_sidebar.html" %}
+{% endblock sidebar %}

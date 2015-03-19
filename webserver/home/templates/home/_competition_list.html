@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{ section_name }}</div>
+  <div class="panel-body">
+    {% for competition in competitions %}
+      </a>
+
+      <div class="media">
+        <div class="media-left media-middle">
+          <a href="{{ competition.get_absolute_url }}">
+            <img class="media-object" src="{{ competition.thumbnail_url|default:competition.DEFAULT_THUMB }}" alt="{{ competition.name }}" style="width: 64px; height: 64px;">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{ competition.name }}</h4>
+          {{ competition.description }}
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+</div>

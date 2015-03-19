@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        Countdown to {{ next_competition.name }}
+      </div>
+      <div class="panel-body text-center">
+        {# Flip Clock counting down to next MegaMinerAI #}
+        <h1>{{ next_competition.start_time|timeuntil }}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        Blog
+      </div>
+      <div class="panel-body">
+        <div class="embed-responsive embed-responsive-4by3 home-content">
+          <iframe class="embed-responsive-item" src="http://localhost:4000/embed/"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        Status
+      </div>
+      <div class="panel-body">
+        <div class="embed-responsive embed-responsive-4by3 home-content">
+          <iframe class="embed-responsive-item" src="http://status.megaminerai.com/embed/"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
