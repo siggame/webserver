@@ -17,3 +17,8 @@ class HomePageView(TemplateView):
             context["registered_competitions"] = my_competitions.exclude(is_running=False, is_open=False)
             context["closed_competitions"] = my_competitions.filter(is_running=False, is_open=False)
         return context
+
+    def get_template_names(self):
+        if self.request.user.is_anonymous():
+            return ['home/unauthenticated.html']
+        return ['home/authenticated.html']
