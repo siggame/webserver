@@ -39,7 +39,7 @@ class HomePageView(TemplateView):
 
 
 class FeedAPIView(APIView):
-    """List last 10 feed posts
+    """List feed posts
 
     """
     feed_url = None
@@ -53,7 +53,7 @@ class FeedAPIView(APIView):
 
         feed = feedparser.parse(self.feed_url)
 
-        entries = feed['entries'][:10]
+        entries = feed['entries']
 
         result = []
         for entry in entries:
@@ -61,6 +61,7 @@ class FeedAPIView(APIView):
                 'title': entry['title'],
                 'date': datetime.fromtimestamp(mktime(entry['published_parsed'])),
                 'post': entry['summary'],
+                'links': [l['href'] for l in entry['links']] ,
                 'category': entry.get('category', None),
                 'tag': entry.get('tag', None)
             })
