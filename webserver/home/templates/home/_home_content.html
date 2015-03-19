@@ -1,3 +1,5 @@
+{# Don't forget to include home_feeds with this! #}
+
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default">
@@ -12,16 +14,24 @@
   </div>
 </div>
 
-<div class="row">
+<div ng-app="home_feeds" class="row">
   <div class="col-md-6 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading text-center">
         Blog
       </div>
       <div class="panel-body">
-        <div class="embed-responsive embed-responsive-4by3 home-content">
-          <iframe class="embed-responsive-item" src="http://blog.megaminerai.com/embed/"></iframe>
-        </div>
+        <ul class="list-group" ng-controller="BlogFeedController as blog_feed">
+          {% verbatim %}
+          <li ng-repeat="blog_post in blog_feed.posts | orderBy: 'blog_post.date'" class="list-group-item">
+            <a href="{{ blog_post.links[0] }}">
+              {{ blog_post.title }}
+            </a>
+            <i ng-show="blog_feed.isNew(blog_post)" class="pull-right">New!</i>
+          </li>
+          <li ng-show="blog_feed.empty()">Could not fetch blog posts...</li>
+          {% endverbatim %}
+        </ul>
       </div>
     </div>
   </div>
@@ -32,9 +42,17 @@
         Status
       </div>
       <div class="panel-body">
-        <div class="embed-responsive embed-responsive-4by3 home-content">
-          <iframe class="embed-responsive-item" src="http://status.megaminerai.com/embed/"></iframe>
-        </div>
+        <ul class="list-group" ng-controller="StatusFeedController as status_feed">
+          {% verbatim %}
+          <li ng-repeat="status_post in status_feed.posts | orderBy: 'status_post.date'" class="list-group-item">
+            <a href="{{ status_post.links[0] }}">
+              {{ status_post.title }}
+            </a>
+            <i class="pull-right fa {{ status_feed.classFor(status_post) }}"></i>
+          </li>
+          <li ng-show="status_feed.empty()">Could not fetch status posts...</li>
+          {% endverbatim %}
+        </ul>
       </div>
     </div>
   </div>
