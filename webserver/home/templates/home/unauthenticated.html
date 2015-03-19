@@ -1,17 +1,19 @@
 {% extends "sidebar.html" %}
 
 {% block main_content %}
-  <!-- Welcome Banner -->
-  <div class="well text-center">
-    <h2>Hello, welcome to MegaMinerAI.com!</h2>
+  <div class="row">
+    <div class="col-sm-8">
+      {% include "home/_home_content.html" %}
+    </div>
+
+    <div class="col-sm-4">
+      <!-- Open Competitions -->
+      {% include "home/_open_competitions.html" %}
+
+      <!-- Running Competitions -->
+      {% include "home/_running_competitions.html" %}
+    </div>
   </div>
-
-  <!-- Open Competitions -->
-  {% include "home/_open_competitions.html" %}
-
-  <!-- Running Competitions -->
-  {% include "home/_running_competitions.html" %}
-
 {% endblock %}
 
 {% block sidebar %}

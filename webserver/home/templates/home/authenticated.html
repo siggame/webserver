@@ -3,13 +3,21 @@
 
 {% block main_content %}
 
-  <!-- Open Competitions -->
-  {% include "home/_open_competitions.html" %}
+  <div class="row">
+    <div class="col-sm-8">
+      {% include "home/_home_content.html" %}
+    </div>
 
-  <!-- Running Competitions -->
-  {% include "home/_running_competitions.html" %}
+    <div class="col-sm-4">
+      <!-- Open Competitions -->
+      {% include "home/_open_competitions.html" %}
 
-  <!-- User Competitions -->
-  {% include "home/_user_competitions.html" %}
+      <!-- Running Competitions -->
+      {% include "home/_running_competitions.html" %}
+
+      <!-- User Competitions -->
+      {% include "home/_user_competitions.html" %}
+    </div>
+  </div>
 
 {% endblock %}

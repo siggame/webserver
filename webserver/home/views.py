@@ -11,6 +11,7 @@ class HomePageView(TemplateView):
 
         context["open_competitions"] = Competition.objects.filter(is_open=True)
         context["running_competitions"] = Competition.objects.filter(is_running=True)
+        context["next_competition"] = Competition.objects.first()
 
         if not self.request.user.is_anonymous():
             my_competitions = Competition.objects.user_registered(self.request.user)
