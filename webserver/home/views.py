@@ -17,6 +17,3 @@ class HomePageView(TemplateView):
             context["registered_competitions"] = my_competitions.exclude(is_running=False, is_open=False)
             context["closed_competitions"] = my_competitions.filter(is_running=False, is_open=False)
         return context
-
-class DocsPageView(TemplateView):
-    template_name = "home/docs.html"

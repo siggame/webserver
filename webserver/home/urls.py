@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from views import HomePageView, DocsPageView
+from views import HomePageView
 
 
 urlpatterns = patterns(
