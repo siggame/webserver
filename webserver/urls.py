@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
 from django.contrib.auth.views import logout_then_login
-from django.contrib.flatpages.views import flatpage
 from django.views.decorators.cache import cache_page
 from django.views.generic.base import TemplateView
 
@@ -43,10 +42,3 @@ if settings.DEBUG:
         url(r'^500/$', TemplateView.as_view(template_name="500.html")),
         url(r'^404/$', TemplateView.as_view(template_name="404.html")),
     )
-
-# Flat pages
-urlpatterns += patterns(
-    '',
-    # Cache flat pages for 60 seconds
-    url(r'^(?P<url>.*/)$', cache_page(settings.FLATPAGE_TIMEOUT)(flatpage)),
-)
