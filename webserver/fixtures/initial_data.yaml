@@ -1,6 +1,63 @@
+# Sites
 - fields: {domain: 'localhost:8000', name: localhost}
   model: sites.site
   pk: 1
 - fields: {domain: megaminerai.com, name: MegaMinerAI}
   model: sites.site
   pk: 2
+
+# Registration questions
+- fields: {question: 'Which size T-Shirt would you like?', question_type: SC}
+  model: competition.registrationquestion
+  pk: 1
+- fields: {question: 'What kind of pizza do you want for dinner on Saturday? (Choose
+      the toppings that you are willing to eat.)', question_type: MC}
+  model: competition.registrationquestion
+  pk: 2
+- fields: {question: 'By checking this box, you agree that you have read and understand
+      the rules for MegaMinerAI posted at http://blog.megaminerai.com/MegaMinerAI-Rules/',
+    question_type: AB}
+  model: competition.registrationquestion
+  pk: 3
+- fields: {question: 'Are you currently enrolled as a full time or part time student
+      at an accredited educational institution?', question_type: SC}
+  model: competition.registrationquestion
+  pk: 4
+
+# Question choices
+- fields: {choice: S, question: 1}
+  model: competition.registrationquestionchoice
+  pk: 1
+- fields: {choice: M, question: 1}
+  model: competition.registrationquestionchoice
+  pk: 2
+- fields: {choice: L, question: 1}
+  model: competition.registrationquestionchoice
+  pk: 3
+- fields: {choice: XL, question: 1}
+  model: competition.registrationquestionchoice
+  pk: 4
+- fields: {choice: XXL, question: 1}
+  model: competition.registrationquestionchoice
+  pk: 5
+- fields: {choice: Cheese, question: 2}
+  model: competition.registrationquestionchoice
+  pk: 6
+- fields: {choice: Pepperoni, question: 2}
+  model: competition.registrationquestionchoice
+  pk: 7
+- fields: {choice: Sausage, question: 2}
+  model: competition.registrationquestionchoice
+  pk: 8
+- fields: {choice: Bacon, question: 2}
+  model: competition.registrationquestionchoice
+  pk: 9
+- fields: {choice: None (I will not eat any pizza), question: 2}
+  model: competition.registrationquestionchoice
+  pk: 10
+- fields: {choice: 'Yes', question: 4}
+  model: competition.registrationquestionchoice
+  pk: 11
+- fields: {choice: 'No', question: 4}
+  model: competition.registrationquestionchoice
+  pk: 12
