@@ -21,3 +21,8 @@
   </div>
 
 {% endblock %}
+
+{% block script %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/home_feeds.js" type="text/javascript"></script>
+{% endblock %}
