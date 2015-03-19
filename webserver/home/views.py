@@ -72,11 +72,11 @@ class BlogFeedAPIView(FeedAPIView):
     """List blog posts
 
     """
-    feed_url = 'http://localhost:4001/feed.xml'
+    feed_url = 'http://blog.megaminerai.com/feed.xml'
 
 
 class StatusFeedAPIView(FeedAPIView):
     """List status posts
 
     """
-    feed_url = 'http://localhost:4000/feed.xml'
+    feed_url = 'http://status.megaminerai.com/feed.xml'
