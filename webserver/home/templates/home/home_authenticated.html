@@ -1,6 +1,7 @@
+{% extends "plain.html" %}
 {% load competition_tags %}
 
-{% block content %}
+{% block main_content %}
 
   <!-- Open Competitions -->
   {% include "home/_open_competitions.html" %}
@@ -10,4 +11,5 @@
 
   <!-- User Competitions -->
   {% include "home/_user_competitions.html" %}
+
 {% endblock %}
