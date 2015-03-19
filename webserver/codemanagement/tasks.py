@@ -38,34 +38,3 @@ def create_shellai_tag(instance):
                                       name="ShellAI",
                                       submitter=None)
         logger.info("Tagged {}'s repo".format(team_name))
-
-@task()
-def mark_all_ineligible():
-    """Marks teams with non-student members as ineligible"""
-
-    question_contains = "accredited educational institution"
-    try:
-        q = RegistrationQuestion.objects.get(question__contains=question_contains)
-        no = q.question_choice_set.get(choice="No")
-        responses = RegistrationQuestionResponse.objects.filter(question=q,
-                                                                choices=no)
-    except RegistrationQuestion.DoesNotExist:
-        logger.error('No such question containing "{}"'.format(question_contains))
-
-    if not responses.exists():
-        logger.info("No nonstudents found")
-        return
-
-    count = 0
-    for response in responses:
-        try:
-            reg = response.registration
-            team = Team.objects.get(competition=reg.competition,
-                                    members=reg.user)
-            team.eligible_to_win = False
-            team.save()
-            count += 1
-        except Team.DoesNotExist:
-            continue
-
-    logger.info('Marked {} teams ineligible to win'.format(count))
