@@ -5,28 +5,9 @@
   </div>
 
   <!-- Open Competitions -->
-  {% if open_competitions %}
-    <div class="well">
-      <h2>Open MegaMinerAI Competitions:</h2>
-      <hr>
-      {% for competition in open_competitions %}
-        <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
-          {{ competition.name }}
-        </a>
-      {% endfor %}
-    </div>
-  {% endif %}
+  {% include "home/_open_competitions.html" %}
 
   <!-- Running Competitions -->
-  {% if running_competitions %}
-    <div class="well">
-      <h2>Running MegaMinerAI Competitions:</h2>
-      <hr>
-      {% for competition in running_competitions %}
-        <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
-          {{ competition.name }}
-        </a>
-      {% endfor %}
-    </div>
-  {% endif %}
+  {% include "home/_running_competitions.html" %}
+
 {% endblock %}

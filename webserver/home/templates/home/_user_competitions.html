@@ -1,0 +1,27 @@
+<!-- Competitions Registered For -->
+{% if registered_competitions %}
+  <div class="panel panel-default">
+    <div class="panel-heading">Your Competitions</div>
+    <div class="panel-body">
+      {% for competition in registered_competitions %}
+        <a href="{{ competition.get_absolute_url }}" class="btn btn-{% if competition.is_running %}success{% else %}info{% endif %}">
+          {{ competition.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+<!-- Past Competitions -->
+{% if closed_competitions %}
+  <div class="panel panel-default">
+    <div class="panel-heading">Past Competitions</div>
+    <div class="panel-body">
+      {% for competition in closed_competitions %}
+        <a href="{{ competition.get_absolute_url }}" class="btn btn-default">
+          {{ competition.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
