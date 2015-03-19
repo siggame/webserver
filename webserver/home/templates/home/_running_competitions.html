@@ -1,13 +1,4 @@
 <!-- Running Competitions -->
 {% if running_competitions %}
-  <div class="panel panel-default">
-    <div class="panel-heading">Running Competitions</div>
-    <div class="panel-body">
-      {% for competition in running_competitions %}
-        <a href="{{ competition.get_absolute_url }}" class="btn btn-primary">
-          {{ competition.name }}
-        </a>
-      {% endfor %}
-    </div>
-  </div>
+  {% include "home/_competition_list.html" with section_name="Running Competitions" competitions=running_competitions %}
 {% endif %}
