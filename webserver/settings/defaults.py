@@ -381,6 +381,7 @@ INSTALLED_APPS = (
     'webserver.home',
     'webserver.profiles',
     'webserver.codemanagement',
+    'webserver.teammanagement',
     'webserver.hermes',
     'webserver.utility',
 
