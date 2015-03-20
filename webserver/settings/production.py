@@ -17,9 +17,6 @@ USE_X_FORWARDED_HOST = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
-# Cache flatpages for a minute
-FLATPAGE_TIMEOUT = 60
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
