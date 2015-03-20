@@ -40,8 +40,6 @@ def check_student_status(team, registrations):
         response_set__choices=no
     )
 
-    print non_student_registrations
-
     # If they're marked as eligible to win and they have non-students,
     # mark them as ineligible.
     if team.eligible_to_win and non_student_registrations.exists():
