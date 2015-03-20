@@ -4,7 +4,7 @@
   <li>
     <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
        href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-      <i class="fa fa-{{ provider.id }}"></i>{{ provider.name }}
+      <i class="fa fa-lg fa-{{ provider.id }}"></i>&nbsp;&nbsp;&nbsp;{{ provider.name }}
     </a>
   </li>
 {% endfor %}
