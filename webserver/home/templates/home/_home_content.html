@@ -18,18 +18,20 @@
   <div class="col-md-6 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading text-center">
-        Blog
+        <a href="http://blog.megaminerai.com">
+          Blog
+        </a>
       </div>
       <div class="panel-body">
         <ul class="list-group" ng-controller="BlogFeedController as blog_feed">
           {% verbatim %}
-          <li ng-repeat="blog_post in blog_feed.posts | orderBy: 'blog_post.date'" class="list-group-item">
-            <a href="{{ blog_post.links[0] }}">
-              {{ blog_post.title }}
-            </a>
-            <i ng-show="blog_feed.isNew(blog_post)" class="pull-right">New!</i>
-          </li>
-          <li ng-show="blog_feed.empty()">Could not fetch blog posts...</li>
+            <li ng-repeat="blog_post in blog_feed.posts | orderBy: 'blog_post.date'" class="list-group-item">
+              <a href="{{ blog_post.links[0] }}">
+                {{ blog_post.title }}
+              </a>
+              <i ng-show="blog_feed.isNew(blog_post)" class="pull-right">New!</i>
+            </li>
+            <li ng-show="blog_feed.empty()">Could not fetch blog posts...</li>
           {% endverbatim %}
         </ul>
       </div>
@@ -39,7 +41,9 @@
   <div class="col-md-6 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading text-center">
-        Status
+        <a href="http://status.megaminerai.com">
+          Status
+        </a>
       </div>
       <div class="panel-body">
         <ul class="list-group" ng-controller="StatusFeedController as status_feed">
