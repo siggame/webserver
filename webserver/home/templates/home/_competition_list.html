@@ -11,7 +11,11 @@
           </a>
         </div>
         <div class="media-body">
-          <h4 class="media-heading">{{ competition.name }}</h4>
+          <h4 class="media-heading">
+            <a href="{{ competition.get_absolute_url }}">
+              {{ competition.name }}
+            </a>
+          </h4>
           {{ competition.description }}
         </div>
       </div>
