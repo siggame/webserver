@@ -20,8 +20,8 @@ class RepoSerializer(serializers.ModelSerializer):
                   'path', 'is_ready')
 
     forked_from = serializers.RelatedField(read_only=True)
-    path = serializers.SerializerMethodField('get_path')
-    is_ready = serializers.SerializerMethodField('get_is_ready')
+    path = serializers.SerializerMethodField(read_only=True)
+    is_ready = serializers.SerializerMethodField(read_only=True)
 
     def get_path(self, repo):
         return repo.path
@@ -45,8 +45,8 @@ class TeamClientSerializer(serializers.ModelSerializer):
 
     team = TeamSerializer()
     repository = RepoSerializer()
-    tag = serializers.SerializerMethodField('get_tag')
-    language = serializers.SerializerMethodField('get_language')
+    tag = serializers.SerializerMethodField(read_only=True)
+    language = serializers.SerializerMethodField(read_only=True)
 
     def get_tag(self, teamclient):
         try:
