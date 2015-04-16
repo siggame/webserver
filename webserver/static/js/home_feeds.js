@@ -12,7 +12,6 @@
 
         $http.get(url).success(function(data, status, headers, config) {
             $log.info("Got blog feed");
-            $log.debug(data);
             controller.posts = data;
         });
 
@@ -40,7 +39,6 @@
 
         $http.get(url).success(function(data, status, headers, config) {
             $log.info("Got status feed");
-            $log.debug(data);
 
             var categories = _.uniq(_.map(data, function(x){return x.category}));
             var posts = _.object(categories, _.map(categories, function(x){
