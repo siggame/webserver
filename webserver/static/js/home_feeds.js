@@ -6,9 +6,9 @@
 
         controller.posts = [];
 
-        protocol = window.location.protocol;
-        host = window.location.host;
-        url = protocol + "//" + host + "/api/blog-feed/";
+        var protocol = window.location.protocol;
+        var host = window.location.host;
+        var url = protocol + "//" + host + "/api/blog-feed/";
 
         $http.get(url).success(function(data, status, headers, config) {
             $log.info("Got blog feed");
@@ -34,22 +34,30 @@
 
         controller.posts = [];
 
-        protocol = window.location.protocol;
-        host = window.location.host;
-        url = protocol + "//" + host + "/api/status-feed/";
+        var protocol = window.location.protocol;
+        var host = window.location.host;
+        var url = protocol + "//" + host + "/api/status-feed/";
 
         $http.get(url).success(function(data, status, headers, config) {
             $log.info("Got status feed");
             $log.debug(data);
-            controller.posts = data;
+
+            var categories = _.uniq(_.map(data, function(x){return x.category}));
+            var posts = _.object(categories, _.map(categories, function(x){
+                return _.filter(data, function(y) {
+                    return y.category == x;
+                })
+            }));
+            controller.posts = posts;
         });
+
 
         controller.empty = function() {
             return controller.posts.length == 0;
         };
 
         controller.classFor = function(post) {
-            cls = 'status-icon ';
+            var cls = 'status-icon ';
             switch(post.tag){
             case 'OK':
                 return cls + 'fa-check-circle green';
@@ -63,4 +71,15 @@
         }
     });
 
+
+    app.filter('titlecase', function () {
+        return function (input) {
+            var words = input.split(' ');
+            for (var i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase(); // lowercase everything to get rid of weird casing issues
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            }
+            return words.join(' ');
+        }
+    });
 })();
