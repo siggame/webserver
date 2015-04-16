@@ -79,4 +79,10 @@
                 .value();
         }
     });
+
+    app.filter('timeSince', function () {
+        return function (input) {
+            return moment(input).from(moment());
+        }
+    });
 })();

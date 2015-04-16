@@ -45,27 +45,20 @@
           Status
         </a>
       </div>
-      <div class="panel-body" ng-controller="StatusFeedController as status_feed">
-        <div ng-repeat="(category, posts) in status_feed.posts">
-          <div class="panel panel-default">
-            {% verbatim %}
-            <div class="panel-heading">
-              {{ category | titlecase }}
-            </div>
-            <div class="panel-body">
-              <ul class="list-group">
-                <li ng-repeat="status_post in posts | orderBy: 'status_post.date' | limitTo: 1" class="list-group-item">
-                  <a href="{{ status_post.links[0] }}">
-                    {{ status_post.title }}
-                  </a>
-                  <i class="pull-right fa {{ status_feed.classFor(status_post) }}"></i>
-                </li>
-                <li ng-show="status_feed.empty()">Could not fetch status posts...</li>
-                {% endverbatim %}
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div class="panel-body">
+        <ul class="list-group" ng-controller="StatusFeedController as status_feed">
+          {% verbatim %}
+            <li class="list-group-item" ng-repeat="(category, posts) in status_feed.posts" ng-init="status_post = posts[0]">
+
+              <a href="{{ status_post.links[0] }}" title="{{ status_post.title }}">
+                {{ category | titlecase }}
+              </a>
+              <small class="text-muted">{{ status_post.date | timeSince }}</small>
+              <i class="pull-right fa {{ status_feed.classFor(status_post) }}"></i>
+            </li>
+            <li ng-show="status_feed.empty()">Could not fetch status posts...</li>
+          {% endverbatim %}
+        </ul>
       </div>
     </div>
   </div>
