@@ -50,7 +50,7 @@ def check_student_status(team, registrations):
         # Send email to team members letting them know why they aren't eligible
         for user in team.members.all():
             if user.email:
-                send_mail('Your MegaMinerAI Team is Ineligible to win prizes', 
+                send_mail('Your MegaMinerAI Team is Ineligible to Win Prizes', 
                           'Dear {},\n\nYour MegaMinerAI Team is now marked as ineligible to win prizes because one of your team members has registered for the competition as *not* a full time student.  If you believe this is an error, please contact a MegaMinerAI Admin or Developer.\n\nThanks,\n\nSIG-GAME'.format(user), 
                           'noreply@megaminerai.com',
                           [user.email], 
