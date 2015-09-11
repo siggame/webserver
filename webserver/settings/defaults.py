@@ -389,7 +389,6 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',  # Sentry client
     'django_extensions',
     'django_nose',
-    'south'
 )
 
 
