@@ -1,5 +1,6 @@
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
+from django.core.mail import send_mail
 
 from competition.models import (Team,
                                 Registration,
@@ -45,6 +46,17 @@ def check_student_status(team, registrations):
     if team.eligible_to_win and non_student_registrations.exists():
         team.eligible_to_win = False
         team.save()
+
+        # Send email to team members letting them know why they aren't eligible
+        for user in team.members.all():
+            if user.email:
+                send_mail('Your MegaMinerAI Team is Ineligible to win prizes', 
+                          'Dear {},\n\nYour MegaMinerAI Team is now marked as ineligible to win prizes because one of your team members has registered for the competition as *not* a full time student.  If you believe this is an error, please contact a MegaMinerAI Admin or Developer.\n\nThanks,\n\nSIG-GAME'.format(user), 
+                          'noreply@megaminerai.com',
+                          [user.email], 
+                          fail_silently=False)
+                logger.info('Sent ineligibility email to {}'.format(user))
+
         logger.info('Marked {} as ineligible to win'.format(team.name))
 
     if not team.eligible_to_win and not non_student_registrations.exists():
