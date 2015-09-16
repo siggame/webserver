@@ -295,10 +295,10 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                
+
                 # for django-admin-tools
                 'django.template.context_processors.request',
-                
+
             ],
             # List of callables that know how to import templates from various sources.
             'loaders': [
@@ -343,6 +343,15 @@ ROOT_URLCONF = 'webserver.urls'
 ##########################################################################
 
 INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.staticfiles',
+
     # Django AllAuth
     'allauth',
     'allauth.account',
@@ -355,15 +364,6 @@ INSTALLED_APPS = (
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.staticfiles',
 
     # django-crispy-forms
     'crispy_forms',
