@@ -218,7 +218,7 @@ def tag_commit(sender, instance, raw, **kwargs):
     tag.message = msg
     tag.name = instance.bytestring_name
     tag.object = (commit, commit.id)
-    tag.tag_time = time.mktime(instance.tag_time.timetuple())
+    tag.tag_time = int(time.mktime(instance.tag_time.timetuple()))
     tag.tag_timezone, _ = parse_timezone('-0600')
 
     # Save it in the repo
