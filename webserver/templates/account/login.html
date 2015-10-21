@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account %}
+{% load socialaccount %}
 {% load url from future %}
 {% load crispy_forms_tags %}
 
@@ -39,7 +40,8 @@
         </form>
       </div>
 
-      {% if socialaccount.providers %}
+      {% get_providers as socialaccount_providers %}
+      {% if socialaccount_providers %}
         <div class="col-sm-1 col-md-1" style="padding-top: 50px; padding-bottom: 50px;">
           <h4 class="text-muted text-center">OR</h4>
         </div>
