@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load account %}
+{% load socialaccount %}
 {% load url from future %}
 {% load crispy_forms_tags %}
 
@@ -52,7 +53,9 @@
     <span class="text-muted">OR</span>
 
     <!-- Social account providers -->
-    {% if socialaccount.providers %}
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+
     <p>
       <h4>Sign in with OAuth 2.0</h4>
     </p>

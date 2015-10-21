@@ -57,7 +57,6 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 # Try to pull username/email from provider.
 SOCIALACCOUNT_AUTO_SIGNUP = True
-
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
@@ -280,34 +279,36 @@ STATICFILES_FINDERS = (
 #
 ##########################################################################
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_DIR, "templates"),
+        ],
+        'OPTIONS': {
+            'debug': False,
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, "templates"),
-)
+                # for django-admin-tools
+                'django.template.context_processors.request',
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.debug',
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
-
-    # for django-admin-tools
-    'django.core.context_processors.request',
-
-    'allauth.account.context_processors.account',
-    'allauth.socialaccount.context_processors.socialaccount',
-)
-
+            ],
+            # List of callables that know how to import templates from various sources.
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader',
+            ],
+        },
+    },
+]
 
 ##########################################################################
 #
@@ -342,6 +343,15 @@ ROOT_URLCONF = 'webserver.urls'
 ##########################################################################
 
 INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.staticfiles',
+
     # Django AllAuth
     'allauth',
     'allauth.account',
@@ -354,16 +364,6 @@ INSTALLED_APPS = (
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-    'django.contrib.comments',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.staticfiles',
 
     # django-crispy-forms
     'crispy_forms',
@@ -390,7 +390,6 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',  # Sentry client
     'django_extensions',
     'django_nose',
-    'south'
 )
 
 
