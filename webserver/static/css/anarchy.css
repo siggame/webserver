@@ -1,0 +1,197 @@
+body {
+    font-family: Oswald, Arial, sans-serif;
+    font-weight: 300;
+
+    background-color: #222;
+    color: #999;
+    letter-spacing: 1px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Oswald, Arial, sans-serif;
+    font-weight: ;
+}
+
+p,
+.post-content h5 {
+    line-height: 1.4em;
+    margin-bottom: 22px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #333;
+}
+
+a:hover {
+    color: #47CBF7;
+}
+
+.navbar {
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px 0;
+    letter-spacing: 0px;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+    background-color: transparent;
+    color: #ccc;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    background-color: transparent;
+    color: #C00;
+}
+
+.well {
+    background-color: #222;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.well blockquote {
+    border-color: rgba(0, 0, 0, 1);
+    background-color: #393939;
+}
+
+.panel-body .well {
+    background-color: #ccc;
+    color: black;
+}
+
+.alert-warning {
+    background-color: rgba(102, 0, 0, 0.5);
+    border: none;
+}
+
+.label-info {
+    background-color: #333;
+    padding: 10px;
+    color: #fff;
+}
+
+.label-warning {
+    background-color: #900;
+}
+
+.label-default  a:hover {
+    color: #900;
+}
+
+.label, .label-success {
+    padding-top: 3px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.label:hover {
+    text-decoration: none;
+}
+
+.btn-primary, .btn-primary:hover,
+.btn-info, .btn-info:hover {
+               background-color: #900;
+               border-color: #900;
+               margin-bottom: 5px;
+           }
+
+a:hover {
+    text-decoration: none;
+    color: #ccc;
+}
+
+.panel-default,
+.panel-default>.panel-heading,
+.panel-body,
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+    color: #999;
+    background-color: #333;
+    border-color: #666;
+    border-top-color: #666;
+}
+
+.panel-info>.panel-heading {
+    background-color: #CE0000;
+}
+
+.panel-info,
+.panel-body,
+.panel-info>.panel-heading+.panel-collapse>.panel-body {
+    color: #CE0000;
+    border-color: #CE0000;
+    border-top-color: #CE0000;
+}
+
+.panel-info>.panel-heading {
+    border-bottom-color: #CE0000;
+}
+
+h5, h4, h6 {
+    display: inline;
+}
+
+#breadcrumb li {
+    display: inline;
+}
+
+/* input fields */
+input[type=text], input[type=password], .textarea, input[type=email], input[type=url], #id_comment, #id_body {
+    padding: 5px;
+    background-color: #ccc;
+    border: #ccc;
+    color: #900;
+}
+
+#id_body {
+    color: black;
+}
+
+a {
+    color: #CE0000;
+    font-weight: 3 em;
+}
+
+.list-group-item {
+    background-color: #CCCCCC;
+    border-color: #888888;
+}
+
+.text-muted {
+    color: #666;
+}
+
+a:hover {
+    color: #F06600;
+}
+
+.well h2 {
+    color: #CE0000;
+}
+
+.well .muted {
+    color: #666;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #CE0000;
+}
+
+.badge {
+    position: relative;
+    float: right;
+    background-color: #F06600;
+}
+
+.label-success {
+    background-color: #CE0000;
+}
