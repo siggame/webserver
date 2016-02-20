@@ -40,8 +40,14 @@ class BaseClient(models.Model):
     language_slug = models.SlugField(blank=True)
     repository = models.OneToOneField(Repository)
 
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
     def __unicode__(self):
-        return "{0} client".format(self.language)
+        return "{} client for {}".format(self.language, self.competition.name)
+
+    def __repr__(self):
+        return "<BaseClient: {} >".format(self)
 
     @models.permalink
     def get_absolute_url(self):
@@ -70,6 +76,15 @@ class TeamClient(models.Model):
         }
         cmd = "git clone {protocol}://{user}@{host}:{port}/{repo_name}"
         return cmd.format(**data)
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
+    def __unicode__(self):
+        return "{}'s {}".format(self.team.name, unicode(self.base))
+
+    def __repr__(self):
+        return "<TeamClient: {} >".format(self)
 
 
 class TeamSubmission(models.Model):
