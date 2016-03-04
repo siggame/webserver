@@ -1,5 +1,7 @@
+{% load code_tags %}
+
 {% for game_data in game.data.game_data %}
   {% if game_data.name.name == user_team.slug %}
-    <span class="label label-info">{{ game_data.version }}</span>
+    <span class="label label-info">{{ game_data.version | tag_from_hash }}</span>
   {% endif %}
 {% endfor %}
