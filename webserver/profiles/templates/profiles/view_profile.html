@@ -2,7 +2,11 @@
 {% load profile_tags %}
 
 {% block title %}
-  My Profile
+  {% if request.user.username == userprofile.user.username %}
+    My Profile
+  {% else %}
+    {{ userprofile.user.username }}'s Profile
+  {% endif %}
 {% endblock %}
 
 {% block main_content %}
