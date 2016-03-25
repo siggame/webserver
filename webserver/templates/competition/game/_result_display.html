@@ -1,8 +1,8 @@
 {% if game.data.winner.name == user_team.slug %}
-  <td class="win"><span class="label label-success">Win</span></td>
+  <td class="win"><span class="label label-success">Win</span>{% if game.data.win_reason and game.data.win_reason != "Unknown reason" %} -- {{ game.data.win_reason }}{% endif %}</td>
 {% else %}
   {% if game.data.loser.name == user_team.slug %}
-    <td class="loss"><span class="label label-danger">Loss</span></td>
+    <td class="loss"><span class="label label-danger">Loss</span>{% if game.data.lose_reason and game.data.lose_reason != "Unknown reason" %} -- {{ game.data.lose_reason }}{% endif %}</td>
   {% else %}
     <td class="tie"><span class="label label-warning">Tie</span></td>
   {% endif %}
