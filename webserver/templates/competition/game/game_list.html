@@ -40,7 +40,7 @@
 {% cache 500 game_list user_team page_obj.number %}
   {% for game in games %}
     {% if forloop.first %}
-      <table class="table table-hover">
+      <table class="table">
         <thead>
           <tr>
             <th>Game #</th>
@@ -100,12 +100,41 @@
   {{ block.super }}
   <script>
     $(function(){
-      $(".win").parent().toggleClass("success");
-      $(".loss").parent().toggleClass("danger");
-      $(".tie").parent().toggleClass("warning");
+      $(".win").parent().toggleClass("success-row");
+      $(".loss").parent().toggleClass("danger-row");
+      $(".tie").parent().toggleClass("warning-row");
       $(".game-info > td").click(function() {
         document.location.href = $(this).parent().attr("game_url");
       });
     });
   </script>
+{% endblock %}
+
+{% block style %}
+  <style>
+    .success-row {
+        background: rgba(46, 204, 113, 1);
+        color: #F7FDFC;
+        font-weight: 600;
+    }
+    .success-row:hover {
+        background: rgba(46, 204, 113, 0.80);
+    }
+    .danger-row {
+        background: rgba(231, 76, 60, 1);
+        color: #F7FDFC;
+        font-weight: 600;
+    }
+    .danger-row:hover {
+        background: rgba(231, 76, 60, 0.80);
+    }
+    .warning-row {
+        background: rgba(241, 196, 15, 1);
+        color: #F7FDFC;
+        font-weight: 600;
+    }
+    .warning-row:hover {
+        background: rgba(241, 196, 15, 0.80);
+    }
+  </style>
 {% endblock %}
