@@ -37,7 +37,7 @@
 
   <h2>Played Games</h2>
 
-{% cache 500 game_list user_team page_obj.number %}
+
   {% for game in games %}
     {% if forloop.first %}
       <table class="table table-hover">
@@ -51,6 +51,7 @@
             {% for field in data_fields %}
               <th>{{ field }}</th>
             {% endfor %}
+            <th>Visualize</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +74,12 @@
       {% for field in data_fields %}
         <td>{{ game.data.display|get_item:field|default:"--" }}</td>
       {% endfor %}
+
+      <td>
+        <a href="{% if 'Chess' in competition.name %}http://r99acm.device.mst.edu:5400?log={% else %}http://vis.megaminerai.com/#/?logUrl={% endif %}{{ game.data.gamelog_url }}" class="btn btn-info" target="_blank">
+          <i class="fa fa-play-circle"></i>
+        </a>
+      </td>
     </tr>
 
     {% if forloop.last %}
@@ -84,7 +91,7 @@
       <h3 class="text-center">No games, yet</h3>
     {% endfor %}
   </ul>
-{% endcache %}
+
 
 {% include "_numbered_paginator.html" with page=page_obj %}
 {% endblock %}
