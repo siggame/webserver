@@ -11,12 +11,6 @@
 {% block competition_content %}
   {% check_embargoed user_team as embargoed %}
 
-  {% if embargoed == "embargoed" %}
-    <button class="btn btn-danger btn-lg pull-right">
-      <i class="fa fa-minus"></i> <b>Embargoed</b>
-    </button>
-  {% endif %}
-
   {% if embargoed == "error" %}
     <button class="btn btn-warning btn-lg pull-right">
       <i class="fa fa-warning"></i> <b>Something Broke</b>
@@ -34,6 +28,14 @@
       <i class="fa fa-check-circle"></i> <b>Thunderbirds are Go!</b>
     </button>
   {% endif %}
+
+  {% else %}
+    <button class="btn btn-danger btn-lg pull-right">
+      <i class="fa fa-minus"></i> <b>Embargoed: {{ embargoed }}</b>
+    </button>
+  {% endif %}
+
+
 
   <h2>Played Games</h2>
 

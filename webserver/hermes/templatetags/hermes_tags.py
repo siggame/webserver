@@ -69,6 +69,8 @@ class CheckEmbargoedNode(template.Node):
             # Get "embargoed" from returned client
             if response['objects'][0]['embargoed']:
                 result = "embargoed"
+                if response['objects'][0]['embargo_reason']:
+                    result = response['objects'][0]['embargo_reason']
             else:
                 result = "unembargoed"
         except Game.DoesNotExist:
