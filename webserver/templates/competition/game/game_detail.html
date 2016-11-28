@@ -65,7 +65,7 @@
       <tr>
         <th>Visualize</th>
         <td>
-          <a href="{% if 'Chess' in competition.name %}http://r99acm.device.mst.edu:5400?log={% else %}http://vis.megaminerai.com/?logUrl={% endif %}{{ game.data.gamelog_url|urlencode:"" }}" class="btn btn-primary" target="_blank">
+          <a href="http://vis.megaminerai.com/?logUrl={{ game.data.gamelog_url|urlencode:"" }}" class="btn btn-primary" target="_blank">
             <i class="fa fa-play-circle"></i>
           </a>
         </td>
