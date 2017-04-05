@@ -15,7 +15,7 @@
   model: competition.registrationquestion
   pk: 2
 - fields: {question: 'By checking this box, you agree that you have read and understand
-      the rules for MegaMinerAI posted at http://blog.megaminerai.com/MegaMinerAI-Rules/',
+      the rules for MegaMinerAI posted at http://siggame.io/MegaMinerAI-Rules/',
     question_type: AB}
   model: competition.registrationquestion
   pk: 3
