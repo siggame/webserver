@@ -72,7 +72,7 @@ class BlogFeedAPIView(FeedAPIView):
     """List blog posts
 
     """
-    feed_url = 'http://blog.megaminerai.com/feed.xml'
+    feed_url = 'http://siggame.io/feed.xml'
 
 
 class StatusFeedAPIView(FeedAPIView):
